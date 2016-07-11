@@ -25,8 +25,8 @@
     "ionic-gulp-scripts-copy": "^2.0.0",
     "run-sequence": "1.1.5"
   },
-  "name": "ionic2contacts",
-  "description": "ionic2contacts: An Ionic project",
+  "name": "FriendsMoney",
+  "description": "FriendsMoney: An Ionic project",
   "cordovaPlugins": [
     "cordova-plugin-device",
     "cordova-plugin-console",

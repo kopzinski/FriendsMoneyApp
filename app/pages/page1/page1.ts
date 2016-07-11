@@ -3,7 +3,7 @@ import {NavController} from 'ionic-angular';
 import {Contacts} from 'ionic-native';
 
 @Component({
-  templateUrl: 'build/pages/home/home.html'
+  templateUrl: 'build/pages/page1/page1.html'
 })
 export class HomePage implements OnInit{
   contacttobefound: string;
