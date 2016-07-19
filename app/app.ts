@@ -1,18 +1,18 @@
 import { Component, ViewChild } from '@angular/core';
 import { App, ionicBootstrap, Platform, Nav } from 'ionic-angular';
 import { StatusBar } from 'ionic-native';
-
+import { HTTP_PROVIDERS } from '@angular/http';
 import { HomePage } from './pages/page1/page1';
 import { Page2 } from './pages/page2/page2';
-
+import {ContactsProvider} from './providers/contacts/contacts';
+import 'rxjs';
 @Component({
-  templateUrl: 'build/app.html'
+  templateUrl: 'build/app.html',
+  providers: [HTTP_PROVIDERS, ContactsProvider]
 })
 class MyApp {
   @ViewChild(Nav) nav: Nav;
-
   rootPage: any = HomePage;
-
   pages: Array<{title: string, component: any}>
 
   constructor(private platform: Platform) {
