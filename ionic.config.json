@@ -1,6 +1,4 @@
 {
-  "name": "client",
-  "app_id": "",
-  "v2": true,
-  "typescript": true
+  "name": "FriendsMoney",
+  "app_id": ""
 }
