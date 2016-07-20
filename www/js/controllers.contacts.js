@@ -1,6 +1,6 @@
 angular.module('starter.controllers', ['starter.service'])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout, $cordovaContacts, $ionicLoading, setContacts) {
+.controller('AppCtrl', function($scope, $ionicModal, $timeout, $cordovaContacts, $ionicLoading, ContactsService) {
   
    
       $scope.showLoading = function() {
@@ -16,20 +16,29 @@ angular.module('starter.controllers', ['starter.service'])
         });
       };
 
-
-      $scope.getContacts = function() {
+      $scope.getContacts = function()
+      {
         $scope.showLoading();
-        setTimeout(function(){
-           $scope.phoneContacts = setContacts.setContact(contacts);
-           $scope.hideLoading();  
-        },5000)
+        function onSuccess(contacts) {
+           ContactsService.setContact(contacts).then(function(responses){
+              // responses.forEach(function(response){
+              //   if (response != null)
+              //   console.log(response.name)
+              // })
+            
+                 $scope.phoneContacts = responses;
 
-          function onError(contactError) {
+              
+              $scope.hideLoading();
+          })
+        }
+        function onError(contactError) {
             alert(contactError);
           };
           var options = {};
+          options.filter = "";
+          options.hasPhoneNumber = true;
           options.multiple = true;
           $cordovaContacts.find(options).then(onSuccess, onError);
-
-        };
-});
+      }  
+})

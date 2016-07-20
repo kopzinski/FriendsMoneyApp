@@ -5,17 +5,20 @@
    <button class="button" ng-click="getContacts()">Get Contatos</button>  
                
     <div class="padding">
-          <ion-list ng-repeat="contact in phoneContacts" ng-if="contact != null">
+          <ion-list ng-repeat="contact in phoneContacts">
           <ion-card>
             <ion-item>
               <ion-avatar item-left style="float: left;">
                 <img style="width: 50px" src="https://maker-live-fldr.imgix.net/assets/no-avatar-circular-ab7d5f67ec61eb5c9b993d61cab298fe.png?auto=format">
               </ion-avatar>
-              <h2 style="line-height: 52px; margin-left: 10px; float: left;">{{contact.name.formatted}}</h2>
+              <h2 ng-if="contact.name == 'Sem Nome' || contact.name == undefined" style="line-height: 52px; margin-left: 10px; float: left;">Desconhecido</h2>
+              <h2 ng-if="contact.name != 'Unknw' || contact.name != undefined" style="line-height: 52px; margin-left: 10px; float: left;">{{contact.name}}</h2>
+              <label ng-if="contact.registrationFlag">a</label>
+              <label ng-if="!contact.registrationFlag">b</label>
             </ion-item>
             <ion-item>
               <h3>Números de telefones</h3>
-              <div ng-repeat="number in contact.phoneNumbers">
+              <div ng-repeat="number in contact.phone">
                   <p>{{ number.value }}</p>
                 </div>
               <ion-icon ios="ios-call" md="md-call" item-right></ion-icon>
