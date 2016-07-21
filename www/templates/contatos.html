@@ -13,8 +13,8 @@
               </ion-avatar>
               <h2 ng-if="contact.name == 'Sem Nome' || contact.name == undefined" style="line-height: 52px; margin-left: 10px; float: left;">Desconhecido</h2>
               <h2 ng-if="contact.name != 'Unknw' || contact.name != undefined" style="line-height: 52px; margin-left: 10px; float: left;">{{contact.name}}</h2>
-              <label ng-if="contact.registrationFlag">a</label>
-              <label ng-if="!contact.registrationFlag">b</label>
+              <i class="ion-iphone" style="color: green; font-size:24px; margin-right:5px; float: right; line-height: 52px" ng-if="contact.registrationFlag"></i>
+              <i class="ion-iphone" style="color: red; font-size:24px; margin-right:5px; float: right; line-height: 52px" ng-if="!contact.registrationFlag"></i>
             </ion-item>
             <ion-item>
               <h3>Números de telefones</h3>
