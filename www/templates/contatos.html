@@ -1,20 +1,20 @@
 <ion-view view-title="Contatos">
   
   <ion-content class="home">
-   
-   <button class="button" ng-click="getContacts()">Get Contatos</button>  
-               
+   <div class="button-div">
+    <button class="button" ng-click="getContacts()">Listar contatos</button>  
+   </div>       
     <div class="padding">
           <ion-list ng-repeat="contact in phoneContacts">
           <ion-card>
             <ion-item>
               <ion-avatar item-left style="float: left;">
-                <img style="width: 50px" src="https://maker-live-fldr.imgix.net/assets/no-avatar-circular-ab7d5f67ec61eb5c9b993d61cab298fe.png?auto=format">
+                <img class="avatar" src="https://maker-live-fldr.imgix.net/assets/no-avatar-circular-ab7d5f67ec61eb5c9b993d61cab298fe.png?auto=format">
               </ion-avatar>
-              <h2 ng-if="contact.name == 'Sem Nome' || contact.name == undefined" style="line-height: 52px; margin-left: 10px; float: left;">Desconhecido</h2>
-              <h2 ng-if="contact.name != 'Unknw' || contact.name != undefined" style="line-height: 52px; margin-left: 10px; float: left;">{{contact.name}}</h2>
-              <i class="ion-iphone" style="color: green; font-size:24px; margin-right:5px; float: right; line-height: 52px" ng-if="contact.registrationFlag"></i>
-              <i class="ion-iphone" style="color: red; font-size:24px; margin-right:5px; float: right; line-height: 52px" ng-if="!contact.registrationFlag"></i>
+              <h2 ng-if="contact.name == 'Sem Nome' || contact.name == undefined" class="title-name">Desconhecido</h2>
+              <h2 ng-if="contact.name != 'Unknw' || contact.name != undefined" class="title-name">{{contact.name}}</h2>
+              <i class="ion-iphone app-green" ng-if="contact.registrationFlag"></i>
+              <i class="ion-iphone app-red"  ng-if="!contact.registrationFlag"></i>
             </ion-item>
             <ion-item>
               <h3>Números de telefones</h3>
