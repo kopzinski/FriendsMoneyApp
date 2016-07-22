@@ -4,7 +4,9 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova', 'starter.service'])
+angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova', 'starter.service', 'starter.Storage','register.controllers'])
+
+
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -22,6 +24,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova', 'starter
   });
 })
 
+
 .config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
 
@@ -32,11 +35,12 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova', 'starter
     controller: 'AppCtrl'
   })
 
-  .state('app.search', {
-    url: '/search',
+  .state('app.register', {
+    url: '/register',
     views: {
       'menuContent': {
-        templateUrl: 'templates/search.html'
+        templateUrl: 'templates/register/modal.register.html',
+        controller: 'RegisterCtrl'
       }
     }
   })
@@ -49,6 +53,19 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova', 'starter
         }
       }
     });
-  // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/contact');
+
+
+  $urlRouterProvider.otherwise(function ($injector, $location){
+    var user = window.localStorage["friendsMoney" + "user"];
+    if(user){
+      console.log("tem registro");
+      $location.path('/app/contact');
+    }else{
+      console.log("não tem registro");
+      $location.path('/app/register');
+      
+    }
+  });
+
+ 
 });

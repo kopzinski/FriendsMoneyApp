@@ -1,0 +1,21 @@
+<ion-modal-view>
+    <ion-header-bar>        
+        <i style="font-size: 30px; line-height: 37px; margin-left: 5px;" class="ion-arrow-left-c" ng-click="closeModal()"></i>
+        <h1 class="title" style="text-align">Registro Usuário</h1>
+    </ion-header-bar>
+    <ion-content class="padding">
+    <form name="registerNumbem" ng-submit="register(user)">
+      <div class="list">
+        <label class="item item-input">
+          <input ng-model="user.name" type="text" placeholder="Nome">
+        </label>
+        <label class="item item-input">
+          <input ng-model="user.number" type="tel" placeholder="Número">
+        </label>
+      </div>    
+      <button type="submit" class="button button-light button-register">
+        <p class="text-button">CADASTRAR</p>
+      </button>
+    </form>
+  </ion-content>
+</ion-modal-view>

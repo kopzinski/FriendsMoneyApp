@@ -21,6 +21,31 @@ angular.module('starter.service', [])
     }
 })
 
+.factory('registerService', function($http){
+    return {
+        setUser: function(user){
+            var jsonContact = user;
+        var data = {
+            name : user.name,
+            phone: user.number,
+            email: 'gwm1311@hotmail.com',
+            deviceId: '192837984' 
+        }
+
+         var url = "http://10.96.127.185:3000/api/user";
+         var req = {
+           method: 'POST',
+           url: url,				   
+           data: data
+        }
+        return $http.post(url, data).then(function(response){
+            console.log('aqui', response);
+            return response;
+        })
+        }
+    }
+})
+
 
 
 

@@ -1,5 +1,20 @@
 <ion-view view-title="Search">
   <ion-content>
-    <h1>Search</h1>
+    <form name="registerNumbem" ng-submit="register(user)">
+      <div class="list">
+        <label class="item item-input">
+          <input ng-model="user.name" type="text" placeholder="First Name">
+        </label>
+        <label class="item item-input">
+          <input ng-model="user.number" type="tel" placeholder="Number">
+        </label>
+        <label class="item item-input">
+          <input ng-model="user.device" type="number" placeholder="Devicer">
+        </label>
+      </div>
+      <button type="submit" class="button button-light button-register">
+        <p class="text-button">CADASTRAR</p>
+      </button>
+    </form>
   </ion-content>
 </ion-view>
