@@ -7,7 +7,7 @@ angular.module('starter.service', [])
         var data = {
             contacts : jsonContact
         }
-         var url = "http://10.96.127.155:3000/api/contacts";
+         var url = "http://10.96.127.185:3000/api/contacts";
          var req = {
            method: 'POST',
            url: url,				   

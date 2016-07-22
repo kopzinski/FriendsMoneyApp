@@ -20,15 +20,8 @@ angular.module('starter.controllers', ['starter.service'])
       {
         $scope.showLoading();
         function onSuccess(contacts) {
-           ContactsService.setContact(contacts).then(function(responses){
-              // responses.forEach(function(response){
-              //   if (response != null)
-              //   console.log(response.name)
-              // })
-            
-                 $scope.phoneContacts = responses;
-
-              
+           ContactsService.setContact(contacts).then(function(responses){            
+                 $scope.phoneContacts = responses;              
               $scope.hideLoading();
           })
         }
@@ -41,4 +34,18 @@ angular.module('starter.controllers', ['starter.service'])
           options.multiple = true;
           $cordovaContacts.find(options).then(onSuccess, onError);
       }  
+
+      $ionicModal.fromTemplateUrl('templates/contact/modal.contact.html', {
+        scope: $scope,
+        animation: 'slide-in-up',
+        focusFirstInput: true
+      }).then(function(modal) {
+        $scope.modal = modal;
+      });  
+
+      $scope.debitorRegister = function(index){
+        $scope.modal.show();
+        $scope.contact = index;
+      }
+
 })

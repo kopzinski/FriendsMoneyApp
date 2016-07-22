@@ -1,0 +1,30 @@
+<ion-view view-title="Contatos">
+  
+  <ion-content class="home">
+   <div class="button-div">
+    <button class="button" ng-click="getContacts()">Listar contatos</button>  
+   </div>       
+    <div class="padding">
+          <ion-list ng-repeat="contact in phoneContacts" >
+          <ion-card ng-click="debitorRegister(contact)">
+            <ion-item>
+              <ion-avatar item-left style="float: left;">
+                <img class="avatar" src="https://maker-live-fldr.imgix.net/assets/no-avatar-circular-ab7d5f67ec61eb5c9b993d61cab298fe.png?auto=format">
+              </ion-avatar>
+              <h2 ng-if="contact.name == 'Sem Nome' || contact.name == undefined" class="title-name">Desconhecido</h2>
+              <h2 ng-if="contact.name != 'Unknw' || contact.name != undefined" class="title-name">{{contact.name}}</h2>
+              <i class="ion-iphone app-green" ng-if="contact.registrationFlag"></i>
+              <i class="ion-iphone app-red"  ng-if="!contact.registrationFlag"></i>
+            </ion-item>
+            <ion-item>
+              <h3>Números de telefones</h3>
+              <div ng-repeat="number in contact.phone">
+                  <p>{{ number.value }}</p>
+                </div>
+              <ion-icon ios="ios-call" md="md-call" item-right></ion-icon>
+            </ion-item>
+          </ion-card>
+          </ion-list>
+        </div>
+  </ion-content>
+</ion-view>

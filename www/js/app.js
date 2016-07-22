@@ -41,14 +41,14 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova', 'starter
     }
   })
 
-  .state('app.contatos', {
-      url: '/contatos',
+  .state('app.contact', {
+      url: '/contact',
       views: {
         'menuContent': {
-          templateUrl: 'templates/contatos.html'
+          templateUrl: 'templates/contact/contact.html'
         }
       }
     });
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/contatos');
+  $urlRouterProvider.otherwise('/app/contact');
 });
