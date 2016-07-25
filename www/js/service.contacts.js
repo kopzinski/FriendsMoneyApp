@@ -23,13 +23,12 @@ angular.module('starter.service', [])
 
 .factory('registerService', function($http){
     return {
-        setUser: function(user){
-            var jsonContact = user;
+        setUser: function(user, device){
+        var jsonContact = user;
         var data = {
             name : user.name,
             phone: user.number,
-            email: 'gwm1311@hotmail.com',
-            deviceId: '192837984' 
+            deviceId: device 
         }
 
          var url = "http://10.96.127.185:3000/api/user";

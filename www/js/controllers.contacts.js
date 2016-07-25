@@ -16,7 +16,7 @@ angular.module('starter.controllers', ['starter.service'])
         });
       };
 
-      /*$scope.getContacts = function()
+      $scope.getContacts = function()
       {
         $scope.showLoading();
         function onSuccess(contacts) {
@@ -33,7 +33,7 @@ angular.module('starter.controllers', ['starter.service'])
           options.hasPhoneNumber = true;
           options.multiple = true;
           $cordovaContacts.find(options).then(onSuccess, onError);
-      }  */
+      }  
       
 
       $ionicModal.fromTemplateUrl('templates/contact/modal.contact.html', {
@@ -50,11 +50,5 @@ angular.module('starter.controllers', ['starter.service'])
       }
 
 
-      /*$scope.register = function(user){
-        registerService.setUser(user).then(function(response){
-          console.log("registrou");
-          localStorage.setObject('user', response);
-       })
-      }*/
 
 })
