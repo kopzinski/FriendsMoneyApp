@@ -1,6 +1,6 @@
 angular.module('register.controllers', ['starter.service'])
 
-.controller('RegisterCtrl', function( $ionicHistory, $scope, $state, $ionicModal, localStorage, $timeout, $cordovaContacts, $ionicLoading, ContactsService, registerService) {
+.controller('RegisterCtrl', function( $location, $ionicHistory, $scope, $state, $ionicModal, localStorage, $timeout, $cordovaContacts, $ionicLoading, ContactsService, registerService) {
   
       $ionicModal.fromTemplateUrl('templates/register/modal.register.html', {
         scope: $scope,
@@ -15,13 +15,13 @@ angular.module('register.controllers', ['starter.service'])
       }
       
       $scope.closeModal = function(){
+          console.log('passou');
+          $location.path('/app/contact');
           $scope.modal.hide();
           $ionicHistory.nextViewOptions({
-                disableBack: true
-            });
-          $state.go('app.contact');
+            disableBack: true
+          });
       }
-
 
       $scope.$on('$ionicView.enter', function() {        
           $scope.modal.show();
@@ -29,11 +29,11 @@ angular.module('register.controllers', ['starter.service'])
 
       var deviceInformation = ionic.Platform.device();
       
-      $scope.register = function(user){
+      $scope.register = function(user){        
         registerService.setUser(user, deviceInformation.uuid).then(function(response){
           console.log("registrou");
           localStorage.setObject('user', response);
-          $scope.modal.hide();
+          $scope.closeModal();
        })
       }
 
