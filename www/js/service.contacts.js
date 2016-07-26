@@ -17,7 +17,29 @@ angular.module('starter.service', [])
             var responses = response.data;
             return responses;
         })
-        }
+        },
+
+        registerTransactionWithNoFlag: function(user, transaction){
+ 
+            var data = {
+                transaction : transaction,
+                user : user
+            }
+            var url = "http://10.96.127.185:3000/api/userTransaction";
+            var req = {
+            method: 'POST',
+            url: url,				   
+            data: data
+            }
+            return $http.post(url, data).then(function(response){
+                var responses = response.data;
+                return responses;
+            })
+        },
+
+        /*registerTransactionWithFlag:function(){
+
+        }*/
     }
 })
 

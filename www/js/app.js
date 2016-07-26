@@ -31,8 +31,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova', 'starter
     .state('app', {
     url: '/app',
     abstract: true,
-    templateUrl: 'templates/menu.html',
-    controller: 'AppCtrl'
+    templateUrl: 'templates/menu.html'
   })
 
   .state('app.register', {
@@ -49,7 +48,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova', 'starter
       url: '/contact',
       views: {
         'menuContent': {
-          templateUrl: 'templates/contact/contact.html'
+          templateUrl: 'templates/contact/contact.html',
+          controller: 'ContactCtrl'
         }
       }
     });

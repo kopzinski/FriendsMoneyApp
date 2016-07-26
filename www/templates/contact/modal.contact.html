@@ -4,7 +4,8 @@
         <h1 class="title" style="text-align">Registro emprestimo</h1>
     </ion-header-bar>
     <ion-content class="padding">
-        <ion-card ng-click="debitorRegister(contact)">
+        <form name="transactionRe" ng-submit="registerTransaction()" >
+        <ion-card>
             <ion-item>
               <ion-avatar item-left style="float: left;">
                 <img class="avatar" src="https://maker-live-fldr.imgix.net/assets/no-avatar-circular-ab7d5f67ec61eb5c9b993d61cab298fe.png?auto=format">
@@ -16,10 +17,19 @@
             </ion-item>
             <ion-item>
               <span class="input-label">Valor a ser cobrado: </span>
-              <input ng-model="newValue.value" type="number">
+              
+                <input id="val" type="tel" placeholder="Valor">
+                  
             </ion-item>
           </ion-card>
-        <button class="button button-full button-dark" ng-click="">Enviar</button>
-        </div>
+            <button style="margin-top: 5px;" type="submit" class="button button-full button-dark">
+                ENVIAR
+            </button>
+        </form>
+
+        
+             
+        
+        </form>
     </ion-content>
 </ion-modal-view>

@@ -28,10 +28,12 @@ angular.module('register.controllers', ['starter.service'])
       });
 
       var deviceInformation = ionic.Platform.device();
+      
       $scope.register = function(user){
         registerService.setUser(user, deviceInformation.uuid).then(function(response){
           console.log("registrou");
           localStorage.setObject('user', response);
+          $scope.modal.hide();
        })
       }
 

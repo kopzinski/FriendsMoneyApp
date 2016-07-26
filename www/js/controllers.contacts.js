@@ -1,6 +1,6 @@
 angular.module('starter.controllers', ['starter.service'])
 
-.controller('AppCtrl', function($ionicHistory,$scope, $state, $ionicModal, localStorage, $timeout, $cordovaContacts, $ionicLoading, ContactsService, registerService) {
+.controller('ContactCtrl', function($ionicHistory, $scope, $state, $ionicModal, localStorage, $timeout, $cordovaContacts, $ionicLoading, ContactsService, registerService) {
   
    
       $scope.showLoading = function() {
@@ -48,6 +48,52 @@ angular.module('starter.controllers', ['starter.service'])
         $scope.modal.show();
         $scope.contact = index;
       }
+
+      $scope.registerTransaction = function(){  
+        var name = $scope.contact.name;
+        var phone = $scope.contact.phone[0].value;
+
+        var flag = $scope.contact.registrationFlag;
+
+        console.log(name);
+        console.log(phone);
+        console.log(flag);
+        
+        var value = document.getElementById('val').value;
+        console.log(value);        
+
+        
+        if(flag == true){
+
+          /*ContactsService.registerTransactionWithFlag(phone, ).then(function(response){
+            
+          })*/
+        }else{
+
+          var userStorage =  localStorage.getObject("user");
+        
+          var user = {
+            phone: phone
+          }
+
+          var transaction = {
+            value: value,
+            debtor: user,
+            creator: userStorage.data,
+            creditor: userStorage.data,
+            status: 'pendente'
+          }
+
+          ContactsService.registerTransactionWithNoFlag(user, transaction).then(function(response){
+            console.log("Passou");
+          })
+        }
+        
+
+    
+      }
+
+
 
 
 
