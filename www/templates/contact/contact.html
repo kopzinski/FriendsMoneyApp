@@ -18,9 +18,12 @@
             </ion-item>
             <ion-item>
               <h3>Números de telefones</h3>
-              <div ng-repeat="number in contact.phone">
-                  <p>{{ number.value }}</p>
-                </div>
+              <div ng-if="!contact.registrationFlag" ng-repeat="number in contact.phone">
+                <p>{{ number.value }}</p>
+              </div>
+              <div ng-if="contact.registrationFlag">
+                <p>{{ contact.phone.value }}</p>
+              </div>
               <ion-icon ios="ios-call" md="md-call" item-right></ion-icon>
             </ion-item>
           </ion-card>

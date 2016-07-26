@@ -1,6 +1,6 @@
 angular.module('register.controllers', ['starter.service'])
 
-.controller('RegisterCtrl', function( $location, $ionicHistory, $scope, $state, $ionicModal, localStorage, $timeout, $cordovaContacts, $ionicLoading, ContactsService, registerService) {
+.controller('RegisterCtrl', function( $cordovaDevice, $window, $location, $ionicHistory, $scope, $state, $ionicModal, localStorage, $timeout, $cordovaContacts, $ionicLoading, ContactsService, registerService) {
   
       $ionicModal.fromTemplateUrl('templates/register/modal.register.html', {
         scope: $scope,
@@ -27,10 +27,11 @@ angular.module('register.controllers', ['starter.service'])
           $scope.modal.show();
       });
 
-      var deviceInformation = ionic.Platform.device();
       
-      $scope.register = function(user){        
-        registerService.setUser(user, deviceInformation.uuid).then(function(response){
+      $scope.register = function(user){ 
+        $scope.uuid = $cordovaDevice.getUUID();
+          
+        registerService.setUser(user, $scope.uuid).then(function(response){
           console.log("registrou");
           localStorage.setObject('user', response);
           $scope.closeModal();

@@ -49,31 +49,38 @@ angular.module('starter.controllers', ['starter.service'])
         $scope.contact = index;
       }
 
+
       $scope.registerTransaction = function(){  
-        var name = $scope.contact.name;
-        var phone = $scope.contact.phone[0].value;
-
+  
         var flag = $scope.contact.registrationFlag;
-
-        console.log(name);
-        console.log(phone);
-        console.log(flag);
-        
+        var phone = "";
+       
         var value = document.getElementById('val').value;
-        console.log(value);        
-
         
+        var userStorage =  localStorage.getObject("user"); 
+
         if(flag == true){
+          phone = $scope.contact.phone.value;
+          var user = $scope.contact;
 
-          /*ContactsService.registerTransactionWithFlag(phone, ).then(function(response){
-            
-          })*/
+          var transaction = {
+            value: value,
+            debtor: user,
+            creator: userStorage.data,
+            creditor: userStorage.data,
+            status: 'pending'
+          }
+
+          ContactsService.registerTransactionWithFlag(transaction).then(function(response){
+              console.log("Passou, transaction with flag = true");
+
+          })
+
         }else{
+          phone = $scope.contact.phone[0].value;      
 
-          var userStorage =  localStorage.getObject("user");
-        
           var user = {
-            phone: phone
+            phone: {value:phone}
           }
 
           var transaction = {
@@ -81,15 +88,14 @@ angular.module('starter.controllers', ['starter.service'])
             debtor: user,
             creator: userStorage.data,
             creditor: userStorage.data,
-            status: 'pendente'
+            status: 'pending'
           }
 
           ContactsService.registerTransactionWithNoFlag(user, transaction).then(function(response){
-            console.log("Passou");
+            console.log("Passou, transaction with flag = false");
           })
-        }
         
-
+        }
     
       }
 

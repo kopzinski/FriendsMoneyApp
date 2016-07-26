@@ -26,48 +26,43 @@ angular.module('starter.service', [])
                 user : user
             }
             var url = "http://10.96.127.185:3000/api/userTransaction";
-            var req = {
-            method: 'POST',
-            url: url,				   
-            data: data
-            }
+ 
             return $http.post(url, data).then(function(response){
                 var responses = response.data;
                 return responses;
             })
         },
 
-        /*registerTransactionWithFlag:function(){
-
-        }*/
+        registerTransactionWithFlag:function(transaction){
+            var data = transaction;
+            var url = "http://10.96.127.185:3000/api/transaction";
+           
+            return $http.post(url, data).then(function(response){
+                var responses = response.data;
+                return responses;
+            })
+        }
     }
 })
 
 .factory('registerService', function($http){
     return {
         setUser: function(user, device){
-        var jsonContact = user;
-        var data = {
-            name : user.name,
-            phone: user.number,
-            deviceId: device 
+        
+        var newUser = {
+            name: user.name,
+            phone: user.phone,
+            deviceId: device
         }
 
          var url = "http://10.96.127.185:3000/api/user";
-         var req = {
-           method: 'POST',
-           url: url,				   
-           data: data
-        }
-        return $http.post(url, data).then(function(response){
+        return $http.post(url, newUser).then(function(response){
             console.log('aqui', response);
             return response;
         })
         }
     }
 })
-
-
 
 
 
