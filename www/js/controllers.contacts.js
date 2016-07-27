@@ -1,11 +1,11 @@
-angular.module('starter.controllers', ['starter.service'])
+angular.module('starter.controller.contact', ['starter.service'])
 
 .controller('ContactCtrl', function($cordovaToast, $ionicHistory, $scope, $state, $ionicModal, localStorage, $timeout, $cordovaContacts, $ionicLoading, ContactsService, registerService) {
   
       $scope.doRefresh = function() {
         function onSuccess(contacts) {
            ContactsService.setContact(contacts).then(function(responses){            
-                 $scope.phoneContacts = responses; 
+            $scope.phoneContacts = responses; 
             $scope.$broadcast('scroll.refreshComplete');
             $cordovaToast.show('Atualizado', 'short', 'center');
           })
@@ -20,13 +20,12 @@ angular.module('starter.controllers', ['starter.service'])
           $cordovaContacts.find(options).then(onSuccess, onError);        
       };
 
-      $scope.showLoading = function() {
+       $scope.showLoading = function() {
         //options default to values in $ionicLoadingConfig
         $ionicLoading.show().then(function(){          
           console.log("The loading indicator is now displayed");
         });
       };
-
       $scope.hideLoading = function(){
         $ionicLoading.hide().then(function(){
           console.log("The loading indicator is now hidden");
@@ -37,7 +36,7 @@ angular.module('starter.controllers', ['starter.service'])
         $scope.showLoading();
         function onSuccess(contacts) {
            ContactsService.setContact(contacts).then(function(responses){            
-                 $scope.phoneContacts = responses;              
+              $scope.phoneContacts = responses;              
               $scope.hideLoading();
           })
         }
@@ -89,7 +88,6 @@ angular.module('starter.controllers', ['starter.service'])
 
           ContactsService.registerTransactionWithFlag(transaction).then(function(response){
               console.log("Passou, transaction with flag = true");
-
           })
 
         }else{
@@ -106,7 +104,6 @@ angular.module('starter.controllers', ['starter.service'])
             creditor: userStorage.data,
             status: 'pending'
           }
-
           ContactsService.registerTransactionWithNoFlag(user, transaction).then(function(response){
             console.log("Passou, transaction with flag = false");
           })
@@ -114,9 +111,4 @@ angular.module('starter.controllers', ['starter.service'])
         }
     
       }
-
-
-
-
-
 })

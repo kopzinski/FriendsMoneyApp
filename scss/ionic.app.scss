@@ -21,3 +21,56 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 // Include all of Ionic
 @import "www/lib/ionic/scss/ionic";
 
+.item-list .item-content{
+ 	padding: 10px 4px 4px 4px !important;  
+}
+
+.list-avatar-page .ion-note {
+    font-size: 12px;
+    align-self: flex-start;
+    margin-top: 14px;
+}
+
+.item-image {
+    width: 35px;
+    float: right;
+        padding-top: 5px;
+}
+
+.button-div {
+    width: 100%; text-align: center; margin-top: 10px;
+}
+
+.avatar {
+    width: 50px;
+}
+
+.title-name{
+    line-height: 52px; margin-left: 10px; float: left;
+}
+
+.app-green{
+    color: green; font-size: 30px; line-height: 52px; float: right; margin-right: 7px;
+}
+
+.app-red{
+    color: red; font-size: 30px; line-height: 52px; float: right; margin-right: 7px;
+}
+
+
+.item{
+    padding: 6px !important;
+}
+
+.list{
+    margin-bottom: 10px !important;
+}
+.item-list {
+ 	padding: 10px 4px 0px 4px;  
+}
+
+.list-avatar-page .ion-note {
+    font-size: 12px;
+    align-self: flex-start;
+    margin-top: 14px;
+}

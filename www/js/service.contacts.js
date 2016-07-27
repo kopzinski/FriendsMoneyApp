@@ -3,21 +3,19 @@ angular.module('starter.service', [])
 .factory('ContactsService', function($http){
     return {
         setContact: function(contacts){
-            var jsonContact = contacts;
+
         var data = {
-            contacts : jsonContact
+            contacts : contacts
         }
-         var url = "http://10.96.127.185:3000/api/contacts";
-         var req = {
-           method: 'POST',
-           url: url,				   
-           data: data
-        }
+         var url = "http://10.96.127.155:3000/api/contacts";
+
+
         return $http.post(url, data).then(function(response){
             var responses = response.data;
             return responses;
         })
         },
+
 
         registerTransactionWithNoFlag: function(user, transaction){
  
@@ -25,7 +23,7 @@ angular.module('starter.service', [])
                 transaction : transaction,
                 user : user
             }
-            var url = "http://10.96.127.185:3000/api/userTransaction";
+            var url = "http://10.96.127.155:3000/api/userTransaction";
  
             return $http.post(url, data).then(function(response){
                 var responses = response.data;
@@ -35,9 +33,34 @@ angular.module('starter.service', [])
 
         registerTransactionWithFlag:function(transaction){
             var data = transaction;
-            var url = "http://10.96.127.185:3000/api/transaction";
+            var url = "http://10.96.127.155:3000/api/transaction";
            
             return $http.post(url, data).then(function(response){
+
+       
+            })
+            }
+    }
+})
+
+.factory('PendeciesService', function($http){
+    return {
+        getListContacts: function(phone){
+            phone = "5197412487";
+            return $http.get('http://10.96.127.155:3000/api/pendenciesTransactions/'+phone).then(function(response){
+                return response.data;
+            })
+        },
+        changeStatusPendencie: function(transaction){
+
+            var url = "http://10.96.127.155:3000/api/transaction";
+            var req = {
+                method: 'PUT',
+                url: url,				   
+                data: transaction
+            }
+
+            return $http(req).then(function(response){
                 var responses = response.data;
                 return responses;
             })
@@ -55,14 +78,17 @@ angular.module('starter.service', [])
             deviceId: device
         }
 
-         var url = "http://10.96.127.185:3000/api/user";
+         var url = "http://10.96.127.155:3000/api/user";
         return $http.post(url, newUser).then(function(response){
-            console.log('aqui', response);
             return response;
         })
         }
     }
 })
+
+
+
+
 
 
 

@@ -1,0 +1,37 @@
+<ion-modal-view>
+    <ion-header-bar>        
+        <i style="font-size: 30px; line-height: 37px; margin-left: 5px;" class="ion-arrow-left-c" ng-click="closeModal()"></i>
+        <h1 class="title" style="text-align">{{transaction.creator.name}}</h1>
+    </ion-header-bar>
+    <ion-content class="padding">
+        <ion-card>
+        <ion-item>
+          <ion-avatar item-left style="float: left;">
+            <img style="width: 50px" src="https://maker-live-fldr.imgix.net/assets/no-avatar-circular-ab7d5f67ec61eb5c9b993d61cab298fe.png?auto=format">
+          </ion-avatar>
+           <div id="name" ng-if="transaction.creator.name">
+          <h2>{{transaction.creator.name}}</h2>
+        </div>
+        <div id="phone"  ng-if="!transaction.creator.name">
+          <h2>{{transaction.creator.phone}}</h2>
+        </div>
+           <p>Transação em: {{transaction.createdAt}}</p>
+        </ion-item>
+           <div ng-if="transaction.creator.phone == transaction.creditor.phone" class="item item-body">
+           <p>Seu amigo {{transaction.creator.name}}
+             disse que você deve a ele R${{transaction.value}}, você concorda?</p>
+           </div>
+           <div ng-if="transaction.creator.phone == transaction.debtor.phone" class="item item-body">
+            <p>Seu amigo {{transaction.creator.name}}
+             disse que lhe deve R${{transaction.value}}, você concorda?</p>
+           </div>
+           <ion-item>
+            <div class="button-bar">
+              <a class="button button-dark" ng-click="changePendencieStatus(transaction, 'accepted')">Sim</a>
+              <a class="button button-dark" ng-click="changePendencieStatus(transaction, 'denied')">Não</a>
+            </div>
+           </ion-item>
+      </ion-card>
+      <ion-card>
+  </ion-content>
+</ion-modal-view>
