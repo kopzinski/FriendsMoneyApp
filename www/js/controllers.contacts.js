@@ -7,7 +7,7 @@ angular.module('starter.controller.contact', ['starter.service'])
            ContactsService.setContact(contacts).then(function(responses){            
             $scope.phoneContacts = responses; 
             $scope.$broadcast('scroll.refreshComplete');
-            $cordovaToast.show('Atualizado', 'short', 'center');
+            $cordovaToast.showShortBottom('Atualizado');
           })
         }
         function onError(contactError) {
@@ -74,41 +74,47 @@ angular.module('starter.controller.contact', ['starter.service'])
         
         var userStorage =  localStorage.getObject("user"); 
 
-        if(flag == true){
-          phone = $scope.contact.phone.value;
-          var user = $scope.contact;
+        if(value){
+            if(flag == true){
+            phone = $scope.contact.phone.value;
+            var user = $scope.contact;
 
-          var transaction = {
-            value: value,
-            debtor: user,
-            creator: userStorage.data,
-            creditor: userStorage.data,
-            status: 'pending'
+            var transaction = {
+              value: value,
+              debtor: user,
+              creator: userStorage.data,
+              creditor: userStorage.data,
+              status: 'pending'
+            }
+
+            ContactsService.registerTransactionWithFlag(transaction).then(function(response){
+                $scope.modal.hide();
+                console.log("Passou, transaction with flag = true");
+            })
+
+          }else{
+            phone = $scope.contact.phone[0].value;      
+
+            var user = {
+              phone: {value:phone}
+            }
+
+            var transaction = {
+              value: value,
+              debtor: user,
+              creator: userStorage.data,
+              creditor: userStorage.data,
+              status: 'pending'
+            }
+            ContactsService.registerTransactionWithNoFlag(user, transaction).then(function(response){
+              $scope.modal.hide();
+              console.log("Passou, transaction with flag = false");
+            })
+          
           }
-
-          ContactsService.registerTransactionWithFlag(transaction).then(function(response){
-              console.log("Passou, transaction with flag = true");
-          })
-
         }else{
-          phone = $scope.contact.phone[0].value;      
-
-          var user = {
-            phone: {value:phone}
-          }
-
-          var transaction = {
-            value: value,
-            debtor: user,
-            creator: userStorage.data,
-            creditor: userStorage.data,
-            status: 'pending'
-          }
-          ContactsService.registerTransactionWithNoFlag(user, transaction).then(function(response){
-            console.log("Passou, transaction with flag = false");
-          })
-        
-        }
+          alert("Sem número");
+        }     
     
       }
 })

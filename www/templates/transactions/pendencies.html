@@ -1,5 +1,8 @@
 <ion-view view-title="Pendentes">
   <ion-content ng-init="getTransactions()" class="padding list-avatar-page">
+    <ion-refresher pulling-text="Puxe para atualizar..." on-refresh="doRefresh()">
+
+   </ion-refresher>
     <ion-list ng-show="transactions.length">
       <div class="padding item-divider">
         Hoje

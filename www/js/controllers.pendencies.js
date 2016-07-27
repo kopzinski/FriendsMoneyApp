@@ -1,12 +1,32 @@
 angular.module('starter.controller.pendencies', ['starter.service'])
 
 .controller('ControllerPendencies', function($window, $location, $scope, $ionicModal, $timeout, $ionicLoading, PendeciesService) {
-      $scope.getTransactions = function(){
-        PendeciesService.getListContacts("5197412487").then(function(responses){
-            console.log(responses);
-            $scope.transactions = responses;
-        });
-      }
+    
+    
+    
+    $scope.getTransactions = function(){
+      PendeciesService.getListContacts("5197412487").then(function(responses){
+          console.log(responses);
+          $scope.transactions = responses;
+      });
+    }
+
+    $scope.doRefresh = function() {
+        
+            PendeciesService.getListContacts("5197412487").then(function(responses){
+              //alert(responses.transactions);
+              $scope.transactions = responses;
+              $scope.$broadcast('scroll.refreshComplete');
+              $cordovaToast.showShortBottom('Atualizado');
+          })          
+           $scope.$broadcast('scroll.refreshComplete');
+           $cordovaToast.showShortBottom('Atualizado');
+    
+               
+      };
+
+   
+
    $ionicModal.fromTemplateUrl('templates/transactions/pendencies.modal.html', {
       scope: $scope,
       animation: 'slide-in-up'
