@@ -1,6 +1,9 @@
 <ion-view view-title="Contatos" >
   
   <ion-content class="home">
+   <ion-refresher pulling-text="Puxe para atualizar..." on-refresh="doRefresh()">
+
+   </ion-refresher>
    <div class="button-div">
     <button class="button" ng-click="getContacts()">Listar contatos</button>  
    </div>       

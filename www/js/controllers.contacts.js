@@ -1,8 +1,25 @@
 angular.module('starter.controllers', ['starter.service'])
 
-.controller('ContactCtrl', function($ionicHistory, $scope, $state, $ionicModal, localStorage, $timeout, $cordovaContacts, $ionicLoading, ContactsService, registerService) {
+.controller('ContactCtrl', function($cordovaToast, $ionicHistory, $scope, $state, $ionicModal, localStorage, $timeout, $cordovaContacts, $ionicLoading, ContactsService, registerService) {
   
-   
+      $scope.doRefresh = function() {
+        function onSuccess(contacts) {
+           ContactsService.setContact(contacts).then(function(responses){            
+                 $scope.phoneContacts = responses; 
+            $scope.$broadcast('scroll.refreshComplete');
+            $cordovaToast.show('Atualizado', 'short', 'center');
+          })
+        }
+        function onError(contactError) {
+            alert(contactError);
+          };
+          var options = {};
+          options.filter = "";
+          options.hasPhoneNumber = true;
+          options.multiple = true;
+          $cordovaContacts.find(options).then(onSuccess, onError);        
+      };
+
       $scope.showLoading = function() {
         //options default to values in $ionicLoadingConfig
         $ionicLoading.show().then(function(){          
@@ -16,8 +33,7 @@ angular.module('starter.controllers', ['starter.service'])
         });
       };
 
-      $scope.getContacts = function()
-      {
+      $scope.getContacts = function(){
         $scope.showLoading();
         function onSuccess(contacts) {
            ContactsService.setContact(contacts).then(function(responses){            
