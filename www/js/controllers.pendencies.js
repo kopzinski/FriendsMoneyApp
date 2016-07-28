@@ -1,12 +1,17 @@
 angular.module('starter.controller.pendencies', ['starter.service'])
 
-.controller('ControllerPendencies', function($window, $location, $scope, $ionicModal, $timeout, $ionicLoading, PendeciesService) {
+.controller('ControllerPendencies', function($window, $location, localStorage, $scope, $ionicModal, $timeout, $ionicLoading, PendeciesService) {
       $scope.getTransactions = function(){
-        PendeciesService.getListContacts("5197412487").then(function(responses){
+        var user =  localStorage.getObject("user");
+        
+        var phone = user.data.phone.value;
+        
+        PendeciesService.getListContacts(phone).then(function(responses){
             console.log(responses);
             $scope.transactions = responses;
         });
       }
+
    $ionicModal.fromTemplateUrl('templates/transactions/pendencies.modal.html', {
       scope: $scope,
       animation: 'slide-in-up'
