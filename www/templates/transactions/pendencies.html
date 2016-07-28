@@ -20,10 +20,10 @@
         </div>
         <p >{{transaction.createdAt}}</p>
          </div>
-         <div ng-if="transaction.creator.phone != transaction.creditor.phone" class="item-image">
+         <div ng-if="transaction.creator.phone.value != transaction.creditor.phone.value" class="item-image">
           <img src="img/creditor.svg">
          </div>
-         <div ng-if="transaction.creator.phone != transaction.debtor.phone" class="item-image">
+         <div ng-if="transaction.creator.phone.value != transaction.debtor.phone.value" class="item-image">
           <img src="img/debtor.svg">
          </div>
       </ion-item>

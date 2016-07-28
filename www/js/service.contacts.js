@@ -46,8 +46,7 @@ angular.module('starter.service', [])
 .factory('PendeciesService', function($http){
     return {
         getListContacts: function(phone){
-            phone = "5197412487";
-            return $http.get('http://10.96.127.185:3000/api/pendenciesTransactions/'+phone).then(function(response){
+            return $http.get('http://10.96.127.155:3000/api/pendenciesTransactions/'+phone).then(function(response){
                 return response.data;
             })
         },
@@ -74,7 +73,7 @@ angular.module('starter.service', [])
         
         var newUser = {
             name: user.name,
-            phone: user.phone,
+            phone:{value: user.phone.value},
             deviceId: device
         }
 

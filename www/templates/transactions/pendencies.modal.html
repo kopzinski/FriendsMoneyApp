@@ -13,15 +13,15 @@
           <h2>{{transaction.creator.name}}</h2>
         </div>
         <div id="phone"  ng-if="!transaction.creator.name">
-          <h2>{{transaction.creator.phone}}</h2>
+          <h2>{{transaction.creator.phone.value}}</h2>
         </div>
            <p>Transação em: {{transaction.createdAt}}</p>
         </ion-item>
-           <div ng-if="transaction.creator.phone == transaction.creditor.phone" class="item item-body">
+           <div ng-if="transaction.creator.phone.value == transaction.creditor.phone.value" class="item item-body">
            <p>Seu amigo {{transaction.creator.name}}
              disse que você deve a ele R${{transaction.value}}, você concorda?</p>
            </div>
-           <div ng-if="transaction.creator.phone == transaction.debtor.phone" class="item item-body">
+           <div ng-if="transaction.creator.phone.value == transaction.debtor.phone.value" class="item item-body">
             <p>Seu amigo {{transaction.creator.name}}
              disse que lhe deve R${{transaction.value}}, você concorda?</p>
            </div>
