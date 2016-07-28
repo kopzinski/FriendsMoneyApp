@@ -85,7 +85,18 @@ angular.module('starter.service', [])
     }
 })
 
+.factory('timelineService', function($http){
+    return {
 
+        getAllTransactions:function(phone){            
+            var url = "http://10.96.127.185:3000/api/transactions/" + phone ;
+           
+            return $http.get(url).then(function(response){
+                return response.data;       
+            })
+        }
+    }
+})
 
 
 

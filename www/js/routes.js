@@ -29,6 +29,16 @@ angular.module('starter.routes', [])
     }
   })
 
+ .state('app.timeline', {
+      url: '/timeline',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/timeline/timeline.html',
+          controller: 'TimelineCtrl'
+        }
+      }
+    })
+
   .state('app.contact', {
       url: '/contact',
       views: {
