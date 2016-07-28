@@ -74,3 +74,72 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
     align-self: flex-start;
     margin-top: 14px;
 }
+.time-body {
+  font-size: 14px;
+  width: 175px;
+  padding: 2px;
+  background: #ccdae2;
+  margin: 0 auto; }
+
+.div-tipos {
+  margin-top: 5px; }
+
+.divCreditor {
+  background: green;
+  width: 53px;
+  height: 53px;
+  margin-bottom: -22px !important;
+  border-radius: 50px;
+  position: relative;
+  margin: 0 auto; }
+
+.divDebitor {
+  background: #bd0f0f;
+  width: 53px;
+  height: 53px;
+  margin-bottom: -22px !important;
+  border-radius: 50px;
+  position: relative;
+  margin: 0 auto; }
+
+.title-body-denied {
+  margin-top: 20px;
+  color: #da3939;
+  font-size: 20px;
+  font-weight: bold; }
+
+
+.title-body-pending {
+  margin-top: 20px;
+  color: #cea01a;
+  font-size: 20px;
+  font-weight: bold; }
+
+.title-body-paid {
+  margin-top: 20px;
+  color: #27b50f;
+  font-size: 20px;
+  font-weight: bold; }
+
+
+.title-body-acepted {
+  margin-top: 20px;
+  color: #3ca4ce;
+  font-size: 20px;
+  font-weight: bold; }
+
+.div-shop {
+  min-height: 103px;
+  text-align: left;
+  padding-top: 10px;
+  margin: 0 auto;
+  width: 98%;
+  padding: 5px;
+  background-color: #363941;
+  padding-bottom: 15px;
+  margin-bottom: 20px; }
+
+.div-principal {
+  font-weight: 100;
+  margin-top: 5px;
+  text-align: center; }
