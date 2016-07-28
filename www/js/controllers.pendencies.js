@@ -1,16 +1,32 @@
 angular.module('starter.controller.pendencies', ['starter.service'])
 
+
 .controller('ControllerPendencies', function($window, $location, localStorage, $scope, $ionicModal, $timeout, $ionicLoading, PendeciesService) {
       $scope.getTransactions = function(){
         var user =  localStorage.getObject("user");
-        
         var phone = user.data.phone.value;
-        
         PendeciesService.getListContacts(phone).then(function(responses){
             console.log(responses);
             $scope.transactions = responses;
         });
       }
+
+    $scope.doRefresh = function() {
+        
+      var user =  localStorage.getObject("user");
+      var phone = user.data.phone.value;
+      PendeciesService.getListContacts(phone).then(function(responses){
+        //alert(responses.transactions);
+        $scope.transactions = responses;
+        $scope.$broadcast('scroll.refreshComplete');
+        $cordovaToast.showShortBottom('Atualizado');
+      })          
+      $scope.$broadcast('scroll.refreshComplete');
+      $cordovaToast.showShortBottom('Atualizado');
+    
+               
+    };
+
 
    $ionicModal.fromTemplateUrl('templates/transactions/pendencies.modal.html', {
       scope: $scope,
