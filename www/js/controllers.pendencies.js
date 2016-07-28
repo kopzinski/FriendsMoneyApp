@@ -1,4 +1,4 @@
-angular.module('starter.controller.pendencies', ['starter.service'])
+angular.module('starter.controller.pendencies', ['starter.service', 'relativeDate'])
 
 
 .controller('ControllerPendencies', function($window, $location, localStorage, $scope, $ionicModal, $timeout, $ionicLoading, PendeciesService) {

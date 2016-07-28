@@ -15,7 +15,7 @@
         <div id="phone"  ng-if="!transaction.creator.name">
           <h2>{{transaction.creator.phone.value}}</h2>
         </div>
-           <p>Transação em: {{transaction.createdAt}}</p>
+           <p>{{transaction.createdAt |relativeDate}}</p>
         </ion-item>
            <div ng-if="transaction.creator.phone.value == transaction.creditor.phone.value" class="item item-body">
            <p>Seu amigo {{transaction.creator.name}}

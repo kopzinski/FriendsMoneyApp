@@ -18,7 +18,7 @@
         <div id="phone"  ng-if="!transaction.creator.name">
           <h2>{{transaction.creator.phone}}</h2>
         </div>
-        <p >{{transaction.createdAt}}</p>
+        <p >{{transaction.createdAt | relativeDate}}</p>
          </div>
          <div ng-if="transaction.creator.phone.value != transaction.creditor.phone.value" class="item-image">
           <img src="img/creditor.svg">
