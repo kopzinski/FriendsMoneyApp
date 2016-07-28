@@ -7,7 +7,7 @@
     <div class="padding" ng-init="onInit()">
         <div class="div-principal" ng-repeat="transaction in transactions">
           <div class="item item-body time-body">            
-                  {{transaction.createdAt}}
+                  {{transaction.createdAt | relativeDate}}
           </div>
           <div class="div-tipos">              
               <div ng-if="transaction.creditor.phone.value == phone" class="divCreditor">
@@ -18,7 +18,7 @@
               </div>
           </div>
           <div class="div-shop">
-             <div class="title-body-acepted" ng-if="transaction.status == 'acepted'">Aceito</div>
+             <div class="title-body-accepted" ng-if="transaction.status == 'accepted'">Aceito</div>
              <div class="title-body-paid" ng-if="transaction.status == 'paid'">Pago</div>
              <div class="title-body-pending" ng-if="transaction.status == 'pending'">Pendente</div>             
              <div class="title-body-denied" ng-if="transaction.status == 'denied'">Negado</div>

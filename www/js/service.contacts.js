@@ -89,7 +89,7 @@ angular.module('starter.service', [])
     return {
 
         getAllTransactions:function(phone){            
-            var url = "http://10.96.127.185:3000/api/transactions/" + phone ;
+            var url = "http://10.96.127.155:3000/api/transactions/" + phone ;
            
             return $http.get(url).then(function(response){
                 return response.data;       

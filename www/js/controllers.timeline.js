@@ -1,4 +1,4 @@
-angular.module('starter.controller.timeline', ['starter.service'])
+angular.module('starter.controller.timeline', ['starter.service', 'relativeDate'])
 
 .controller('TimelineCtrl', function($cordovaToast, $ionicHistory, $scope, $state, $ionicModal, localStorage, $timeout, $cordovaContacts, $ionicLoading, timelineService ) {
   
@@ -9,8 +9,9 @@ angular.module('starter.controller.timeline', ['starter.service'])
 
 
       $scope.onInit = function(){
-         var phone = '555197262289';
-        $scope.phone = phone;
+         var user =  localStorage.getObject("user");
+        var phone = user.data.phone.value;
+         $scope.phone = phone;
          timelineService.getAllTransactions(phone).then(function(response){
              console.log(response);
             $scope.transactions = response;
