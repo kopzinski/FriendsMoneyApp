@@ -15,7 +15,19 @@ angular.module('starter.service', [])
             return responses;
         })
         },
-
+/*
+    $scope.getData = function() {
+        $http.get("http://localhost/example.json", { params: { "key1": "value1", "key2": "value2" } })
+            .success(function(data) {
+                $scope.firstname = data.firstname;
+                $scope.lastname = data.lastname;
+            })
+            .error(function(data) {
+                alert("ERROR");
+            });
+    }
+ 
+});*/
 
         registerTransactionWithNoFlag: function(user, transaction){
  
