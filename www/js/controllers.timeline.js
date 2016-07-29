@@ -4,18 +4,23 @@ angular.module('starter.controller.timeline', ['starter.service', 'relativeDate'
   
       $scope.doRefresh = function() {       
         $scope.$broadcast('scroll.refreshComplete');
-        $cordovaToast.showShortBottom('Atualizado');  
+        $cordovaToast.showShortBottom('Atualizado');
+        var user =  localStorage.getObject("user");
+         var phone = user.data.phone.value;
+         $scope.phone = phone;
+         timelineService.getAllTransactions(phone).then(function(response){
+            console.log(response);
+            $scope.transactions = response;
+         })  
       };
-
 
       $scope.onInit = function(){
          var user =  localStorage.getObject("user");
-        var phone = user.data.phone.value;
+         var phone = user.data.phone.value;
          $scope.phone = phone;
          timelineService.getAllTransactions(phone).then(function(response){
-             console.log(response);
+            console.log(response);
             $scope.transactions = response;
-
          })
       } 
 })

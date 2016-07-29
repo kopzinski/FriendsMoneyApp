@@ -11,7 +11,7 @@
           <ion-list ng-repeat="contact in phoneContacts" >
           <ion-card ng-click="debitorRegister(contact)">
             <ion-item>
-              <ion-avatar item-left style="float: left;">
+              <ion-avatar item-left class="avatar-ion">
                 <img class="avatar" src="https://maker-live-fldr.imgix.net/assets/no-avatar-circular-ab7d5f67ec61eb5c9b993d61cab298fe.png?auto=format">
               </ion-avatar>
               <h2 ng-if="contact.name == 'Sem Nome' || contact.name == undefined" class="title-name">Desconhecido</h2>
