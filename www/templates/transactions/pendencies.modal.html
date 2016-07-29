@@ -1,13 +1,13 @@
 <ion-modal-view>
     <ion-header-bar>        
-        <i style="font-size: 30px; line-height: 37px; margin-left: 5px;" class="ion-arrow-left-c" ng-click="closeModal()"></i>
+        <i class="ion-arrow-left-c arrow-back" ng-click="closeModal()"></i>
         <h1 class="title" style="text-align">{{transaction.creator.name}}</h1>
     </ion-header-bar>
     <ion-content class="padding">
         <ion-card>
         <ion-item>
-          <ion-avatar item-left style="float: left;">
-            <img style="width: 50px" src="https://maker-live-fldr.imgix.net/assets/no-avatar-circular-ab7d5f67ec61eb5c9b993d61cab298fe.png?auto=format">
+          <ion-avatar item-left class="avatar-ion">
+            <img class="avatar" src="https://maker-live-fldr.imgix.net/assets/no-avatar-circular-ab7d5f67ec61eb5c9b993d61cab298fe.png?auto=format">
           </ion-avatar>
            <div id="name" ng-if="transaction.creator.name">
           <h2>{{transaction.creator.name}}</h2>

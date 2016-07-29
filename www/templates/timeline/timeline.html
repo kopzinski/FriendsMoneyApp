@@ -22,73 +22,20 @@
              <div class="title-body-paid" ng-if="transaction.status == 'paid'">Pago</div>
              <div class="title-body-pending" ng-if="transaction.status == 'pending'">Pendente</div>             
              <div class="title-body-denied" ng-if="transaction.status == 'denied'">Negado</div>
-             <p style="color: #fff" ng-if="transaction.creditor.phone.value == phone && transaction.debtor.name">
+             <p class="color-text-timeline" ng-if="transaction.creditor.phone.value == phone && transaction.debtor.name">
                 O {{transaction.debtor.name}} de telefone {{transaction.debtor.phone.value}} tem uma transação com você no valor de: <label style="font-size: 16px; color: #2cec2c;">R$ {{transaction.value}} </label>
              </p>
-             <p style="color: #fff" ng-if="transaction.creditor.phone.value == phone && !transaction.debtor.name">
+             <p class="color-text-timeline" ng-if="transaction.creditor.phone.value == phone && !transaction.debtor.name">
                 O telefone {{transaction.debtor.phone.value}} tem uma transação com você no valor de: <label style="font-size: 16px; color: #2cec2c;">R$ {{transaction.value}} </label>
              </p>
-             <p style="color: #fff" ng-if="transaction.creditor.phone.value != phone && transaction.creditor.name">
+             <p class="color-text-timeline" ng-if="transaction.creditor.phone.value != phone && transaction.creditor.name">
                 O {{transaction.creditor.name}} de telefone {{transaction.creditor.phone.value}} tem uma transação com você no valor de: <label style="font-size: 16px; color: #2cec2c;">R$ {{transaction.value}} </label>
              </p>
-             <p style="color: #fff" ng-if="transaction.creditor.phone.value != phone && !transaction.creditor.name">
+             <p class="color-text-timeline" ng-if="transaction.creditor.phone.value != phone && !transaction.creditor.name">
                 O telefone {{transaction.creditor.phone.value}} tem uma transação com você no valor de: <label style="font-size: 16px; color: #2cec2c;">R$ {{transaction.value}} </label>
              </p>
           </div>  
         </div>
-
-        <!--div class="div-principal">
-          <div class="item item-body time-body">            
-                  Data
-          </div>
-          <div class="div-tipos">              
-              <div class="divCreditor">
-                <img  style="width: 44px; padding-top: 4px;" src="img/creditor_white.svg">
-              </div>
-          </div>
-          <div class="div-shop">
-             <div class="title-body-denied">Negado</div>
-             <p style="color: #fff">
-                fsafasfasfas
-             </p>
-          </div>  
-        </div>
-
-        <div class="div-principal">
-          <div class="item item-body time-body">            
-                  Data
-          </div>
-          <div class="div-tipos">              
-              <div class="divDebitor">
-                <img  style="width: 44px; padding-top: 4px;" src="img/creditor_white.svg">
-              </div>
-          </div>
-          <div class="div-shop">
-             <div class="title-body-pending">Pendente</div>
-             <p style="color: #fff">
-                fsafasfasfas
-             </p>
-          </div>  
-        </div>
-
-        <div class="div-principal">
-          <div class="item item-body time-body">            
-                  Data
-          </div>
-          <div class="div-tipos">              
-              <div class="divDebitor">
-                <img  style="width: 44px; padding-top: 4px;" src="img/creditor_white.svg">
-              </div>
-          </div>
-          <div class="div-shop">
-             <div class="title-body-paied">Pago</div>
-             <p style="color: #fff">
-                fsafasfasfas
-             </p>
-          </div>  
-        </div-->
-
-
     </div>
   </ion-content>
 
