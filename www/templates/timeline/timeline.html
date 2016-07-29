@@ -23,16 +23,16 @@
              <div class="title-body-pending" ng-if="transaction.status == 'pending'">Pendente</div>             
              <div class="title-body-denied" ng-if="transaction.status == 'denied'">Negado</div>
              <p class="color-text-timeline" ng-if="transaction.creditor.phone.value == phone && transaction.debtor.name">
-                O {{transaction.debtor.name}} de telefone {{transaction.debtor.phone.value}} tem uma transação com você no valor de: <label style="font-size: 16px; color: #2cec2c;">R$ {{transaction.value}} </label>
+                O {{transaction.debtor.name}} de telefone {{transaction.debtor.phone.value}} tem uma transação com você no valor de: <label class="text-content-timeline">R$ {{transaction.value}} </label>
              </p>
              <p class="color-text-timeline" ng-if="transaction.creditor.phone.value == phone && !transaction.debtor.name">
-                O telefone {{transaction.debtor.phone.value}} tem uma transação com você no valor de: <label style="font-size: 16px; color: #2cec2c;">R$ {{transaction.value}} </label>
+                O telefone {{transaction.debtor.phone.value}} tem uma transação com você no valor de: <label class="text-content-timeline">R$ {{transaction.value}} </label>
              </p>
              <p class="color-text-timeline" ng-if="transaction.creditor.phone.value != phone && transaction.creditor.name">
-                O {{transaction.creditor.name}} de telefone {{transaction.creditor.phone.value}} tem uma transação com você no valor de: <label style="font-size: 16px; color: #2cec2c;">R$ {{transaction.value}} </label>
+                O {{transaction.creditor.name}} de telefone {{transaction.creditor.phone.value}} tem uma transação com você no valor de: <label class="text-content-timeline">R$ {{transaction.value}} </label>
              </p>
              <p class="color-text-timeline" ng-if="transaction.creditor.phone.value != phone && !transaction.creditor.name">
-                O telefone {{transaction.creditor.phone.value}} tem uma transação com você no valor de: <label style="font-size: 16px; color: #2cec2c;">R$ {{transaction.value}} </label>
+                O telefone {{transaction.creditor.phone.value}} tem uma transação com você no valor de: <label class="text-content-timeline">R$ {{transaction.value}} </label>
              </p>
           </div>  
         </div>
