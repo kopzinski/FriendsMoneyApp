@@ -4,7 +4,7 @@
    <ion-refresher pulling-text="Puxe para atualizar..." on-refresh="doRefresh()">
    </ion-refresher>         
 
-    <div class="padding" ng-init="onInit()">
+    <div class="padding" ng-init="onInit()" if="transactions">
         <div class="div-principal" ng-repeat="transaction in transactions">
           <div class="item item-body time-body">            
                   {{transaction.createdAt | relativeDate}}
@@ -23,16 +23,16 @@
              <div class="title-body-pending" ng-if="transaction.status == 'pending'">Pendente</div>             
              <div class="title-body-denied" ng-if="transaction.status == 'denied'">Negado</div>
              <p class="color-text-timeline" ng-if="transaction.creditor.phone.value == phone && transaction.debtor.name">
-                O {{transaction.debtor.name}} de telefone {{transaction.debtor.phone.value}} tem uma transação com você no valor de: <label class="text-content-timeline">R$ {{transaction.value}} </label>
+                O <label class="text-content-timeline">{{transaction.debtor.name}}</label> de telefone <label class="text-content-timeline">{{transaction.debtor.phone.value}}</label> tem uma transação com você no valor de: <label class="text-content-timeline">R$ {{transaction.value}} </label>
              </p>
              <p class="color-text-timeline" ng-if="transaction.creditor.phone.value == phone && !transaction.debtor.name">
-                O telefone {{transaction.debtor.phone.value}} tem uma transação com você no valor de: <label class="text-content-timeline">R$ {{transaction.value}} </label>
+                O telefone <label class="text-content-timeline">{{transaction.debtor.phone.value}}</label> tem uma transação com você no valor de: <label class="text-content-timeline">R$ {{transaction.value}} </label>
              </p>
              <p class="color-text-timeline" ng-if="transaction.creditor.phone.value != phone && transaction.creditor.name">
-                O {{transaction.creditor.name}} de telefone {{transaction.creditor.phone.value}} tem uma transação com você no valor de: <label class="text-content-timeline">R$ {{transaction.value}} </label>
+                O <label class="text-content-timeline-red">{{transaction.creditor.name}}</label> de telefone <label class="text-content-timeline-red">{{transaction.creditor.phone.value}}</label> tem uma transação com você no valor de: <label class="text-content-timeline">R$ {{transaction.value}} </label>
              </p>
              <p class="color-text-timeline" ng-if="transaction.creditor.phone.value != phone && !transaction.creditor.name">
-                O telefone {{transaction.creditor.phone.value}} tem uma transação com você no valor de: <label class="text-content-timeline">R$ {{transaction.value}} </label>
+                O telefone <label class="text-content-timeline-red">{{transaction.creditor.phone.value}}</label> tem uma transação com você no valor de: <label class="text-content-timeline">R$ {{transaction.value}} </label>
              </p>
           </div>  
         </div>
