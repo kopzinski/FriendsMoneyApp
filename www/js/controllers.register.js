@@ -5,7 +5,7 @@ angular.module('register.controllers', ['starter.service'])
       $ionicModal.fromTemplateUrl('templates/register/modal.register.html', {
         scope: $scope,
         animation: 'slide-in-up',
-        focusFirstInput: true
+        focusFirstInput: false
       }).then(function(modal) {
         $scope.modal = modal;
       });  
@@ -27,15 +27,22 @@ angular.module('register.controllers', ['starter.service'])
           $scope.modal.show();
       });
 
-      
+      $scope.msg_error = "";
       $scope.register = function(user){ 
-        $scope.uuid = $cordovaDevice.getUUID();
-          
-        registerService.setUser(user, $scope.uuid).then(function(response){
-          console.log("registrou");
-          localStorage.setObject('user', response);
-          $scope.closeModal();
-       })
+        if(user.name == "" || user.name == null || user.name == undefined){
+          $scope.msg_error = "Digite um nome válido";
+        }else if(user.phone.value == "" || user.phone.value == null || user.phone.value == undefined){
+          $scope.msg_error = "Digite um telefone válido";
+        }else{
+          $scope.msg_error = "";
+          $scope.uuid = $cordovaDevice.getUUID();
+          registerService.setUser(user, $scope.uuid).then(function(response){
+            console.log("registrou");
+            localStorage.setObject('user', response);
+            $scope.closeModal();
+          })
+        }
+        
       }
 
 })

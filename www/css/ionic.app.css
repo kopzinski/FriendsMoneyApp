@@ -9962,3 +9962,7 @@ a.button {
 .text-content-timeline-red {
   font-size: 16px;
   color: #da3939; }
+
+.register-error {
+  color: red;
+  margin-top: 10px; }

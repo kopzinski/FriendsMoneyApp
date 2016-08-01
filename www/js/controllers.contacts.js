@@ -113,7 +113,7 @@ angular.module('starter.controller.contact', ['starter.service'])
           
           }
         }else{
-          alert("Sem número");
+          $scope.error_contact = "Inválido";
         }     
     
       }
