@@ -6,11 +6,14 @@
     <form name="registerNumber" ng-submit="register(user)">
       <div class="list">
         <label class="item item-input">
-          <input ng-model="user.name" type="text" placeholder="Nome">
+          <input ng-model="user.name" type="text" placeholder="Nome"/>
         </label>
         <label class="item item-input">
-          <input ng-model="user.phone.value" type="tel" placeholder="Número">
+          <input ng-model="user.phone.value" type="tel" placeholder="Número"/>
         </label>
+        <p class="register-error">
+          {{msg_error}}
+        </p>
       </div>    
       <button type="submit" class="button button-light button-register">
         <p class="text-button">CADASTRAR</p>

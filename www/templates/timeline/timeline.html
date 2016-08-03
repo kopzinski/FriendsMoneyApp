@@ -29,10 +29,10 @@
                 O telefone <label class="text-content-timeline">{{transaction.debtor.phone.value}}</label> tem uma transação com você no valor de: <label class="text-content-timeline">R$ {{transaction.value}} </label>
              </p>
              <p class="color-text-timeline" ng-if="transaction.creditor.phone.value != phone && transaction.creditor.name">
-                O <label class="text-content-timeline-red">{{transaction.creditor.name}}</label> de telefone <label class="text-content-timeline-red">{{transaction.creditor.phone.value}}</label> tem uma transação com você no valor de: <label class="text-content-timeline">R$ {{transaction.value}} </label>
+                O <label class="text-content-timeline-red">{{transaction.creditor.name}}</label> de telefone <label class="text-content-timeline-red">{{transaction.creditor.phone.value}}</label> tem uma transação com você no valor de: <label class="text-content-timeline-red">R$ {{transaction.value}} </label>
              </p>
              <p class="color-text-timeline" ng-if="transaction.creditor.phone.value != phone && !transaction.creditor.name">
-                O telefone <label class="text-content-timeline-red">{{transaction.creditor.phone.value}}</label> tem uma transação com você no valor de: <label class="text-content-timeline">R$ {{transaction.value}} </label>
+                O telefone <label class="text-content-timeline-red">{{transaction.creditor.phone.value}}</label> tem uma transação com você no valor de: <label class="text-content-timeline-red">R$ {{transaction.value}} </label>
              </p>
           </div>  
         </div>
