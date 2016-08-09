@@ -32,10 +32,9 @@ angular.module('starter.service', [])
         registerTransactionWithNoFlag: function(user, transaction){
  
             var data = {
-                transaction : transaction,
-                user : user
+                transaction : transaction
             }
-            var url = "http://10.96.127.155:3000/api/userTransaction";
+            var url = "http://10.96.127.155:3000/api/userOrTransaction";
  
             return $http.post(url, data).then(function(response){
                 var responses = response.data;
@@ -83,14 +82,16 @@ angular.module('starter.service', [])
     return {
         setUser: function(user, device){
         
-        var newUser = {
-            name: user.name,
-            phone:{value: user.phone.value},
-            deviceId: device
+        var data = {
+            user:{
+                name: user.name,
+                phone:{value: user.phone.value},
+                deviceId: device
+            } 
         }
 
-         var url = "http://10.96.127.155:3000/api/user";
-        return $http.post(url, newUser).then(function(response){
+         var url = "http://10.96.127.155:3000/api/userOrTransaction";
+        return $http.post(url, data).then(function(response){
             return response;
         })
         }
