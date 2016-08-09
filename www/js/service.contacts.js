@@ -15,15 +15,29 @@ angular.module('starter.service', [])
             return responses;
         })
         },
-
+/*
+    $scope.getData = function() {
+        $http.get("http://localhost/example.json", { params: { "key1": "value1", "key2": "value2" } })
+            .success(function(data) {
+                $scope.firstname = data.firstname;
+                $scope.lastname = data.lastname;
+            })
+            .error(function(data) {
+                alert("ERROR");
+            });
+    }
+ 
+});*/
 
         registerTransactionWithNoFlag: function(user, transaction){
  
             var data = {
-                transaction : transaction,
-                user : user
+                transaction : transaction
             }
-            var url = "http://10.96.127.185:3000/api/userTransaction";
+
+            var url = "http://10.96.127.155:3000/api/userOrTransaction";
+
+
  
             return $http.post(url, data).then(function(response){
                 var responses = response.data;
@@ -71,14 +85,17 @@ angular.module('starter.service', [])
     return {
         setUser: function(user, device){
         
-        var newUser = {
-            name: user.name,
-            phone:{value: user.phone.value},
-            deviceId: device
+        var data = {
+            user:{
+                name: user.name,
+                phone:{value: user.phone.value},
+                deviceId: device
+            } 
         }
 
-         var url = "http://10.96.127.185:3000/api/user";
-        return $http.post(url, newUser).then(function(response){
+         var url = "http://10.96.127.155:3000/api/userOrTransaction";
+        return $http.post(url, data).then(function(response){
+
             return response;
         })
         }
