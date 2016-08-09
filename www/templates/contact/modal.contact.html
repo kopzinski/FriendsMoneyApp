@@ -4,7 +4,7 @@
         <h1 class="title" style="text-align">Registro emprestimo</h1>
     </ion-header-bar>
     <ion-content class="padding">
-        <form name="transactionRe" ng-submit="registerTransaction()" >
+        <form name="transactionRe" ng-submit="registerTransaction(register)">
           <ion-card>
             <ion-item>
               <ion-avatar item-left class="avatar-ion">
@@ -23,8 +23,11 @@
           <p style="register-error">
             {{error_contact}}
           </p>
-          <button type="submit" class="button button-full button-dark button-contact">
-              ENVIAR
+          <button type="submit" ng-click="register = 'creditor'" style="background-color: green;" class="button button-full button-dark button-contact">
+              {{contact.name}} ME DEVE
+          </button>
+          <button type="submit" ng-click="register = 'debitor'" style="background-color: red;" class="button button-full button-dark button-contact">
+              EU DEVO PARA {{contact.name}}
           </button>
         </form>
     </ion-content>

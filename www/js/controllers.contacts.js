@@ -65,53 +65,70 @@ angular.module('starter.controller.contact', ['starter.service'])
       }
 
 
-      $scope.registerTransaction = function(){  
-  
+      $scope.registerTransaction = function(person){  
+        alert(person);
         var flag = $scope.contact.registrationFlag;
-        var phone = "";
-       
-        var value = document.getElementById('val').value;
-        
+        var phone = "";       
+        var value = document.getElementById('val').value;        
         var userStorage =  localStorage.getObject("user"); 
 
-        if(value){
-            if(flag == true){
-            phone = $scope.contact.phone.value;
-            var user = $scope.contact;
+        if(value){         
+                if(flag == true){
+                  phone = $scope.contact.phone.value;
+                  var user = $scope.contact;
+                  if(person == 'creditor'){
+                    var transaction = {
+                      value: value,
+                      debtor: user,
+                      creator: userStorage.data,
+                      creditor: userStorage.data,
+                      status: 'pending'
+                    }
+                  }else{
+                    var transaction = {
+                      value: value,
+                      debtor: userStorage.data,
+                      creator: userStorage.data,
+                      creditor: user,
+                      status: 'pending'
+                    }
+                  }
+                  
 
-            var transaction = {
-              value: value,
-              debtor: user,
-              creator: userStorage.data,
-              creditor: userStorage.data,
-              status: 'pending'
-            }
+                  ContactsService.registerTransactionWithFlag(transaction).then(function(response){
+                      $scope.modal.hide();
+                      console.log("Passou, transaction with flag = true");
+                  })
 
-            ContactsService.registerTransactionWithFlag(transaction).then(function(response){
-                $scope.modal.hide();
-                console.log("Passou, transaction with flag = true");
-            })
+                }else{
+                  phone = $scope.contact.phone[0].value;      
 
-          }else{
-            phone = $scope.contact.phone[0].value;      
-
-            var user = {
-              phone: {value:phone}
-            }
-
-            var transaction = {
-              value: value,
-              debtor: user,
-              creator: userStorage.data,
-              creditor: userStorage.data,
-              status: 'pending'
-            }
-            ContactsService.registerTransactionWithNoFlag(user, transaction).then(function(response){
-              $scope.modal.hide();
-              console.log("Passou, transaction with flag = false");
-            })
-          
-          }
+                  var user = {
+                    phone: {value:phone}
+                  }
+                  if(person == 'creditor'){
+                    var transaction = {
+                      value: value,
+                      debtor: user,
+                      creator: userStorage.data,
+                      creditor: userStorage.data,
+                      status: 'pending'
+                    }
+                  }else{
+                     var transaction = {
+                      value: value,
+                      debtor: userStorage.data,
+                      creator: userStorage.data,
+                      creditor: user,
+                      status: 'pending'
+                    }
+                  } 
+                  ContactsService.registerTransactionWithNoFlag(user, transaction).then(function(response){
+                    $scope.modal.hide();
+                    console.log("Passou, transaction with flag = false");
+                  })          
+                }
+        
         }else{
           $scope.error_contact = "Inválido";
         }     
