@@ -1,6 +1,6 @@
-angular.module('starter.controller.contact', ['starter.service'])
+angular.module('starter.controller.contact', ['starter.service', 'starter.service.file'])
 
-.controller('ContactCtrl', function($cordovaToast, $ionicHistory, $scope, $state, $ionicModal, localStorage, $timeout, $cordovaContacts, $ionicLoading, ContactsService, registerService) {
+.controller('ContactCtrl', function(FileService, $cordovaToast, $cordovaFile, $ionicHistory, $scope, $state, $ionicModal, localStorage, $timeout, $cordovaContacts, $ionicLoading, ContactsService, registerService) {
   
       $scope.doRefresh = function() {
         function onSuccess(contacts) {
@@ -32,11 +32,43 @@ angular.module('starter.controller.contact', ['starter.service'])
         });
       };
 
+      $scope.cria = function(){
+        FileService.createFile("contacts.json").then(function(response){            
+            console.log(response);
+        })
+      }
+
+      $scope.escreve = function(teste){
+        /*var content = {
+          name: "guilherme",
+          phone: "+555197262289"
+        }*/
+
+        FileService.writeInAFile("contacts.json", teste).then(function(response){            
+            console.log(response);
+        })
+      }
+
+      $scope.le = function(){     
+        FileService.readAsText("contacts.json").then(function(response){      
+            var teste = JSON.parse(response);
+            console.log(teste[0].phone);
+        })
+      }
+
+      $scope.remove = function(){     
+        FileService.removeFile("contacts.json").then(function(response){      
+            console.log(response);
+        })
+      }
+
       $scope.getContacts = function(){
+          
         $scope.showLoading();
         function onSuccess(contacts) {
            ContactsService.setContact(contacts).then(function(responses){            
-              $scope.phoneContacts = responses;              
+              $scope.phoneContacts = responses;  
+              $scope.escreve(responses);            
               $scope.hideLoading();
           })
         }
