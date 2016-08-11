@@ -1,8 +1,8 @@
 angular.module('register.controllers', ['starter.service'])
 
 .controller('RegisterCtrl', function( $cordovaDevice, $window, $location, $ionicHistory, $scope, $state, $ionicModal, localStorage, $timeout, $cordovaContacts, $ionicLoading, ContactsService, registerService) {
-      $scope.ph_numbr = /^[0-9]{2}[0-9]{8,9}$/;
-
+      //$scope.ph_numbr = /^[0-9]{2}[0-9]{8,9}$/;
+      $scope.nameRegex = /^([a-zA-Z ]){2,30}$/;
       $ionicModal.fromTemplateUrl('templates/register/modal.register.html', {
         scope: $scope,
         animation: 'slide-in-up',
@@ -29,19 +29,21 @@ angular.module('register.controllers', ['starter.service'])
       });
 
       $scope.msg_error = "";
-      $scope.register = function(user){ 
-        if(user.name == "" || user.name == null || user.name == undefined){
-          $scope.msg_error = "Digite um nome válido";
-        }else if(user.phone.value == "" || user.phone.value == null || user.phone.value == undefined){
-          $scope.msg_error = "Digite um telefone válido";
-        }else{
-          $scope.msg_error = "";
-          $scope.uuid = $cordovaDevice.getUUID();
-          registerService.setUser(user, $scope.uuid).then(function(response){
-            localStorage.setObject('user', response);
-            $scope.closeModal();
-          })
-        }
+       
+      $scope.user = {
+        name: '',
+        phone : {value:''}   
+      };
+      $scope.register = function(userForm){ 
+          if (userForm.$valid){
+             $scope.uuid = $cordovaDevice.getUUID();
+            registerService.setUser(user, $scope.uuid).then(function(response){
+              localStorage.setObject('user', response);
+              $scope.closeModal();
+            })
+          }
+         
+        
       }
 
 })
