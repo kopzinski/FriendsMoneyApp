@@ -25,7 +25,7 @@
 
         <label class="item item-input item-floating-label" ng-class="{ 'has-errors' : userForm.phone.$invalid  && userForm.$submitted, 'no-errors' : userForm.phone.$valid  && userForm.$submitted}">
           <span class="input-label">DDD + Telefone</span>
-           <input type="text" ng-model="user.phone.value" id="inputPhone" name="phone" ng-minlength="14" placeholder="DDD + telefone" ng-required="true" ui-br-phone-number>
+           <input type="tel" ng-model="user.phone.value" id="inputPhone" name="phone" ng-minlength="14" placeholder="DDD + telefone" ng-required="true" ui-br-phone-number>
         </label>
 
         <div class="error-container last-error-container" ng-show="userForm.phone.$error && userForm.$submitted" ng-messages="userForm.phone.$error">
