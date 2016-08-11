@@ -1,7 +1,8 @@
 angular.module('register.controllers', ['starter.service'])
 
 .controller('RegisterCtrl', function( $cordovaDevice, $window, $location, $ionicHistory, $scope, $state, $ionicModal, localStorage, $timeout, $cordovaContacts, $ionicLoading, ContactsService, registerService) {
-  
+      $scope.ph_numbr = /^[0-9]{2}[0-9]{8,9}$/;
+
       $ionicModal.fromTemplateUrl('templates/register/modal.register.html', {
         scope: $scope,
         animation: 'slide-in-up',
@@ -37,12 +38,10 @@ angular.module('register.controllers', ['starter.service'])
           $scope.msg_error = "";
           $scope.uuid = $cordovaDevice.getUUID();
           registerService.setUser(user, $scope.uuid).then(function(response){
-            console.log("registrou");
             localStorage.setObject('user', response);
             $scope.closeModal();
           })
         }
-        
       }
 
 })

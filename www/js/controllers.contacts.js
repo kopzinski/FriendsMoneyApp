@@ -66,7 +66,6 @@ angular.module('starter.controller.contact', ['starter.service'])
 
 
       $scope.registerTransaction = function(person){  
-        alert(person);
         var flag = $scope.contact.registrationFlag;
         var phone = "";       
         var value = document.getElementById('val').value;        
@@ -123,7 +122,7 @@ angular.module('starter.controller.contact', ['starter.service'])
                       status: 'pending'
                     }
                   } 
-                  ContactsService.registerTransactionWithNoFlag(user, transaction).then(function(response){
+                  ContactsService.registerTransactionWithNoFlag(transaction).then(function(response){
                     $scope.modal.hide();
                     console.log("Passou, transaction with flag = false");
                   })          

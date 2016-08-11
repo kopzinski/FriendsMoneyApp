@@ -3,18 +3,27 @@
         <h1 class="title" style="text-align">Registro Usuário</h1>
     </ion-header-bar>
     <ion-content class="padding">
-    <form name="registerNumber" ng-submit="register(user)">
+    <form name="registerNumber" ng-submit="registerNumber.$valid && register(user) ">
+      <div class="form-group" >
       <div class="list">
-        <label class="item item-input">
-          <input ng-model="user.name" type="text" placeholder="Nome"/>
+        <label class="item item-input item-floating-label">
+          <span class="input-label">Nome</span>
+          <input ng-required="true" name="name" ng-model="user.name" type="text" placeholder="Nome"/>
         </label>
-        <label class="item item-input">
-          <input ng-model="user.phone.value" type="tel" placeholder="Número"/>
+        <div class="register-error" ng-if="submitted">
+          <p ng-message="required">Campo obrigatório.</p>
+        </div>
+        <label class="item item-input item-floating-label">
+          <span class="input-label">DDD + Telefone</span>
+           <input type="text" ng-model="user.phone.value" id="inputPhone" name="phone" placeholder="DDD + telefone" ng-required="true" ui-br-phone-number>
         </label>
-        <p class="register-error">
-          {{msg_error}}
-        </p>
-      </div>    
+        
+        <div class="register-error" ng-if="submitted">
+          <p ng-message="pattern">Telefone inválido.</p>
+          <p ng-message="required">Campo obrigatório.</p>
+        </div>
+      </div>  
+      </div>  
       <button type="submit" class="button button-light button-register">
         <p class="text-button">CADASTRAR</p>
       </button>
