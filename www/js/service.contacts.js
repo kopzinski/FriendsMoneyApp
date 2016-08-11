@@ -13,19 +13,6 @@ angular.module('starter.service', [])
             return responses;
         })
         },
-/*
-    $scope.getData = function() {
-        $http.get("http://localhost/example.json", { params: { "key1": "value1", "key2": "value2" } })
-            .success(function(data) {
-                $scope.firstname = data.firstname;
-                $scope.lastname = data.lastname;
-            })
-            .error(function(data) {
-                alert("ERROR");
-            });
-    }
- 
-});*/
 
         registerTransactionWithNoFlag: function(transaction){
  
@@ -77,11 +64,10 @@ angular.module('starter.service', [])
 .factory('registerService', function($http){
     return {
         setUser: function(user, device){
-        user.phone.value = "+55"+user.phone.value;
         var data = {
             user:{
                 name: user.name,
-                phone:{value: user.phone.value},
+                phone:{value: "+55"+user.phone.value},
                 deviceId: device
             } 
         }
@@ -99,7 +85,6 @@ angular.module('starter.service', [])
 
         getAllTransactions:function(phone){            
             var url = "http://10.96.127.155:3000/api/transactions/" + phone ;
-           
             return $http.get(url).then(function(response){
                 return response.data;       
             })
