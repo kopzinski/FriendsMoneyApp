@@ -1,20 +1,46 @@
 <ion-modal-view>
     <ion-header-bar>       
-        <h1 class="title" style="text-align">Registro Usuário</h1>
+        <h1 class="title" style="text-align">Registro</h1>
     </ion-header-bar>
     <ion-content class="padding">
-    <form name="registerNumber" ng-submit="register(user)">
+    <form name="userForm" novalidate="" ng-submit="register(userForm) ">
+      <div class="form-group" >
       <div class="list">
-        <label class="item item-input">
-          <input ng-model="user.name" type="text" placeholder="Nome"/>
+
+        <label class="item item-input item-floating-label" ng-class="{ 'has-errors' : userForm.name.$invalid && userForm.$submitted, 'no-errors' : userForm.name.$valid && userForm.$submitted}">
+          <span class="input-label">Nome</span>
+          <input ng-required="true" name="name" ng-model="user.name" type="text" ng-pattern="nameRegex" placeholder="Nome" required>
         </label>
-        <label class="item item-input">
-          <input ng-model="user.phone.value" type="tel" placeholder="Número"/>
+
+        <div class="error-container last-error-container" ng-show="userForm.name.$error && userForm.$submitted" ng-messages="userForm.name.$error">
+          <div class="error" ng-message="required">
+            <i class="ion-information-circled"></i> 
+            Campo obrigatório
+          </div>
+          <div class="error" ng-message="pattern">
+            <i class="ion-information-circled"></i> 
+            Nome com caracteres inválidos
+          </div>
+        </div>
+
+        <label class="item item-input item-floating-label" ng-class="{ 'has-errors' : userForm.phone.$invalid  && userForm.$submitted, 'no-errors' : userForm.phone.$valid  && userForm.$submitted}">
+          <span class="input-label">DDD + Telefone</span>
+           <input type="text" ng-model="user.phone.value" id="inputPhone" name="phone" ng-minlength="14" placeholder="DDD + telefone" ng-required="true" ui-br-phone-number>
         </label>
-        <p class="register-error">
-          {{msg_error}}
-        </p>
-      </div>    
+
+        <div class="error-container last-error-container" ng-show="userForm.phone.$error && userForm.$submitted" ng-messages="userForm.phone.$error">
+          <div class="error" ng-message="required">
+            <i class="ion-information-circled"></i> 
+            Campo obrigatório
+          </div>
+          <div class="error" ng-message="minlength">
+            <i class="ion-information-circled"></i> 
+           Número de celular inválido
+          </div>
+        </div>
+
+      </div>  
+      </div>  
       <button type="submit" class="button button-light button-register">
         <p class="text-button">CADASTRAR</p>
       </button>

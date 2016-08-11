@@ -95,13 +95,12 @@ angular.module('starter.controller.contact', ['starter.service', 'starter.servic
         $scope.modal.show();
         $scope.contact = index;
       }
+      $scope.transaction = {};
+      $scope.registerTransaction = function(person, valueForm){  
 
-
-      $scope.registerTransaction = function(person){  
-        alert(person);
         var flag = $scope.contact.registrationFlag;
         var phone = "";       
-        var value = document.getElementById('val').value;        
+        var value = valueForm.value;
         var userStorage =  localStorage.getObject("user"); 
 
         if(value){         
@@ -128,7 +127,9 @@ angular.module('starter.controller.contact', ['starter.service', 'starter.servic
                   
 
                   ContactsService.registerTransactionWithFlag(transaction).then(function(response){
+                    
                       $scope.modal.hide();
+                      $scope.transaction.value = ""
                       console.log("Passou, transaction with flag = true");
                   })
 
@@ -155,8 +156,9 @@ angular.module('starter.controller.contact', ['starter.service', 'starter.servic
                       status: 'pending'
                     }
                   } 
-                  ContactsService.registerTransactionWithNoFlag(user, transaction).then(function(response){
+                  ContactsService.registerTransactionWithNoFlag(transaction).then(function(response){
                     $scope.modal.hide();
+                    $scope.transaction.value = "";
                     console.log("Passou, transaction with flag = false");
                   })          
                 }

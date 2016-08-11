@@ -5,7 +5,8 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
 
-angular.module('starter', ['ionic', 'starter.controller.contact', 'starter.controller.pendencies', 'ngCordova', 'starter.service','starter.routes', 'starter.Storage','register.controllers', 'starter.controller.timeline', 'starter.service.file'])
+angular.module('starter', ['ngMessages','ui.utils.masks', 'ionic', 'starter.controller.contact', 'starter.controller.pendencies', 'ngCordova', 'starter.service','starter.routes', 'starter.Storage','register.controllers', 'starter.controller.timeline', 'starter.service.file'])
+
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
