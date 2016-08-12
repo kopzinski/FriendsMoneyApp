@@ -8,7 +8,7 @@
     <button class="button" ng-click="getContacts()">Listar contatos</button>  
    </div>       
     <div class="padding">
-          <ion-list ng-repeat="contact in phoneContacts" >
+          <ion-list ng-repeat="contact in phoneContacts | orderBy:'name'" >
           <ion-card ng-click="debitorRegister(contact)">
             <ion-item>
               <ion-avatar item-left class="avatar-ion">
