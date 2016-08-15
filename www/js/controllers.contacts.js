@@ -1,15 +1,21 @@
-angular.module('starter.controller.contact', ['starter.service'])
+angular.module('starter.controller.contact', ['starter.service', 'starter.service.file'])
 
-.controller('ContactCtrl', function($cordovaToast, $ionicHistory, $scope, $state, $ionicModal, localStorage, $timeout, $cordovaContacts, $ionicLoading, ContactsService, registerService) {
+.controller('ContactCtrl', function(FileService, $cordovaToast, $cordovaFile, $ionicHistory, $scope, $state, $ionicModal, localStorage, $timeout, $cordovaContacts, $ionicLoading, ContactsService, registerService) {
   
       $scope.doRefresh = function() {
         function onSuccess(contacts) {
-           ContactsService.setContact(contacts).then(function(responses){            
-            $scope.phoneContacts = responses; 
-            $scope.$broadcast('scroll.refreshComplete');
-            $cordovaToast.showShortBottom('Atualizado');
+           ContactsService.setContact(contacts).then(function(responses){                        
+              
+              $scope.removeFile();
+              $scope.cont = responses; 
+              $scope.createFile(); 
+              $scope.writeFile(responses);  
+              $scope.phoneContacts = responses; 
+              $scope.$broadcast('scroll.refreshComplete');
+              $cordovaToast.showShortBottom('Atualizado');
           })
         }
+        
         function onError(contactError) {
             alert(contactError);
           };
@@ -17,9 +23,10 @@ angular.module('starter.controller.contact', ['starter.service'])
           options.filter = "";
           options.hasPhoneNumber = true;
           options.multiple = true;
-          $cordovaContacts.find(options).then(onSuccess, onError);        
+          $cordovaContacts.find(options).then(onSuccess, onError);
+      
       };
-
+      
        $scope.showLoading = function() {
         //options default to values in $ionicLoadingConfig
         $ionicLoading.show().then(function(){          
@@ -32,11 +39,51 @@ angular.module('starter.controller.contact', ['starter.service'])
         });
       };
 
+      $scope.createFile = function(){
+        FileService.createFile("contacts.json").then(function(response){            
+            console.log('criou o arquivo', response);
+        })
+      }
+
+      $scope.writeFile = function(teste){
+        FileService.writeInAFile("contacts.json", teste).then(function(response){            
+            console.log('escreveu o arquivo', response);
+        })
+      }
+
+      $scope.readFile = function(){     
+        FileService.readAsText("contacts.json").then(function(response){      
+            var teste = JSON.parse(response);
+            console.log(response);
+        })
+      }
+
+      $scope.removeFile = function(){     
+        FileService.removeFile("contacts.json").then(function(response){      
+            console.log('remove file', response);
+        })
+      }
+
+
+
+      $scope.contactsOnLoad = function(){      
+        FileService.readAsText("contacts.json").then(function(response){ 
+            response = JSON.parse(response);
+            $scope.cont = response;
+            console.log($scope.cont);            
+        })
+      }
+
       $scope.getContacts = function(){
+
         $scope.showLoading();
         function onSuccess(contacts) {
-           ContactsService.setContact(contacts).then(function(responses){            
-              $scope.phoneContacts = responses;              
+           ContactsService.setContact(contacts).then(function(responses){                       
+              
+              $scope.removeFile();
+              $scope.phoneContacts = responses; 
+              $scope.createFile(); 
+              $scope.writeFile(responses);            
               $scope.hideLoading();
           })
         }
