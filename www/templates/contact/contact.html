@@ -1,11 +1,11 @@
 <ion-view view-title="Contatos" >
   
-  <ion-content class="home">
+  <ion-content class="home" ng-init="contactsOnLoad()">
    <ion-refresher pulling-text="Puxe para atualizar..." on-refresh="doRefresh()">
 
    </ion-refresher>
    <div class="button-div">
-    <button class="button" ng-click="getContacts()">Listar contatos</button>  
+    <!--button class="button" ng-click="getContacts()">Listar contatos</button-->  
     
     <button class="button" ng-click="contactsOnLoad()">Listar contatos do cel</button>  
 
@@ -18,7 +18,7 @@
 
    </div>    
    
-        <div class="padding" ng-if="cont">
+        <div class="padding" ng-if="cont" >
           <ion-list ng-repeat="contact in cont" >
             <ion-card ng-click="debitorRegister(contact)">
               <ion-item>

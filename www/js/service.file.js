@@ -37,7 +37,36 @@ angular.module('starter.service.file', [])
                 return error;
             });
         },
-        
+
+        removeAndCreateAndWrite: function(fileName, content){
+            return $cordovaFile.removeFile(cordova.file.dataDirectory, fileName)
+            .then(function (success) {
+                $cordovaFile.createFile(cordova.file.dataDirectory, fileName, true)
+                .then(function (success) {
+                    $cordovaFile.writeExistingFile(cordova.file.dataDirectory, fileName, content)
+                    .then(function (success) {
+                        return success;
+                    }, function (error) {
+                        return error;
+                    });  
+                }, function (error) {
+                    return error;
+                });  
+            }, function (error) {
+                $cordovaFile.createFile(cordova.file.dataDirectory, fileName, true)
+                .then(function (success) {
+                    $cordovaFile.writeExistingFile(cordova.file.dataDirectory, fileName, content)
+                    .then(function (success) {
+                        return success;
+                    }, function (error) {
+                        return error;
+                    });  
+                }, function (error) {
+                    return error;
+                });
+            });            
+        },
+
         createFile: function(fileName){
            return $cordovaFile.createFile(cordova.file.dataDirectory, fileName, true)
             .then(function (success) {

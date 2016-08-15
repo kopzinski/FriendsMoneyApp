@@ -3,27 +3,25 @@ angular.module('starter.controller.contact', ['starter.service', 'starter.servic
 .controller('ContactCtrl', function(FileService, $cordovaToast, $cordovaFile, $ionicHistory, $scope, $state, $ionicModal, localStorage, $timeout, $cordovaContacts, $ionicLoading, ContactsService, registerService) {
   
       $scope.doRefresh = function() {
-        function onSuccess(contacts) {
-           ContactsService.setContact(contacts).then(function(responses){                        
-              
-              $scope.removeFile();
-              $scope.cont = responses; 
-              $scope.createFile(); 
-              $scope.writeFile(responses);  
-              $scope.phoneContacts = responses; 
-              $scope.$broadcast('scroll.refreshComplete');
-              $cordovaToast.showShortBottom('Atualizado');
-          })
-        }
-        function onError(contactError) {
-            alert(contactError);
-          };
-          var options = {};
-          options.filter = "";
-          options.hasPhoneNumber = true;
-          options.multiple = true;
-          $cordovaContacts.find(options).then(onSuccess, onError);
-      
+          function onSuccess(contacts) {        
+            ContactsService.setContact(contacts).then(function(responses){
+                FileService.removeAndCreateAndWrite("contacts.json", responses).then(function(response){
+                  console.log(response);
+                  $scope.$broadcast('scroll.refreshComplete');
+                  $cordovaToast.showShortBottom('Atualizado');          
+                });   
+            });      
+            $scope.contactsOnLoad();
+            $scope.contactsOnLoad();              
+          }
+          function onError(contactError) {
+              alert(contactError);
+            };
+            var options = {};
+            options.filter = "";
+            options.hasPhoneNumber = true;
+            options.multiple = true;
+            $cordovaContacts.find(options).then(onSuccess, onError);     
       };
       
        $scope.showLoading = function() {
@@ -44,9 +42,10 @@ angular.module('starter.controller.contact', ['starter.service', 'starter.servic
         })
       }
 
-      $scope.writeFile = function(teste){
-        FileService.writeInAFile("contacts.json", teste).then(function(response){            
-            console.log('escreveu o arquivo', response);
+      $scope.writeFile = function(content){
+        FileService.writeInAFile("contacts.json", content).then(function(response){            
+            console.log('escreveu o arquivo');
+        	  console.log(content);
         })
       }
 
@@ -57,35 +56,44 @@ angular.module('starter.controller.contact', ['starter.service', 'starter.servic
         })
       }
 
+      $scope.checkFileByFile = function(){     
+        FileService.checkFileByFile("contacts.json").then(function(response){      
+            console.log(response);            
+        })
+      }
+
       $scope.removeFile = function(){     
         FileService.removeFile("contacts.json").then(function(response){      
             console.log('remove file', response);
         })
       }
 
-
-
+      
       $scope.contactsOnLoad = function(){      
-        FileService.readAsText("contacts.json").then(function(response){ 
-            response = JSON.parse(response);
-            $scope.cont = response;
-            console.log($scope.cont);            
-        })
+        FileService.readAsText("contacts.json").then(function(response){  
+              console.log("entrou aqui");         
+              response = JSON.parse(response);
+              $scope.cont = response;
+              console.log($scope.cont);                                    
+        });
       }
 
-      $scope.getContacts = function(){
 
+
+
+      $scope.getContacts = function(){
         $scope.showLoading();
-        function onSuccess(contacts) {
-           ContactsService.setContact(contacts).then(function(responses){                       
-              
-              $scope.removeFile();
-              $scope.phoneContacts = responses; 
-              $scope.createFile(); 
-              $scope.writeFile(responses);            
-              $scope.hideLoading();
-          })
+        function onSuccess(contacts) {        
+           ContactsService.setContact(contacts).then(function(responses){
+              FileService.removeAndCreateAndWrite("contacts.json", responses).then(function(response){
+                console.log(response);
+                           
+              });   
+          });
+                  
+          $scope.hideLoading();
         }
+
         function onError(contactError) {
             alert(contactError);
           };
