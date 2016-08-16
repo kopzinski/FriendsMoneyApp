@@ -5,18 +5,15 @@
 
    </ion-refresher>
    <div class="button-div">
-    
+
     
     <button class="button" ng-click="contactsOnLoad()">Listar contatos do cel</button>  
-
-    
-
-
 
    </div>    
    
         <div class="padding" ng-if="cont" >
-          <ion-list ng-repeat="contact in cont" >
+          <ion-list ng-repeat="contact in cont | orderBy:'name'" >
+
             <ion-card ng-click="debitorRegister(contact)">
               <ion-item>
                 <ion-avatar item-left class="avatar-ion">
@@ -40,8 +37,5 @@
             </ion-card>
           </ion-list>
         </div>
-
-
-        
   </ion-content>
 </ion-view>
