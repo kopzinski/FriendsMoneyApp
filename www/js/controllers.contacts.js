@@ -79,8 +79,6 @@ angular.module('starter.controller.contact', ['starter.service', 'starter.servic
       }
 
 
-
-
       $scope.getContacts = function(){
         $scope.showLoading();
         function onSuccess(contacts) {        
