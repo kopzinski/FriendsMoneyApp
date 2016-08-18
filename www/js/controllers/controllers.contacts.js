@@ -18,7 +18,7 @@ angular.module('starter.controller.contact', ['starter.service', 'starter.servic
             };
             var options = {};
             options.filter = "";
-            if($ionicPlatform.isAndroid()){
+            if(ionic.Platform.isAndroid()){
                  options.hasPhoneNumber = true;
             }
            
@@ -73,7 +73,8 @@ angular.module('starter.controller.contact', ['starter.service', 'starter.servic
       
       $scope.contactsOnLoad = function(){      
         FileService.readAsText("contacts.json").then(function(response){  
-              console.log("entrou aqui");         
+              console.log("entrou aqui"); 
+                   
               response = JSON.parse(response);
               $scope.cont = response;
               console.log($scope.cont);                                    
