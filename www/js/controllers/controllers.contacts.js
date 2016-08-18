@@ -181,7 +181,6 @@ angular.module('starter.controller.contact', ['starter.service', 'starter.servic
                     console.log("Passou, transaction with flag = false");
                   })          
                 }
-        
         }else{
           $scope.error_contact = "Inválido";
         }     
