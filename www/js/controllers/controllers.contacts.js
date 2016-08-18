@@ -1,6 +1,6 @@
 angular.module('starter.controller.contact', ['starter.service', 'starter.service.file'])
 
-.controller('ContactCtrl', function(FileService, $cordovaToast, $cordovaFile, $ionicHistory, $scope, $state, $ionicModal, localStorage, $timeout, $cordovaContacts, $ionicLoading, ContactsService, registerService) {
+.controller('ContactCtrl', function($ionicPlatform, FileService, $cordovaToast, $cordovaFile, $ionicHistory, $scope, $state, $ionicModal, localStorage, $timeout, $cordovaContacts, $ionicLoading, ContactsService, registerService) {
   
       $scope.doRefresh = function() {
           function onSuccess(contacts) {        
@@ -18,7 +18,10 @@ angular.module('starter.controller.contact', ['starter.service', 'starter.servic
             };
             var options = {};
             options.filter = "";
-            options.hasPhoneNumber = true;
+            if($ionicPlatform.isAndroid()){
+                 options.hasPhoneNumber = true;
+            }
+           
             options.multiple = true;
             $cordovaContacts.find(options).then(onSuccess, onError);     
       };
