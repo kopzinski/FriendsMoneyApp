@@ -1,29 +1,36 @@
 angular.module('starter.controller.pendencies', ['starter.service', 'relativeDate'])
 
 
-.controller('ControllerPendencies', function($window, $location, localStorage, $scope, $ionicModal, $timeout, $ionicLoading, PendeciesService) {
-      $scope.getTransactions = function(){
-        var user =  localStorage.getObject("user");
-        var phone = user.data.phone.value;
-        PendeciesService.getListContacts(phone).then(function(responses){
-            console.log(responses);
-            $scope.transactions = responses;
-        });
+.controller('ControllerPendencies', function(FileService, $cordovaToast, $cordovaNetwork, $window, $location, localStorage, $scope, $ionicModal, $timeout, $ionicLoading, PendeciesService) {
+     
+
+     $scope.getPendencies = function(){
+       FileService.readAsText("pendencies.json").then(function(response){  
+          console.log("entrou aqui");         
+          response = JSON.parse(response);
+          $scope.transactions = response;
+          console.log($scope.transactions);                                                     
+       });        
       }
 
     $scope.doRefresh = function() {
-        
-      var user =  localStorage.getObject("user");
-      var phone = user.data.phone.value;
-      PendeciesService.getListContacts(phone).then(function(responses){
-        //alert(responses.transactions);
-        $scope.transactions = responses;
-        $scope.$broadcast('scroll.refreshComplete');
-        $cordovaToast.showShortBottom('Atualizado');
-      })          
-      $scope.$broadcast('scroll.refreshComplete');
-      $cordovaToast.showShortBottom('Atualizado');
-    
+      console.log($cordovaNetwork.isOnline());
+      if($cordovaNetwork.isOnline() == true){
+          var user =  localStorage.getObject("user");
+          var phone = user.data.phone.value;
+          PendeciesService.getListContacts(phone).then(function(responses){    
+            FileService.removeAndCreateAndWrite("pendencies.json", responses).then(function(resp){
+              console.log("excluiu, criou, populou");
+              console.log(resp);                                                      
+            });       
+          });   
+          $scope.$broadcast('scroll.refreshComplete');
+          $cordovaToast.showShortBottom('Atualizado');     
+            
+      }else{
+          $scope.$broadcast('scroll.refreshComplete');
+          $cordovaToast.showShortBottom('Não foi possível atualizar, sem conexão');
+      }         
                
     };
 
@@ -36,9 +43,14 @@ angular.module('starter.controller.pendencies', ['starter.service', 'relativeDat
    });
 	
    $scope.openModal = function(transaction) {
-     console.log(transaction);
-     $scope.transaction = transaction;
-      $scope.modal.show();
+     if($cordovaNetwork.isOnline() == true){
+        console.log(transaction);
+        $scope.transaction = transaction;
+        $scope.modal.show();
+     }else{
+        $cordovaToast.showShortBottom('Impossível realizar a ação, sem conexão.');
+     }
+     
    };
 	
    $scope.closeModal = function() {
@@ -59,6 +71,7 @@ angular.module('starter.controller.pendencies', ['starter.service', 'relativeDat
    $scope.$on('modal.removed', function() {
 
    });
+
    $scope.changePendencieStatus = function(transaction, status){
      transaction.status = status
       PendeciesService.changeStatusPendencie(transaction).then(function(response){

@@ -55,7 +55,7 @@ angular.module('starter.routes', [])
     var user = window.localStorage["friendsMoney" + "user"];
     if(user){
       console.log("tem registro");
-      $location.path('/app/contact');
+      $location.path('/app/timeline');
     }else{
       console.log("não tem registro");
       $location.path('/app/register');

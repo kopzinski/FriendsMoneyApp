@@ -81,4 +81,5 @@
     <plugin name="cordova-plugin-x-toast" spec="https://github.com/EddyVerbruggen/Toast-PhoneGap-Plugin.git" />
     <plugin name="cordova-plugin-device" spec="https://git-wip-us.apache.org/repos/asf/cordova-plugin-device.git" />
     <plugin name="cordova-plugin-file" spec="~4.2.0" />
+    <plugin name="cordova-plugin-network-information" spec="~1.2.1" />
 </widget>

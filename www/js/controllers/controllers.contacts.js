@@ -1,29 +1,35 @@
 angular.module('starter.controller.contact', ['starter.service', 'starter.service.file'])
 
-.controller('ContactCtrl', function($ionicPlatform, FileService, $cordovaToast, $cordovaFile, $ionicHistory, $scope, $state, $ionicModal, localStorage, $timeout, $cordovaContacts, $ionicLoading, ContactsService, registerService) {
+.controller('ContactCtrl', function($cordovaNetwork, $ionicPlatform, FileService, $cordovaToast, $cordovaFile, $ionicHistory, $scope, $state, $ionicModal, localStorage, $timeout, $cordovaContacts, $ionicLoading, ContactsService, registerService) {
   
       $scope.doRefresh = function() {
+        if($cordovaNetwork.isOnline() == true){
           function onSuccess(contacts) {        
             ContactsService.setContact(contacts).then(function(responses){
                 FileService.removeAndCreateAndWrite("contacts.json", responses).then(function(response){
                   console.log(response);
-                  $scope.$broadcast('scroll.refreshComplete');
-                  $cordovaToast.showShortBottom('Atualizado');          
+                          
                 });   
             });      
+            $scope.$broadcast('scroll.refreshComplete');
+            $cordovaToast.showShortBottom('Atualizado');  
             $scope.contactsOnLoad();              
           }
           function onError(contactError) {
-              alert(contactError);
-            };
-            var options = {};
-            options.filter = "";
-            if(ionic.Platform.isAndroid()){
-                 options.hasPhoneNumber = true;
-            }
-           
-            options.multiple = true;
-            $cordovaContacts.find(options).then(onSuccess, onError);     
+            alert(contactError);
+          };
+          var options = {};
+          options.filter = "";
+          if(ionic.Platform.isAndroid()){
+                options.hasPhoneNumber = true;
+          }
+          
+          options.multiple = true;
+          $cordovaContacts.find(options).then(onSuccess, onError); 
+        }else{
+          $scope.$broadcast('scroll.refreshComplete');
+          $cordovaToast.showShortBottom('Não foi possível atualizar, sem conexão');
+        }    
       };
       
        $scope.showLoading = function() {
@@ -115,8 +121,13 @@ angular.module('starter.controller.contact', ['starter.service', 'starter.servic
       });  
 
       $scope.debitorRegister = function(index){
-        $scope.modal.show();
-        $scope.contact = index;
+        if($cordovaNetwork.isOnline() == true){
+          $scope.modal.show();
+          $scope.contact = index;
+        }else{
+          $cordovaToast.showShortBottom('Impossível realizar a ação, sem conexão.');
+        }
+        
       }
       $scope.transaction = {};
       $scope.registerTransaction = function(person, valueForm){  
