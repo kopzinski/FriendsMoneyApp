@@ -18,6 +18,7 @@ angular.module('starter.controller.pendencies', ['starter.service', 'relativeDat
       if($cordovaNetwork.isOnline() == true){
           var user =  localStorage.getObject("user");
           var phone = user.data.phone.value;
+          
           PendeciesService.getListContacts(phone).then(function(responses){    
             FileService.removeAndCreateAndWrite("pendencies.json", responses).then(function(resp){
               console.log("excluiu, criou, populou");
@@ -71,6 +72,11 @@ angular.module('starter.controller.pendencies', ['starter.service', 'relativeDat
    $scope.$on('modal.removed', function() {
 
    });
+
+
+  var user =  localStorage.getObject("user");
+  var phone = user.data.phone.value;
+  $scope.phone = phone;
 
    $scope.changePendencieStatus = function(transaction, status){
      transaction.status = status

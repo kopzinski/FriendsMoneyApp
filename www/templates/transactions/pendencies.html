@@ -9,23 +9,25 @@
         Hoje
       </div>
       <ion-item  ng-repeat="transaction in transactions" ng-click = "openModal(transaction)" class="item-list">
-        <ion-avatar item-left style="float: left; margin-right:10px">
-            <img style="width: 45px" src="img/no-avatar.png">
-        </ion-avatar>
-         <div item-left style="float:left" >
-        <div id="name" ng-if="transaction.creator.name">
-          <h2>{{transaction.creator.name}}</h2>
-        </div>
-        <div id="phone"  ng-if="!transaction.creator.name">
-          <h2>{{transaction.creator.phone}}</h2>
-        </div>
-        <p >{{transaction.createdAt | relativeDate}}</p>
-         </div>
-         <div ng-if="transaction.creator.phone.value != transaction.creditor.phone.value" class="item-image">
-          <img src="img/creditor.svg">
-         </div>
-         <div ng-if="transaction.creator.phone.value != transaction.debtor.phone.value" class="item-image">
-          <img src="img/debtor.svg">
+        <div ng-if="((transaction.status == 'paymentConfirm')&&(transaction.creditor.phone.value == phone && !transaction.creditor.senderConfirm)||(transaction.debtor.phone.value == phone && !transaction.debtor.senderConfirm))||(transaction.status == 'pending')">
+          <ion-avatar item-left style="float: left; margin-right:10px">
+              <img style="width: 45px" src="img/no-avatar.png">
+          </ion-avatar>
+          <div item-left style="float:left" >
+          <div id="name" ng-if="transaction.creator.name">
+            <h2>{{transaction.creator.name}} <label ng-if="transaction.status == 'paymentConfirm'">| CONFIRMAR PAGAMENTO</label></h2>
+          </div>
+          <div id="phone"  ng-if="!transaction.creator.name">
+            <h2>{{transaction.creator.phone}}</h2>
+          </div>
+          <p >{{transaction.createdAt | relativeDate}}</p>
+          </div>
+          <div ng-if="transaction.creator.phone.value != transaction.creditor.phone.value" class="item-image">
+            <img src="img/creditor.svg">
+          </div>
+          <div ng-if="transaction.creator.phone.value != transaction.debtor.phone.value" class="item-image">
+            <img src="img/debtor.svg">
+          </div>
          </div>
       </ion-item>
     </ion-list>

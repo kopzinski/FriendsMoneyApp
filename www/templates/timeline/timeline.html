@@ -24,6 +24,7 @@
              <div class="title-body-paid" ng-if="transaction.status == 'paid'">Pago</div>
              <div class="title-body-pending" ng-if="transaction.status == 'pending'">Pendente</div>             
              <div class="title-body-denied" ng-if="transaction.status == 'denied'">Negado</div>
+             <div class="title-body-pending" ng-if="transaction.status == 'paymentConfirm'">Aguardando confirmar pagamento</div>
              <p class="color-text-timeline" ng-if="transaction.creditor.phone.value == phone && transaction.debtor.name">
                 O <label class="text-content-timeline">{{transaction.debtor.name}}</label> de telefone <label class="text-content-timeline">{{transaction.debtor.phone.value}}</label> tem uma transação com você no valor de: <label class="text-content-timeline">R$ {{transaction.value}} </label>
              </p>
