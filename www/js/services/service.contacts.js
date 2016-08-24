@@ -37,14 +37,14 @@ angular.module('starter.service', [])
     }
 })
 
-.factory('PendeciesService', function($http){
+.factory('TransactionService', function($http){
     return {
         getListContacts: function(phone){
             return $http.get('http://10.96.127.185:3000/api/pendingTransactions/'+phone).then(function(response){
                 return response.data;
             })
         },
-        changeStatusPendencie: function(transaction){
+        changeStatusTransaction: function(transaction){
 
             var url = "http://10.96.127.185:3000/api/transaction";
             var req = {

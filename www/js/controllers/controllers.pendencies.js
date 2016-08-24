@@ -1,12 +1,11 @@
 angular.module('starter.controller.pendencies', ['starter.service', 'relativeDate'])
 
 
-.controller('ControllerPendencies', function(FileService, $cordovaToast, $cordovaNetwork, $window, $location, localStorage, $scope, $ionicModal, $timeout, $ionicLoading, PendeciesService) {
-     
 
+
+.controller('ControllerPendencies', function(FileService,$cordovaToast,$cordovaNetwork, $window, $location, localStorage, $scope, $ionicModal, $ionicLoading, TransactionService) {
      $scope.getPendencies = function(){
        FileService.readAsText("pendencies.json").then(function(response){  
-          console.log("entrou aqui");         
           response = JSON.parse(response);
           $scope.transactions = response;
           console.log($scope.transactions);                                                     
@@ -19,7 +18,7 @@ angular.module('starter.controller.pendencies', ['starter.service', 'relativeDat
           var user =  localStorage.getObject("user");
           var phone = user.data.phone.value;
           
-          PendeciesService.getListContacts(phone).then(function(responses){    
+          TransactionService.getListContacts(phone).then(function(responses){    
             FileService.removeAndCreateAndWrite("pendencies.json", responses).then(function(resp){
               console.log("excluiu, criou, populou");
               console.log(resp);                                                      
@@ -32,7 +31,6 @@ angular.module('starter.controller.pendencies', ['starter.service', 'relativeDat
           $scope.$broadcast('scroll.refreshComplete');
           $cordovaToast.showShortBottom('Não foi possível atualizar, sem conexão');
       }         
-               
     };
 
 
@@ -80,7 +78,7 @@ angular.module('starter.controller.pendencies', ['starter.service', 'relativeDat
 
    $scope.changePendencieStatus = function(transaction, status){
      transaction.status = status
-      PendeciesService.changeStatusPendencie(transaction).then(function(response){
+      TransactionService.changeStatusTransaction(transaction).then(function(response){
         console.log(response);
         $scope.closeModal();
         $window.location.reload(true)

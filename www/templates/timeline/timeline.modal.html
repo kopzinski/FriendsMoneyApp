@@ -1,0 +1,25 @@
+<ion-modal-view>
+    <ion-header-bar>        
+        <i class="ion-arrow-left-c arrow-back" ng-click="modal.hide()"></i>
+        <h1 class="title" style="text-align">Registro Pagamento</h1>
+    </ion-header-bar>
+    <ion-content class="padding">
+        <form name="valueForm" ng-submit="payTransaction(transaction)" >
+          <ion-card>
+              
+            <ion-item>
+              
+              <span ng-if="transaction.debtor.phone.value == phone" class="input-label center">Transação de: <label  class="text-content-timeline-red" >R$ {{transaction.value}}</label></span>
+              <span ng-if="transaction.creditor.phone.value == phone" class="input-label center">Transação de: <label  class="text-content-timeline-accepted">R$ {{transaction.value}} </label></span>
+
+              <span class="input-label">Valor quitado da transação: </span>              
+               <input id="val" type="tel" name="input" ng-model="transaction.valuePaid" placeholder="Valor" ng-pattern="\\d+">                  
+            </ion-item>
+          </ion-card>
+          <p style="register-error">
+            {{error_transaction}}
+          </p>
+          <input type="submit" value="Confirmar Pagamento" style="background-color: blue; width:100%;" class="button button-full button-dark button-contact">
+        </form>
+    </ion-content>
+</ion-modal-view>
