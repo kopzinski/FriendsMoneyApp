@@ -9,8 +9,8 @@
               
             <ion-item>
               
-              <span ng-if="transaction.debtor.phone.value == phone" class="input-label center">Transação de: <label  class="text-content-timeline-red" >R$ {{transaction.value}}</label></span>
-              <span ng-if="transaction.creditor.phone.value == phone" class="input-label center">Transação de: <label  class="text-content-timeline-accepted">R$ {{transaction.value}} </label></span>
+              <span ng-if="transaction.debtor.phone.value == phone" class="input-label center">Transação de: <label  class="text-content-timeline-red" >R$ {{transaction.valueTotal}}</label></span>
+              <span ng-if="transaction.creditor.phone.value == phone" class="input-label center">Transação de: <label  class="text-content-timeline-accepted">R$ {{transaction.valueTotal}} </label></span>
 
               <span class="input-label">Valor quitado da transação: </span>              
                <input id="val" type="tel" name="input" ng-model="transaction.valuePaid" placeholder="Valor" ng-pattern="\\d+">                  

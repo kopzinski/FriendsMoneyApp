@@ -134,16 +134,16 @@ angular.module('starter.controller.contact', ['starter.service', 'starter.servic
 
         var flag = $scope.contact.registrationFlag;
         var phone = "";       
-        var value = valueForm.value;
+        var valueTotal = valueForm.valueTotal;
         var userStorage =  localStorage.getObject("user"); 
 
-        if(value){         
+        if(valueTotal){         
                 if(flag == true){
                   phone = $scope.contact.phone.value;
                   var user = $scope.contact;
                   if(person == 'creditor'){
                     var transaction = {
-                      value: value,
+                      valueTotal: valueTotal,
                       debtor: user,
                       creator: userStorage.data,
                       creditor: userStorage.data,
@@ -151,7 +151,7 @@ angular.module('starter.controller.contact', ['starter.service', 'starter.servic
                     }
                   }else{
                     var transaction = {
-                      value: value,
+                      valueTotal: valueTotal,
                       debtor: userStorage.data,
                       creator: userStorage.data,
                       creditor: user,
@@ -163,7 +163,7 @@ angular.module('starter.controller.contact', ['starter.service', 'starter.servic
                   ContactsService.registerTransactionWithFlag(transaction).then(function(response){
                     
                       $scope.modal.hide();
-                      $scope.transaction.value = ""
+                      $scope.transaction.valueTotal = ""
                       console.log("Passou, transaction with flag = true");
                   })
 
@@ -175,7 +175,7 @@ angular.module('starter.controller.contact', ['starter.service', 'starter.servic
                   }
                   if(person == 'creditor'){
                     var transaction = {
-                      value: value,
+                      valueTotal: valueTotal,
                       debtor: user,
                       creator: userStorage.data,
                       creditor: userStorage.data,
@@ -183,7 +183,7 @@ angular.module('starter.controller.contact', ['starter.service', 'starter.servic
                     }
                   }else{
                      var transaction = {
-                      value: value,
+                      valueTotal: valueTotal,
                       debtor: userStorage.data,
                       creator: userStorage.data,
                       creditor: user,
@@ -192,7 +192,7 @@ angular.module('starter.controller.contact', ['starter.service', 'starter.servic
                   } 
                   ContactsService.registerTransactionWithNoFlag(transaction).then(function(response){
                     $scope.modal.hide();
-                    $scope.transaction.value = "";
+                    $scope.transaction.valueTotal = "";
                     console.log("Passou, transaction with flag = false");
                   })          
                 }

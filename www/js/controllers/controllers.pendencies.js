@@ -15,9 +15,10 @@ angular.module('starter.controller.pendencies', ['starter.service', 'relativeDat
     $scope.doRefresh = function() {
       console.log($cordovaNetwork.isOnline());
       if($cordovaNetwork.isOnline() == true){
-          var user =  localStorage.getObject("user");
-          var phone = user.data.phone.value;
-          
+ 
+      var user =  localStorage.getObject("user");
+      var phone = user.data.phone.value;
+      $scope.phone = phone;
           TransactionService.getListContacts(phone).then(function(responses){    
             FileService.removeAndCreateAndWrite("pendencies.json", responses).then(function(resp){
               console.log("excluiu, criou, populou");

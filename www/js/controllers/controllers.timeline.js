@@ -45,7 +45,7 @@ angular.module('starter.controller.timeline', ['starter.service', 'relativeDate'
 
       $scope.timelineModal  = function(transaction){
         $scope.transaction = transaction;
-        $scope.valueToPay = transaction.value;
+        $scope.valueToPay = transaction.valueTotal;
         if (transaction.status == 'accepted'){
             $scope.modal.show();
         }
@@ -53,15 +53,30 @@ angular.module('starter.controller.timeline', ['starter.service', 'relativeDate'
       }
 
       $scope.payTransaction = function(transactionPaid){
-            var value = transactionPaid.valuePaid;
-            if ( value == $scope.transaction.value){
-                  transactionPaid.status = "paymentConfirm";
+            var user =  localStorage.getObject("user");
+            var phone = user.data.phone.value;
+
+            var valuePaid = transactionPaid.valuePaid;
+            transactionPaid.status = "paymentConfirm";
+
+           
+
+            if ( valuePaid == $scope.transaction.valueTotal){
+                  if (transactionPaid.debtor.phone.value == phone){
+                        transactionPaid.debtor.senderConfirm = true;
+                        transactionPaid.creditor.senderConfirm = false;
+                  }else {
+                        transactionPaid.debtor.senderConfirm = false;
+                        transactionPaid.creditor.senderConfirm = true;
+                  }
+
                   TransactionService.changeStatusTransaction(transactionPaid).then(function(response){
                       $scope.modal.hide();
                       $scope.transaction.valuePaid = ""
                   })
-            }else if ( value < $scope.transaction.value && value > 0){
+            }else if ( valuePaid < $scope.transaction.valueTotal && valuePaid > 0){
                   alert("Valor parcial");
+                  
                   $scope.modal.close();
             }else {
                   $scope.error_transaction = "Valor inválido";

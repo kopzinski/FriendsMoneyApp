@@ -9,7 +9,7 @@
         Hoje
       </div>
       <ion-item  ng-repeat="transaction in transactions" ng-click = "openModal(transaction)" class="item-list">
-        <div ng-if="((transaction.status == 'paymentConfirm')&&(transaction.creditor.phone.value == phone && !transaction.creditor.senderConfirm)||(transaction.debtor.phone.value == phone && !transaction.debtor.senderConfirm))||(transaction.status == 'pending')">
+        <div ng-if="(((transaction.status == 'paymentConfirm')&&((transaction.creditor.phone.value == phone && !transaction.creditor.senderConfirm))||(transaction.debtor.phone.value == phone && !transaction.debtor.senderConfirm)))||(transaction.status == 'pending')">
           <ion-avatar item-left style="float: left; margin-right:10px">
               <img style="width: 45px" src="img/no-avatar.png">
           </ion-avatar>
