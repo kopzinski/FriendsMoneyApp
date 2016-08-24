@@ -1,32 +1,25 @@
 <ion-modal-view>
     <ion-header-bar>        
         <i class="ion-arrow-left-c arrow-back" ng-click="modal.hide()"></i>
-        <h1 class="title" style="text-align">Registro emprestimo</h1>
+        <h1 class="title" style="text-align">Registro Pagamento</h1>
     </ion-header-bar>
     <ion-content class="padding">
-        <form name="transactionRe" ng-submit="registerTransaction(register, transaction)" >
+        <form name="valueForm" ng-submit="payTransaction(transaction)" >
           <ion-card>
+              
             <ion-item>
-              <ion-avatar item-left class="avatar-ion">
-                <img class="avatar" src="https://maker-live-fldr.imgix.net/assets/no-avatar-circular-ab7d5f67ec61eb5c9b993d61cab298fe.png?auto=format">
-              </ion-avatar>
-              <h2 ng-if="contact.name == 'Sem Nome' || contact.name == undefined" class="title-name">Desconhecido</h2>
-              <h2 ng-if="contact.name != 'Unknw' || contact.name != undefined" class="title-name">{{contact.name}}</h2>
-              <i class="ion-iphone app-green" ng-if="contact.registrationFlag"></i>
-              <i class="ion-iphone app-red"  ng-if="!contact.registrationFlag"></i>
-            </ion-item>
-            <ion-item>
-              <span class="input-label">Valor a ser cobrado: </span>              
-                <input id="val" type="tel" name="input" ng-model="transaction.value" placeholder="Valor" ng-pattern="\\d+">                  
+              
+              <span ng-if="transaction.debtor.phone.value == phone" class="input-label center">Transação de: <label  class="text-content-timeline-red" >R$ {{transaction.value}}</label></span>
+              <span ng-if="transaction.creditor.phone.value == phone" class="input-label center">Transação de: <label  class="text-content-timeline-accepted">R$ {{transaction.value}} </label></span>
+
+              <span class="input-label">Valor quitado da transação: </span>              
+               <input id="val" type="tel" name="input" ng-model="transaction.valuePaid" placeholder="Valor" ng-pattern="\\d+">                  
             </ion-item>
           </ion-card>
           <p style="register-error">
-            {{error_contact}}
+            {{error_transaction}}
           </p>
-          <input type="submit" value=" {{contact.name}} ME DEVE" ng-click="register = 'creditor'" style="background-color: green; width:100%;" class="button button-full button-dark button-contact"/>
-       
-          <input type="submit" value="EU DEVO PARA {{contact.name}}" ng-click="register = 'debitor'" style="background-color: red; width:100%;" class="button button-full button-dark button-contact">
-           
+          <input type="submit" value="Confirmar Pagamento" style="background-color: blue; width:100%;" class="button button-full button-dark button-contact">
         </form>
     </ion-content>
 </ion-modal-view>

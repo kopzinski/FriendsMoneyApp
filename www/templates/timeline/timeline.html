@@ -19,9 +19,10 @@
                 <img  class="icon-timeline" src="img/creditor_white.svg">
               </div>
           </div>
-          <div class="div-shop">
-             <div class="title-body-accepted" ng-if="transaction.status == 'accepted'">Aceito</div>
-             <div class="title-body-paid" ng-if="transaction.status == 'paid'">Pago</div>
+          <div class="div-shop" ng-click=" transaction.status == 'accepted' && timelineModal(transaction)">
+             <div class="title-body-accepted" ng-if="transaction.status == 'accepted'">Aceito - Aguardado Pagamento</div>
+             <div class="title-body-paid-creditor" ng-if="transaction.status == 'paid' && transaction.creditor.phone.value == phone">Pago</div>
+             <div class="title-body-paid-debtor" ng-if="transaction.status == 'paid' && transaction.debtor.phone.value == phone">Pago</div>
              <div class="title-body-pending" ng-if="transaction.status == 'pending'">Pendente</div>             
              <div class="title-body-denied" ng-if="transaction.status == 'denied'">Negado</div>
              <p class="color-text-timeline" ng-if="transaction.creditor.phone.value == phone && transaction.debtor.name">

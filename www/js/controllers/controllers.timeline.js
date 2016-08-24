@@ -1,6 +1,6 @@
 angular.module('starter.controller.timeline', ['starter.service', 'relativeDate'])
 
-.controller('TimelineCtrl', function(FileService, $cordovaToast, $ionicHistory, $scope, $state, $ionicModal, localStorage, $timeout, $cordovaContacts, $ionicLoading, timelineService ) {
+.controller('TimelineCtrl', function(FileService,TransactionService, $cordovaToast, $ionicHistory, $scope, $state, $ionicModal, localStorage, $timeout, $cordovaContacts, $ionicLoading, timelineService ) {
   
       $scope.doRefresh = function() {       
         $scope.$broadcast('scroll.refreshComplete');
@@ -28,5 +28,38 @@ angular.module('starter.controller.timeline', ['starter.service', 'relativeDate'
                   $scope.transactions = response;
                                                      
             });
-      } 
+      }
+
+      $ionicModal.fromTemplateUrl('templates/timeline/timeline.modal.html', {
+        scope: $scope,
+        animation: 'slide-in-up',
+        focusFirstInput: true
+      }).then(function(modal) {
+        $scope.modal = modal;
+      });  
+
+      $scope.timelineModal  = function(transaction){
+        $scope.transaction = transaction;
+        $scope.valueToPay = transaction.value;
+        if (transaction.status == 'accepted'){
+            $scope.modal.show();
+        }
+        
+      }
+
+      $scope.payTransaction = function(transactionPaid){
+            var value = transactionPaid.valuePaid;
+            if ( value == $scope.transaction.value){
+                  transactionPaid.status = "paymentConfirm";
+                  TransactionService.changeStatusTransaction(transactionPaid).then(function(response){
+                      $scope.modal.hide();
+                      $scope.transaction.valuePaid = ""
+                  })
+            }else if ( value < $scope.transaction.value && value > 0){
+                  alert("Valor parcial");
+                  $scope.modal.close();
+            }else {
+                  $scope.error_transaction = "Valor inválido";
+            }     
+      }
 })

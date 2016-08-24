@@ -37,7 +37,7 @@ angular.module('starter.controller.contact', ['starter.service', 'starter.servic
           console.log("The loading indicator is now hidden");
         });
       };
-
+ 
       $scope.createFile = function(){
         FileService.createFile("contacts.json").then(function(response){            
             console.log('criou o arquivo', response);

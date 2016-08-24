@@ -9828,6 +9828,9 @@ a.button {
   float: right;
   padding-top: 5px; }
 
+.center {
+  margin: 0 auto; }
+
 .button-div {
   width: 100%;
   text-align: center;
@@ -9909,9 +9912,15 @@ a.button {
   font-size: 20px;
   font-weight: bold; }
 
-.title-body-paid {
+.title-body-paid-creditor {
   margin-top: 20px;
   color: #27b50f;
+  font-size: 20px;
+  font-weight: bold; }
+
+.title-body-paid-debtor {
+  margin-top: 20px;
+  color: #da3939;
   font-size: 20px;
   font-weight: bold; }
 
@@ -9958,6 +9967,10 @@ a.button {
 .text-content-timeline {
   font-size: 16px;
   color: #2cec2c; }
+
+.text-content-timeline-accepted {
+  font-size: 16px;
+  color: #116611; }
 
 .text-content-timeline-red {
   font-size: 16px;

@@ -1,11 +1,11 @@
 angular.module('starter.controller.pendencies', ['starter.service', 'relativeDate'])
 
 
-.controller('ControllerPendencies', function($window, $location, localStorage, $scope, $ionicModal, $timeout, $ionicLoading, PendeciesService) {
+.controller('ControllerPendencies', function($window, $location, localStorage, $scope, $ionicModal, $timeout, $ionicLoading, TransactionService) {
       $scope.getTransactions = function(){
         var user =  localStorage.getObject("user");
         var phone = user.data.phone.value;
-        PendeciesService.getListContacts(phone).then(function(responses){
+        TransactionService.getListContacts(phone).then(function(responses){
             console.log(responses);
             $scope.transactions = responses;
         });
@@ -15,7 +15,7 @@ angular.module('starter.controller.pendencies', ['starter.service', 'relativeDat
         
       var user =  localStorage.getObject("user");
       var phone = user.data.phone.value;
-      PendeciesService.getListContacts(phone).then(function(responses){
+      TransactionService.getListContacts(phone).then(function(responses){
         //alert(responses.transactions);
         $scope.transactions = responses;
         $scope.$broadcast('scroll.refreshComplete');
@@ -61,7 +61,7 @@ angular.module('starter.controller.pendencies', ['starter.service', 'relativeDat
    });
    $scope.changePendencieStatus = function(transaction, status){
      transaction.status = status
-      PendeciesService.changeStatusPendencie(transaction).then(function(response){
+      TransactionService.changeStatusTransaction(transaction).then(function(response){
         console.log(response);
         $scope.closeModal();
         $window.location.reload(true)
