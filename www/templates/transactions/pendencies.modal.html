@@ -28,13 +28,13 @@
 
 
            <div ng-if="(transaction.status == 'paymentConfirm')&&(transaction.creditor.phone.value == phone && !(transaction.creditor.senderConfirm))" class="item item-body">
-            <p>Voce confirma que a transação com {{transaction.debitor.name}} foi pago <label ng-if="transaction.valueTotal > transaction.valuePaid"> o valor parcial R${{transaction.valuePaid}} sobre</label>
+            <p>Voce confirma que a transação com {{transaction.debtor.name}} foi pago <label ng-if="transaction.valueTotal > transaction.valuePaid"> o valor parcial R${{transaction.valuePaid}} sobre</label>
               <label ng-if="transaction.valueTotal == transaction.valuePaid"> o valor total de </label> R$ {{transaction.valueTotal}}?
             </p>
            </div>
 
-           <div ng-if="(transaction.status == 'paymentConfirm')&&(transaction.debitor.phone.value == phone && !(transaction.debitor.senderConfirm))" class="item item-body">
-            <p>Voce confirma que a transação com {{transaction.creditor.name}} foi pago <label ng-if="transaction.valueTotal > transaction.valuePaid"> o valor parcial R${{transaction.valuePaid}} sobre</label>
+              <div ng-if="(transaction.status == 'paymentConfirm')&&(transaction.debtor.phone.value == phone && !(transaction.debtor.senderConfirm))" class="item item-body">           
+                 <p>Voce confirma que a transação com {{transaction.creditor.name}} foi pago <label ng-if="transaction.valueTotal > transaction.valuePaid"> o valor parcial R${{transaction.valuePaid}} sobre</label>
               <label ng-if="transaction.valueTotal == transaction.valuePaid"> o valor total de </label> R$ {{transaction.valueTotal}}?
             </p>
            </div>

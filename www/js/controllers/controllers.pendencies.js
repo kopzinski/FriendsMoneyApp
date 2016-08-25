@@ -78,9 +78,9 @@ angular.module('starter.controller.pendencies', ['starter.service', 'relativeDat
   $scope.phone = phone;
 
    $scope.changePendencieStatus = function(transaction, status){
-     transaction.status = status
-      TransactionService.changeStatusTransaction(transaction).then(function(response){
-        console.log(response);
+     var newTransaction = transaction;
+     newTransaction.status = status
+      TransactionService.changeStatusTransaction(newTransaction).then(function(response){
         $scope.closeModal();
         $window.location.reload(true)
       })
