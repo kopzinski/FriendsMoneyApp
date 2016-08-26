@@ -46,13 +46,28 @@ angular.module('starter.controller.timeline', ['starter.service', 'relativeDate'
       $scope.timelineModal  = function(transaction){
         $scope.transaction = transaction;
         $scope.valueToPay = transaction.valueTotal;
-        if (transaction.status == 'accepted'){
-            $scope.modal.show();
+        if (transaction.status == 'accepted'){            
+            $scope.modal.show();            
         }
-        
       }
 
+     
+      $scope.changeInput = function(transaction){
+            if(transaction.check == true){
+                  document.getElementById("val").disabled = true;
+                  document.getElementById("val").value = transaction.valueTotal;                  
+                  $scope.transaction.valuePaid = transaction.valueTotal;
+            }else{
+                  document.getElementById("val").disabled = false;
+                  document.getElementById("val").value = 0;                                
+                  $scope.transaction.valuePaid = 0;
+            }
+      }
+    
+
       $scope.payTransaction = function(transactionPaid){
+    
+
             var user =  localStorage.getObject("user");
             var phone = user.data.phone.value;
 
@@ -80,6 +95,6 @@ angular.module('starter.controller.timeline', ['starter.service', 'relativeDate'
                   $scope.modal.close();
             }else {
                   $scope.error_transaction = "Valor inválido";
-            }     
+            }   
       }
 })

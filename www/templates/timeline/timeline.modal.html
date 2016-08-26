@@ -14,8 +14,16 @@
 
               <span class="input-label">Valor quitado da transação: </span>              
                <input id="val" type="tel" name="input" ng-model="transaction.valuePaid" placeholder="Valor" ng-pattern="\\d+">                  
-            </ion-item>
+               
+            </ion-item>           
           </ion-card>
+          <ion-list style="height: 50px; text-align: left;">
+
+            <ion-checkbox ng-change="changeInput(transaction)" id="teste" ng-model="transaction.check"><label style="margin-left: 40px;">Pagar valor total</label></ion-checkbox>
+            
+
+          </ion-list>
+            
           <p style="register-error">
             {{error_transaction}}
           </p>
