@@ -86,13 +86,14 @@ angular.module('starter.controller.timeline', ['starter.service', 'relativeDate'
                   }
 
                   TransactionService.changeStatusTransaction(transactionPaid).then(function(response){
-                      $scope.modal.hide();
-                      $scope.transaction.valuePaid = ""
+                      $scope.transaction.valuePaid = "";
+                      $scope.modal.hide();                      
                   })
+                   $scope.error_transaction = "";
             }else if ( valuePaid < $scope.transaction.valueTotal && valuePaid > 0){
-                  alert("Valor parcial");
-                  
-                  $scope.modal.close();
+                   
+                   $scope.error_transaction = "";
+                  //$scope.modal.hide();
             }else {
                   $scope.error_transaction = "Valor inválido";
             }   
