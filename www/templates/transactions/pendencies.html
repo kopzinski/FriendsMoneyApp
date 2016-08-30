@@ -15,7 +15,7 @@
           </ion-avatar>
           <div item-left style="float:left" >
           <div id="name" ng-if="transaction.creator.name">
-            <h2>{{transaction.creator.name}} <label ng-if="transaction.status == 'paymentConfirm'">| CONFIRMAR PAGAMENTO</label></h2>
+            <h2>{{transaction.creator.name}} <p ng-if="transaction.status == 'paymentConfirm'">| CONFIRMAR PAGAMENTO</p></h2>
           </div>
           <div id="phone"  ng-if="!transaction.creator.name">
             <h2>{{transaction.creator.phone}}</h2>

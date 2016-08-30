@@ -72,11 +72,12 @@ angular.module('starter.controller.timeline', ['starter.service', 'relativeDate'
             var phone = user.data.phone.value;
 
             var valuePaid = transactionPaid.valuePaid;
+            alert(valuePaid);
             transactionPaid.status = "paymentConfirm";
 
            
 
-            if ( valuePaid == $scope.transaction.valueTotal){
+            if ( valuePaid > 0){
                   if (transactionPaid.debtor.phone.value == phone){
                         transactionPaid.debtor.senderConfirm = true;
                         transactionPaid.creditor.senderConfirm = false;
@@ -89,11 +90,7 @@ angular.module('starter.controller.timeline', ['starter.service', 'relativeDate'
                       $scope.transaction.valuePaid = "";
                       $scope.modal.hide();                      
                   })
-                   $scope.error_transaction = "";
-            }else if ( valuePaid < $scope.transaction.valueTotal && valuePaid > 0){
-                   
-                   $scope.error_transaction = "";
-                  //$scope.modal.hide();
+                   $scope.error_transaction = "";            
             }else {
                   $scope.error_transaction = "Valor inválido";
             }   
