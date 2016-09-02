@@ -17,48 +17,42 @@
         <i class="ion-arrow-left-c arrow-back" ng-click="modal.hide()"></i>
         <h1 class="title" style="text-align">Registro novo grupo</h1>
     </ion-header-bar>
+    <form name="registerGForm" ng-submit="addFriend((users|filter:{selected: true}), registerGForm)"class="form-group">
     <ion-content scroll="false">            
       <div class="list input-name-group">
         <label class="item item-input">
-          <input type="text" placeholder="Nome do grupo">
+          <input ng-model="registerGForm.title" type="text" placeholder="Nome do grupo">
         </label>
       </div>  
     </ion-content>
-    <ion-content scroll="true" class="form-content">
-      <form class="form-group">    
+    <ion-content scroll="true" class="form-content" ng-init="contactsOnLoad()">  
 
-        <!--ion-list ng-repeat="contact in cont | orderBy:'name'" >
-            <ion-card ng-click="debitorRegister(contact)">
-              <ion-item>
-                <ion-avatar item-left class="avatar-ion">
-                  <img class="avatar" src="img/no-avatar.png">
-                </ion-avatar>
-                <h2 ng-if="contact.name == 'Sem Nome' || contact.name == undefined" class="title-name">Desconhecido</h2>
-                <h2 ng-if="contact.name != 'Unknw' || contact.name != undefined" class="title-name">{{contact.name}}</h2>
-                <i class="ion-iphone app-green" ng-if="contact.registrationFlag"></i>
-                <i class="ion-iphone app-red"  ng-if="!contact.registrationFlag"></i>
-              </ion-item>
-              <ion-item>
-                <h3>Números de telefones</h3>
-                <div ng-if="!contact.registrationFlag" ng-repeat="number in contact.phone">
-                  <p>{{ number.value }}</p>
-                </div>
-                <div ng-if="contact.registrationFlag">
-                  <p>{{ contact.phone.value }}</p>
-                </div>
-                <ion-icon ios="ios-call" md="md-call" item-right></ion-icon>
-              </ion-item>
-            </ion-card>
-          </ion-list-->   
-
-      </form>      
+      <ion-list ng-repeat="user in users | orderBy:'name'" ng-if="user.registrationFlag">
+          <ion-checkbox ng-model="user.selected">
+            <ion-item>
+              <ion-avatar item-left class="avatar-ion">
+                <img class="avatar" src="img/no-avatar.png">
+              </ion-avatar>
+              	<h2 ng-if="user.name == 'Sem Nome' || user.name == undefined" class="title-name">Desconhecido</h2>
+                <h2 ng-if="user.name != 'Unknw' || user.name != undefined" class="title-name">{{user.name}}</h2>               
+                <i class="ion-iphone app-green"></i>
+            </ion-item>
+            <ion-item>
+              <h3>Números de telefones</h3>
+              <div>
+                <p>{{user.phone.value}}</p>
+              </div>               
+              <ion-icon ios="ios-call" md="md-call" item-right></ion-icon>
+            </ion-item>
+          </ion-checkbox>
+        </ion-list>   
     </ion-content>
     <ion-content scroll="false" class="content-scroll">            
       <div class="list div-button-group">
-          <button class="button button-balanced button-group">
+          <button type="submit" class="button button-balanced button-group">
             CRIAR GRUPO
           </button>
       </div>  
-    </ion-content>    
-
+    </ion-content>
+    </form>   
 </ion-modal-view>
