@@ -81,8 +81,16 @@ angular.module('starter.service', [])
 })
 
 
-.factory('groupsService', function($http){
+
+
+.factory('groupsService', function($http){    
     return {
+        getListGroups: function(phone){
+            return $http.get('http://10.96.127.185:3000/api/groups/'+phone).then(function(response){
+                return response.data;
+            })
+        },
+
         createGroup: function(members, title, userPhone){
 
         var group = {

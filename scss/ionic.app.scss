@@ -261,3 +261,16 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
     background-color: #157130; 
     margin-top: 5px;
   }
+
+  .icon-delete-group{
+    color: #FF0000; 
+    line-height: 37px; 
+    position: absolute; 
+    right: 10px; 
+    font-size: 25px;
+  }
+
+  .title-group{
+    position: none; 
+    line-height: 37px;
+  }

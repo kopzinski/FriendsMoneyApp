@@ -15,9 +15,10 @@
 <ion-modal-view>
     <ion-header-bar>        
         <i class="ion-arrow-left-c arrow-back" ng-click="modal.hide()"></i>
-        <h1 class="title" style="text-align">Registro novo grupo</h1>
+        <h1 class="title" style="text-align">Registro novo grupo</h1>  
+        <i class="ion-arrow-right-c arrow-back" ng-click="modal.hide()"></i>
     </ion-header-bar>
-    <form name="registerGForm" ng-submit="addFriend((users|filter:{selected: true}), registerGForm)"class="form-group">
+    <form name="registerGForm" ng-submit="addFriend((users|filter:{selected: true}), registerGForm)" class="form-group">
     <ion-content scroll="false">            
       <div class="list input-name-group">
         <label class="item item-input">

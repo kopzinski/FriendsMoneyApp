@@ -39,15 +39,25 @@ angular.module('starter.routes', [])
       }
     })
 
-   .state('app.groups', {
-      url: '/groups',
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/groups/groups.html',
-          controller: 'GroupsCtrl'
-        }
+  .state('app.groups', {
+    url: '/groups',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/groups/groups.html',
+        controller: 'GroupsCtrl'
       }
-    })
+    }
+  })
+
+  .state('app.group', {
+    url: '/group',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/groups/group.html',
+        controller: 'GroupsCtrl'
+      }
+    }
+  })
 
   .state('app.contact', {
       url: '/contact',

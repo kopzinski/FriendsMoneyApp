@@ -2,7 +2,23 @@
   <ion-nav-buttons side="right">
     <i class='ion-arrow-left-c ion-plus-round text-right group-icon' ng-click="openGroupsModal()"></i>
   </ion-nav-buttons>  
-  <ion-content class="home">
-   
+  <ion-content class="home padding" ng-init="listGroups()" style="padding-top: 10px; padding-bottom: 10px;">  
+    <ion-list ng-repeat="group in groups | orderBy:'title'" ng-click="openGroups(group)">      
+        <ion-item>
+          <ion-avatar item-left class="avatar-ion">
+            <img class="avatar" src="img/no-avatar.png">
+          </ion-avatar>
+            <h2 ng-if="group.title != 'Unknw' || group.title != undefined" class="title-name">{{group.title}}</h2> 
+        </ion-item>
+        <ion-item>
+          <h3>Componentes do grupo:</h3>
+          <div>
+           <p>
+              <label ng-repeat="member in group.members">{{member.name}}. </label>
+           </p>
+          </div>               
+          <ion-icon ios="ios-call" md="md-call" item-right></ion-icon>
+        </ion-item>
+    </ion-list> 
   </ion-content>
 </ion-view>

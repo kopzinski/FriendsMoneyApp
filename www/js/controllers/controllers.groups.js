@@ -1,6 +1,6 @@
 angular.module('starter.controller.groups', ['starter.service'])
 
-.controller('GroupsCtrl', function(groupsService, localStorage, $ionicModal, $scope, $cordovaNetwork, $cordovaToast, ContactsService, $cordovaContacts) {
+.controller('GroupsCtrl', function($state, groupsService, localStorage, $ionicModal, $scope, $cordovaNetwork, $cordovaToast, ContactsService, $cordovaContacts) {
 
      $ionicModal.fromTemplateUrl('templates/groups/groups.modal.html', {
         scope: $scope,
@@ -10,6 +10,15 @@ angular.module('starter.controller.groups', ['starter.service'])
         $scope.modal = modal;
       })  
       
+
+      $ionicModal.fromTemplateUrl('templates/groups/group.modal.html', {
+        scope: $scope,
+        animation: 'slide-in-up',
+        focusFirstInput: true
+      }).then(function(modal) {
+        $scope.modalGroup = modal;
+      })  
+
 
       $scope.contactsOnLoad = function(){
         if($cordovaNetwork.isOnline() == true){
@@ -38,28 +47,44 @@ angular.module('starter.controller.groups', ['starter.service'])
         var user =  localStorage.getObject("user");
         var phone = user.data.phone.value;
 
-        members.push({name: user.data.name, phone:{value: phone}});          
+        if(registerForm.title){
+          members.push({name: user.data.name, phone:{value: phone}});          
 
-        groupsService.createGroup(members, registerForm.title, phone).then(function(response){
-          console.log(response);           
-        })
+          groupsService.createGroup(members, registerForm.title, phone).then(function(response){
+            console.log(response);          
+            $scope.modal.hide(); 
+          })
+        }else{
+          $cordovaToast.showLongCenter('É preciso ter um titulo para o grupo.');
+        }      
 
       }
 
-      $scope.openGroupsModal = function(){
-        console.log($scope.modal);
-        /*$scope.users = [{
-        "name":"Adrian",
-        "phone":{"value":"97412487"}
-    },
-    {
-        "name":"Joao",
-        "phone":{"value":"82158998"}
-    },
-    {
-        "name":"Guilherme",
-        "phone":{"value":"97262289"}
-    }]*/
+      $scope.openGroupsModal = function(){       
         $scope.modal.show();
+      }
+    
+      $scope.listGroups = function(){
+        var user =  localStorage.getObject("user");
+        var phone = user.data.phone.value;   
+        
+        if(phone){     
+          groupsService.getListGroups(phone).then(function(response){
+            $scope.groups = response;    
+            console.log(response);   
+          })
+        }else{
+          $cordovaToast.showLongCenter('Não há grupos');
+        } 
+
+      }
+
+      $scope.openGroups = function(group){
+        $scope.titleGroup = group.title;
+        $scope.modalGroup.show();
+      }
+
+      $scope.deleteGroup = function(){
+        alert("apagar o grupo");
       }
 })
