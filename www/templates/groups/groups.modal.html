@@ -16,7 +16,6 @@
     <ion-header-bar>        
         <i class="ion-arrow-left-c arrow-back" ng-click="modal.hide()"></i>
         <h1 class="title" style="text-align">Registro novo grupo</h1>  
-        <i class="ion-arrow-right-c arrow-back" ng-click="modal.hide()"></i>
     </ion-header-bar>
     <form name="registerGForm" ng-submit="addFriend((users|filter:{selected: true}), registerGForm)" class="form-group">
     <ion-content scroll="false">            
@@ -26,7 +25,7 @@
         </label>
       </div>  
     </ion-content>
-    <ion-content scroll="true" class="form-content" ng-init="contactsOnLoad()">  
+    <ion-content scroll="true" class="form-content" ng-init="contactsOnLoad()" on-drag-right="onDrag()">  
 
       <ion-list ng-repeat="user in users | orderBy:'name'" ng-if="user.registrationFlag">
           <ion-checkbox ng-model="user.selected">

@@ -4,7 +4,7 @@ angular.module('starter.controller.groups', ['starter.service'])
 
      $ionicModal.fromTemplateUrl('templates/groups/groups.modal.html', {
         scope: $scope,
-        animation: 'slide-in-up',
+        animation: 'slide-in-right',
         focusFirstInput: true
       }).then(function(modal) {
         $scope.modal = modal;
@@ -13,7 +13,7 @@ angular.module('starter.controller.groups', ['starter.service'])
 
       $ionicModal.fromTemplateUrl('templates/groups/group.modal.html', {
         scope: $scope,
-        animation: 'slide-in-up',
+        animation: 'slide-in-right',
         focusFirstInput: true
       }).then(function(modal) {
         $scope.modalGroup = modal;
@@ -44,6 +44,8 @@ angular.module('starter.controller.groups', ['starter.service'])
       }
 
       $scope.addFriend = function(members, registerForm){
+        console.log(members);
+        
         var user =  localStorage.getObject("user");
         var phone = user.data.phone.value;
 
@@ -51,6 +53,7 @@ angular.module('starter.controller.groups', ['starter.service'])
           members.push({name: user.data.name, phone:{value: phone}});          
 
           groupsService.createGroup(members, registerForm.title, phone).then(function(response){
+            alert("aquiaaa");
             console.log(response);          
             $scope.modal.hide(); 
           })
@@ -86,5 +89,13 @@ angular.module('starter.controller.groups', ['starter.service'])
 
       $scope.deleteGroup = function(){
         alert("apagar o grupo");
+      }
+
+      $scope.onDrag = function(){
+        $scope.modal.hide();
+      }
+
+      $scope.onDrag2 = function(){
+        $scope.modalGroup.hide();
       }
 })

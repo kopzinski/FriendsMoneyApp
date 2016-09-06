@@ -3,7 +3,7 @@
         <i class="ion-arrow-left-c arrow-back" ng-click="closeModal()"></i>
         <h1 class="title" style="text-align">{{transaction.creator.name}}</h1>
     </ion-header-bar>
-    <ion-content class="padding">
+    <ion-content class="padding" on-drag-right="onDrag()">
         <ion-card>
         <ion-item>
           <ion-avatar item-left class="avatar-ion">

@@ -114,11 +114,19 @@ angular.module('starter.controller.contact', ['starter.service', 'starter.servic
 
       $ionicModal.fromTemplateUrl('templates/contact/modal.contact.html', {
         scope: $scope,
-        animation: 'slide-in-up',
+        animation: 'slide-in-right',
         focusFirstInput: true
       }).then(function(modal) {
         $scope.modal = modal;
       });  
+
+
+
+      $scope.onDrag = function(){
+        $scope.modal.hide();
+      }
+
+
 
       $scope.debitorRegister = function(index){
         if($cordovaNetwork.isOnline() == true){
