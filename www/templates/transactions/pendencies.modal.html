@@ -38,9 +38,6 @@
               <label ng-if="transaction.valueTotal == transaction.valuePaid"> o valor total de </label> R$ {{transaction.valueTotal}}?
             </p>
            </div>
-
-
-
            <ion-item>
             <div class="button-bar" ng-if="transaction.status != 'paymentConfirm'">
               <a class="button button-dark" ng-click="changePendencieStatus(transaction, 'accepted')">Sim</a>

@@ -13,16 +13,16 @@ angular.module('starter.controller.timeline', ['starter.service', 'relativeDate'
                         console.log(resp);                           
                   }); 
             }) 
+
             $scope.$broadcast('scroll.refreshComplete');
             $cordovaToast.showShortBottom('Atualizado');
+            
          }else{
             $scope.$broadcast('scroll.refreshComplete');
             $cordovaToast.showShortBottom('Não foi possível atualizar, sem conexão');   
          }         
              
       };
-
-      
 
       $scope.onInit = function(){
             var user =  localStorage.getObject("user");
@@ -50,8 +50,6 @@ angular.module('starter.controller.timeline', ['starter.service', 'relativeDate'
             $scope.modal.show();            
         }
       }
-
-     
       $scope.changeInput = function(transaction){
             if(transaction.check == true){
                   document.getElementById("val").disabled = true;
@@ -63,16 +61,12 @@ angular.module('starter.controller.timeline', ['starter.service', 'relativeDate'
                   $scope.transaction.valuePaid = 0;
             }
       }
-    
 
       $scope.payTransaction = function(transactionPaid){
-    
-
             var user =  localStorage.getObject("user");
             var phone = user.data.phone.value;
 
             var valuePaid = transactionPaid.valuePaid;
-            alert(valuePaid);
             transactionPaid.status = "paymentConfirm";
 
            

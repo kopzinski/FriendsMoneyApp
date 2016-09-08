@@ -79,10 +79,11 @@ angular.module('starter.controller.pendencies', ['starter.service', 'relativeDat
 
    $scope.changePendencieStatus = function(transaction, status){
      var newTransaction = transaction;
+     
      newTransaction.status = status
+     
       TransactionService.changeStatusTransaction(newTransaction).then(function(response){
-        $scope.closeModal();
-        $window.location.reload(true)
+          $scope.closeModal();
       })
    }
 });
