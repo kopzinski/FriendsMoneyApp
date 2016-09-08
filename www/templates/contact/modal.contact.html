@@ -3,7 +3,7 @@
         <i class="ion-arrow-left-c arrow-back" ng-click="modal.hide()"></i>
         <h1 class="title" style="text-align">Registro emprestimo</h1>
     </ion-header-bar>
-    <ion-content class="padding">
+    <ion-content class="padding" on-drag-right="onDrag()">
         <form name="transactionRe" ng-submit="registerTransaction(register, transaction)" >
           <ion-card>
             <ion-item>

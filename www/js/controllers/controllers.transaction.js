@@ -8,6 +8,10 @@ angular.module('starter.controller.transaction',['starter.service', 'starter.ser
           $scope.TransactionController.remove();
         };
 
+      $scope.onDrag = function(){
+        $scope.modal.hide();
+      }
+      
       $scope.transaction = {};
       $scope.registerTransaction = function(person, valueForm){
           alert($scope.teste); 

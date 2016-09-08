@@ -80,6 +80,33 @@ angular.module('starter.service', [])
     }
 })
 
+
+
+
+.factory('groupsService', function($http){    
+    return {
+        getListGroups: function(phone){
+            return $http.get('http://10.96.127.185:3000/api/groups/'+phone).then(function(response){
+                return response.data;
+            })
+        },
+
+        createGroup: function(members, title, userPhone){
+
+        var group = {
+          title: title,
+          members:members,
+          creator: userPhone
+        }
+        
+        var url = "http://10.96.127.185:3000/api/group";
+        return $http.post(url, group).then(function(response){
+            return response;
+        })
+        }
+    }
+})
+
 .factory('timelineService', function($http){
     return {
 

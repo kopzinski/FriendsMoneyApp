@@ -4,7 +4,7 @@ angular.module('starter.controller.timeline', ['starter.service', 'relativeDate'
   
       $scope.doRefresh = function() {    
          if($cordovaNetwork.isOnline() == true){            
-            var user =  localStorage.getObject("user");
+            var user =  localStorage.getObject('user');       
             var phone = user.data.phone.value;
             $scope.phone = phone;
             timelineService.getAllTransactions(phone).then(function(response){
@@ -37,7 +37,7 @@ angular.module('starter.controller.timeline', ['starter.service', 'relativeDate'
 
       $ionicModal.fromTemplateUrl('templates/timeline/timeline.modal.html', {
         scope: $scope,
-        animation: 'slide-in-up',
+        animation: 'slide-in-right',
         focusFirstInput: true
       }).then(function(modal) {
         $scope.modal = modal;
@@ -50,6 +50,11 @@ angular.module('starter.controller.timeline', ['starter.service', 'relativeDate'
             $scope.modal.show();            
         }
       }
+
+      $scope.onDrag = function(){
+        $scope.modal.hide();
+      }
+
       $scope.changeInput = function(transaction){
             if(transaction.check == true){
                   document.getElementById("val").disabled = true;

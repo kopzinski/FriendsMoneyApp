@@ -5,7 +5,7 @@ angular.module('register.controllers', ['starter.service'])
       $scope.nameRegex = /^([a-zA-Z ]){2,30}$/;
       $ionicModal.fromTemplateUrl('templates/register/modal.register.html', {
         scope: $scope,
-        animation: 'slide-in-up',
+        animation: 'slide-in-right',
         focusFirstInput: false
       }).then(function(modal) {
         $scope.modal = modal;
@@ -17,7 +17,7 @@ angular.module('register.controllers', ['starter.service'])
       
       $scope.closeModal = function(){
           console.log('passou');
-          $location.path('/app/contact');
+          $location.path('/app/timeline');
           $scope.modal.hide();
           $ionicHistory.nextViewOptions({
             disableBack: true

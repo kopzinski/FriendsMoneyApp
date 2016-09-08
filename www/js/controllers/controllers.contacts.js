@@ -7,23 +7,23 @@ angular.module('starter.controller.contact', ['starter.service', 'starter.servic
           function onSuccess(contacts) {        
             ContactsService.setContact(contacts).then(function(responses){
                 FileService.removeAndCreateAndWrite("contacts.json", responses).then(function(response){
-                  console.log(response);
-                          
+                  console.log(response);                          
                 });   
             });      
+
             $scope.$broadcast('scroll.refreshComplete');
             $cordovaToast.showShortBottom('Atualizado');  
-            $scope.contactsOnLoad();              
+            $scope.contactsOnLoad();   
+
           }
           function onError(contactError) {
             alert(contactError);
-          };
+          }
           var options = {};
           options.filter = "";
           if(ionic.Platform.isAndroid()){
                 options.hasPhoneNumber = true;
-          }
-          
+          }          
           options.multiple = true;
           $cordovaContacts.find(options).then(onSuccess, onError); 
         }else{
@@ -114,11 +114,19 @@ angular.module('starter.controller.contact', ['starter.service', 'starter.servic
 
       $ionicModal.fromTemplateUrl('templates/contact/modal.contact.html', {
         scope: $scope,
-        animation: 'slide-in-up',
+        animation: 'slide-in-right',
         focusFirstInput: true
       }).then(function(modal) {
         $scope.modal = modal;
       });  
+
+
+
+      $scope.onDrag = function(){
+        $scope.modal.hide();
+      }
+
+
 
       $scope.debitorRegister = function(index){
         if($cordovaNetwork.isOnline() == true){
@@ -126,8 +134,7 @@ angular.module('starter.controller.contact', ['starter.service', 'starter.servic
           $scope.contact = index;
         }else{
           $cordovaToast.showShortBottom('Impossível realizar a ação, sem conexão.');
-        }
-        
+        }        
       }
       $scope.transaction = {};
       $scope.registerTransaction = function(person, valueForm){  

@@ -225,3 +225,52 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 .no-errors {
   border-bottom: 3px solid green;
 }
+
+.group-icon{
+  padding: 5px; 
+  font-size: 25px;
+}
+
+.input-name-group{
+    width: 100%; 
+    height: 50px; 
+    background: #565758;
+  }
+
+  .form-content{
+    margin-top: 50px;
+  }
+
+  .form-group{
+    margin-bottom: 85px;
+  }
+
+  .div-button-group{
+    width: 100%; 
+    height: 80px; 
+    background: #fff; 
+    text-align: center;
+  }
+
+  .content-scroll{
+    top: 90% !important;
+  }
+
+  .button-group{
+    width: 90%; 
+    background-color: #157130; 
+    margin-top: 5px;
+  }
+
+  .icon-delete-group{
+    color: #FF0000; 
+    line-height: 37px; 
+    position: absolute; 
+    right: 10px; 
+    font-size: 25px;
+  }
+
+  .title-group{
+    position: none; 
+    line-height: 37px;
+  }

@@ -37,7 +37,7 @@ angular.module('starter.controller.pendencies', ['starter.service', 'relativeDat
 
    $ionicModal.fromTemplateUrl('templates/transactions/pendencies.modal.html', {
       scope: $scope,
-      animation: 'slide-in-up'
+      animation: 'slide-in-right'
    }).then(function(modal) {
       $scope.modal = modal;
    });
@@ -53,6 +53,10 @@ angular.module('starter.controller.pendencies', ['starter.service', 'relativeDat
      
    };
 	
+   $scope.onDrag = function(){
+      $scope.modal.hide();
+    }
+
    $scope.closeModal = function() {
       $scope.modal.hide();
    };
