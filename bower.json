@@ -7,6 +7,7 @@
   },
   "dependencies": {
     "angular-messages": "^1.5.8",
-    "angular-input-masks": "^2.4.0"
+    "angular-input-masks": "^2.4.0",
+    "angular-filter": "^0.5.11"
   }
 }

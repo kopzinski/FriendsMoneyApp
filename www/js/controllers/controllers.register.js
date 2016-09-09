@@ -36,14 +36,12 @@ angular.module('register.controllers', ['starter.service'])
       };
       $scope.register = function(userForm){ 
           if (userForm.$valid){
-             $scope.uuid = $cordovaDevice.getUUID();
+             $scope.uuid = $cordovaDevice.getUUID();      
             registerService.setUser($scope.user, $scope.uuid).then(function(response){
               localStorage.setObject('user', response);
               $scope.closeModal();
             })
-          }
-         
-        
+          }   
       }
 
 })

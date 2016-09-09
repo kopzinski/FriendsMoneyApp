@@ -39,13 +39,13 @@ angular.module('starter.service', [])
 
 .factory('TransactionService', function($http){
     return {
-        getListContacts: function(phone){
-            return $http.get('http://10.96.127.155:3000/api/pendingTransactions/'+phone).then(function(response){
+        getPendings: function(phone){
+            return $http.get('http://10.96.127.155:3000/api/pending/'+phone).then(function(response){
                 return response.data;
             })
         },
         changeStatusTransaction: function(transaction){
-
+            
             var url = "http://10.96.127.155:3000/api/transaction";
             var req = {
                 method: 'PUT',
@@ -86,7 +86,7 @@ angular.module('starter.service', [])
 .factory('groupsService', function($http){    
     return {
         getListGroups: function(phone){
-            return $http.get('http://10.96.127.185:3000/api/groups/'+phone).then(function(response){
+            return $http.get('http://10.96.127.155:3000/api/groups/'+phone).then(function(response){
                 return response.data;
             })
         },
@@ -99,7 +99,7 @@ angular.module('starter.service', [])
           creator: userPhone
         }
         
-        var url = "http://10.96.127.185:3000/api/group";
+        var url = "http://10.96.127.155:3000/api/group";
         return $http.post(url, group).then(function(response){
             return response;
         })

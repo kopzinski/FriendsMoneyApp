@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
 
-angular.module('starter', [ 'ngMessages','ui.utils.masks', 'ionic', 'starter.controller.contact', 'starter.controller.pendencies', 'ngCordova', 'starter.service','starter.routes', 'starter.Storage','register.controllers', 'starter.controller.timeline', 'starter.service.file', 'starter.controller.groups'])
+angular.module('starter', [ 'ngMessages','angular.filter','ui.utils.masks', 'ionic', 'starter.controller.contact', 'starter.controller.pendencies', 'ngCordova', 'starter.service','starter.routes', 'starter.Storage','register.controllers', 'starter.controller.timeline', 'starter.service.file', 'starter.controller.groups'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {

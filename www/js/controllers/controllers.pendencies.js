@@ -1,94 +1,161 @@
-angular.module('starter.controller.pendencies', ['starter.service', 'relativeDate'])
-
-
-
-
+angular.module('starter.controller.pendencies', ['starter.service', 'relativeDate','angular.filter'])
 .controller('ControllerPendencies', function(FileService,$cordovaToast,$cordovaNetwork, $window, $location, localStorage, $scope, $ionicModal, $ionicLoading, TransactionService) {
-     $scope.getPendencies = function(){
-       FileService.readAsText("pendencies.json").then(function(response){  
-          response = JSON.parse(response);
-          $scope.transactions = response;
-          console.log($scope.transactions);                                                     
-       });        
-      }
+    var user =  localStorage.getObject("user");
+    var phone = user.data.phone.value;
+    $scope.phone = user.data.phone.value;
+    
+$scope.$on("$ionicView.enter", function(event, data){
+   // handle event
 
-    $scope.doRefresh = function() {
-      console.log($cordovaNetwork.isOnline());
+    getPendencies = function(phone){
+
       if($cordovaNetwork.isOnline() == true){
- 
-      var user =  localStorage.getObject("user");
-      var phone = user.data.phone.value;
-      $scope.phone = phone;
-          TransactionService.getListContacts(phone).then(function(responses){    
-            FileService.removeAndCreateAndWrite("pendencies.json", responses).then(function(resp){
-              console.log("excluiu, criou, populou");
-              console.log(resp);                                                      
-            });       
-          });   
-          $scope.$broadcast('scroll.refreshComplete');
-          $cordovaToast.showShortBottom('Atualizado');     
-            
+        FileService.checkFileByFile("pendencies.json").then(function(response){
+          //online com cache
+            if (response){
+              FileService.readAsText("pendencies.json").then(function (pendenciesList) {
+                $scope.pendencies = JSON.parse(pendenciesList);
+                TransactionService.getPendings(phone).then(function(pendenciesListAPI){
+                if(pendenciesListAPI){
+                  FileService.removeAndCreateAndWrite("pendencies.json", pendenciesListAPI).then(function(resp){
+                      console.log("excluiu, criou, populou");                                 
+                  }); 
+                  }else{
+                    FileService.removeFile("pendencies.json").then(function(resp){
+                      console.log("excluiu arquivo");                                 
+                  }); 
+                    
+                  }
+                })
+              })
+              //online sem cache
+            }else {
+                TransactionService.getPendings(phone).then(function(pendenciesList){
+                if(pendenciesList){
+                  $scope.pendencies = pendenciesList;  
+                  FileService.removeAndCreateAndWrite("pendencies.json", pendenciesList).then(function(resp){
+                      console.log("excluiu, criou, populou");                                 
+                  }); 
+                }else{
+                  FileService.removeFile("pendencies.json").then(function(resp){
+                      console.log("excluiu arquivo");                                 
+                  }); 
+                }
+              })
+            }                                    
+        })
+        //Offline com cache
       }else{
-          $scope.$broadcast('scroll.refreshComplete');
-          $cordovaToast.showShortBottom('Não foi possível atualizar, sem conexão');
-      }         
-    };
+        FileService.checkFileByFile("pendencies.json").then(function(response){
+          if(response){
+            FileService.readAsText("pendencies.json").then(function (pendenciesList) {
+              $scope.pendencies = JSON.parse(pendenciesList);
+            })
+            //Offline sem cache
+          }else{
+            $cordovaToast.showShortBottom('Não foi possível atualizar, sem conexão com internet');
+          }
+        })
+      }     
+    }
+getPendencies(phone);
+});
 
 
-   $ionicModal.fromTemplateUrl('templates/transactions/pendencies.modal.html', {
+$scope.$on("$ionicView.beforeLeave", function(event, data){
+    
+  TransactionService.getPendings(phone).then(function(pendenciesListAPI){
+                if(pendenciesListAPI){
+                  FileService.removeAndCreateAndWrite("pendencies.json", pendenciesListAPI).then(function(resp){
+                      console.log("excluiu, criou, populou");                                 
+                  }); 
+                  }else{
+                    FileService.removeFile("pendencies.json").then(function(resp){
+                      console.log("excluiu arquivo");                                 
+                  });
+                  }
+  });
+})
+
+//Modal functions
+$ionicModal.fromTemplateUrl('templates/transactions/pendencies.transaction.modal.html', {
       scope: $scope,
       animation: 'slide-in-right'
    }).then(function(modal) {
-      $scope.modal = modal;
+      $scope.modalTransaction = modal;
+   });
+
+   $ionicModal.fromTemplateUrl('templates/transactions/pendencies.group.modal.html', {
+      scope: $scope,
+      animation: 'slide-in-right'
+   }).then(function(modal) {
+      $scope.modalGroup = modal;
    });
 	
-   $scope.openModal = function(transaction) {
+   $scope.openTransactionModal = function(pending) {
      if($cordovaNetwork.isOnline() == true){
-        console.log(transaction);
-        $scope.transaction = transaction;
-        $scope.modal.show();
+        console.log(pending);
+        $scope.pending = pending;
+        $scope.modalTransaction.show();
      }else{
         $cordovaToast.showShortBottom('Impossível realizar a ação, sem conexão.');
      }
-     
+   };
+
+     $scope.openGroupModal = function(pending) {
+     if($cordovaNetwork.isOnline() == true){
+        console.log(pending);
+        $scope.pending = pending;
+        $scope.modalGroup.show();
+     }else{
+        $cordovaToast.showShortBottom('Impossível realizar a ação, sem conexão.');
+     }
    };
 	
    $scope.onDrag = function(){
-      $scope.modal.hide();
+      $scope.modalTransaction.hide();
+      $scope.modalGroup.hide();
     }
 
    $scope.closeModal = function() {
-      $scope.modal.hide();
+      $scope.modalTransaction.hide();
+      $scope.modalGroup.hide();
    };
-	
 
-   $scope.$on('$destroy', function() {
-      $scope.modal.remove();
-   });
-	
-
-   $scope.$on('modal.hidden', function() {
-
-   });
-	
-
-   $scope.$on('modal.removed', function() {
-
-   });
-
-
-  var user =  localStorage.getObject("user");
-  var phone = user.data.phone.value;
-  $scope.phone = phone;
-
-   $scope.changePendencieStatus = function(transaction, status){
+//Modal Transactions
+$scope.changePendencieStatus = function(transaction, status){
      var newTransaction = transaction;
      
-     newTransaction.status = status
-     
+     newTransaction.status = status;
+     //Transformar isso em função
+     var index = $scope.pendencies.indexOf(transaction);
+     console.log("index",index);
+
+             $scope.pendencies.splice(index,1);
+ 
+     $scope.modalTransaction.hide();
       TransactionService.changeStatusTransaction(newTransaction).then(function(response){
-          $scope.closeModal();
-      })
-   }
+          if (response.result == "success"){
+            $cordovaToast.showShortBottom('Alterado com sucesso');
+             TransactionService.getPendings(phone).then(function(pendenciesList){
+                if(pendenciesList){
+                  
+                  FileService.removeAndCreateAndWrite("pendencies.json", pendenciesList).then(function(resp){
+                      console.log("excluiu, criou, populou");                     
+                  });           
+                }else {
+                  FileService.removeFile("pendencies.json").then(function(resp){
+                      console.log("excluiu arquivo");                                 
+                  }); 
+                } 
+            })
+        }
+    });
+  };
 });
+
+
+
+
+
 

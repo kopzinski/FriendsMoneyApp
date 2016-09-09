@@ -1,0 +1,53 @@
+<ion-modal-view>
+    <ion-header-bar>        
+        <i class="ion-arrow-left-c arrow-back" ng-click="closeModal()"></i>
+        <h1 class="title" style="text-align">{{pending.creator.name}}</h1>
+    </ion-header-bar>
+    <ion-content class="padding" on-drag-right="onDrag()">
+        <ion-card>
+        <ion-item>
+          <ion-avatar item-left class="avatar-ion">
+            <img class="avatar" src="https://maker-live-fldr.imgix.net/assets/no-avatar-circular-ab7d5f67ec61eb5c9b993d61cab298fe.png?auto=format">
+          </ion-avatar>
+           <div id="name" ng-if="pending.creator.name">
+          <h2>{{pending.creator.name}}</h2>
+        </div>
+        <div id="phone"  ng-if="!pending.creator.name">
+          <h2>{{pending.creator.phone.value}}</h2>
+        </div>
+           <p>{{pending.createdAt |relativeDate}}</p>
+        </ion-item>
+           <div ng-if="pending.creator.phone.value == pending.creditor.phone.value && !(pending.status == 'paymentConfirm')" class="item item-body">
+           <p>Seu amigo {{pending.creator.name}}
+             disse que você deve a ele R${{pending.valueTotal}}, você concorda?</p>
+           </div>
+           <div ng-if="pending.creator.phone.value == pending.debtor.phone.value && !(pending.status == 'paymentConfirm')" class="item item-body">
+            <p>Seu amigo {{pending.creator.name}}
+             disse que lhe deve R${{pending.valueTotal}}, você concorda?</p>
+           </div>
+
+          <div ng-if="(pending.status == 'paymentConfirm')&&(pending.creditor.phone.value == phone && !(pending.creditor.senderConfirm))" class="item item-body">
+            <p>Voce confirma que a transação com {{pending.debtor.name}} foi pago <label ng-if="pending.valueTotal > pending.valuePaid"> o valor parcial R${{pending.valuePaid}} sobre</label>
+              <label ng-if="pending.valueTotal == pending.valuePaid"> o valor total de </label> R$ {{pending.valueTotal}}?
+            </p>
+          </div>
+
+          <div ng-if="(pending.status == 'paymentConfirm')&&(pending.debtor.phone.value == phone && !(pending.debtor.senderConfirm))" class="item item-body">           
+            <p>Voce confirma que a transação com {{pending.creditor.name}} foi pago <label ng-if="pending.valueTotal > pending.valuePaid"> o valor parcial R${{pending.valuePaid}} sobre</label>
+            <label ng-if="pending.valueTotal == pending.valuePaid"> o valor total de </label> R$ {{pending.valueTotal}}?
+            </p>
+           </div>
+           <ion-item>
+            <div class="button-bar" ng-if="pending.status != 'paymentConfirm'">
+              <a class="button button-light" ng-click="changePendencieStatus(pending, 'accepted')">Sim</a>
+              <a class="button button-light" ng-click="changePendencieStatus(pending, 'denied')">Não</a>
+            </div>
+            <div class="button-bar" ng-if="pending.status == 'paymentConfirm'">
+              <a class="button button-dark" ng-click="changePendencieStatus(pending, 'paid')">Sim</a>
+              <a class="button button-dark" ng-click="changePendencieStatus(pending, 'accepted')">Não</a>
+            </div>
+           </ion-item>
+      </ion-card>
+      <ion-card>
+  </ion-content>
+</ion-modal-view>

@@ -23,9 +23,11 @@ angular.module('starter.service.file', [])
         checkFileByFile: function(fileName){
             return $cordovaFile.checkFile(cordova.file.dataDirectory, fileName)
             .then(function (success) {
-                return success;
+
+                return true;
             }, function (error) {
-                return error;
+                
+                return false;
             });
         },
         

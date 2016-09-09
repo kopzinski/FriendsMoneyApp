@@ -9815,6 +9815,14 @@ a.button {
   -webkit-transition-duration: 0s;
   transition-duration: 0s; }
 
+.divider-title {
+  background: #e4e4e4;
+  padding: 1% 4%;
+  left: 0 !important;
+  right: 0 !important;
+  font-weight: bold;
+  font-size: 20px; }
+
 .item-list .item-content {
   padding: 10px 4px 4px 4px !important; }
 
