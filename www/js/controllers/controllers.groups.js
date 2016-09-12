@@ -56,9 +56,9 @@ angular.module('starter.controller.groups', ['starter.service'])
             phone: phone,
             name: user.data.name
           }
-          
+
           groupsService.createGroup(members, registerForm.title, user).then(function(response){
-            alert("aquiaaa");
+         
             console.log(response);          
             $scope.modal.hide(); 
           })
@@ -71,15 +71,15 @@ angular.module('starter.controller.groups', ['starter.service'])
       $scope.openGroupsModal = function(){       
         $scope.modal.show();
       }
-    
+      
       $scope.listGroups = function(){
         var user =  localStorage.getObject("user");
-        var phone = user.data.phone.value;   
-        
-        if(phone){     
+        var phone = user.data.phone.value; 
+        if(phone){    
+          console.log(phone); 
           groupsService.getListGroups(phone).then(function(response){
-            $scope.groups = response;    
             console.log(response);   
+            $scope.groups = response;  
           })
         }else{
           $cordovaToast.showLongCenter('Não há grupos');
@@ -88,12 +88,16 @@ angular.module('starter.controller.groups', ['starter.service'])
       }
 
       $scope.openGroups = function(group){
-        $scope.titleGroup = group.title;
+        $scope.group = group;
         $scope.modalGroup.show();
       }
 
-      $scope.deleteGroup = function(){
-        alert("apagar o grupo");
+      $scope.deleteGroup = function(id){
+        var user =  localStorage.getObject("user");
+        var phone = user.data.phone.value;
+        groupsService.deleteGroup(id, phone).then(function (response) {
+          console.log(response);
+        })   
       }
 
       $scope.onDrag = function(){
