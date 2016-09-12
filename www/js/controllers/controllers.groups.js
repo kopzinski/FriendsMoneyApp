@@ -52,7 +52,12 @@ angular.module('starter.controller.groups', ['starter.service'])
         if(registerForm.title){
           members.push({name: user.data.name, phone:{value: phone}});          
 
-          groupsService.createGroup(members, registerForm.title, phone).then(function(response){
+          var user={
+            phone: phone,
+            name: user.data.name
+          }
+          
+          groupsService.createGroup(members, registerForm.title, user).then(function(response){
             alert("aquiaaa");
             console.log(response);          
             $scope.modal.hide(); 

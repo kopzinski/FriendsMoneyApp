@@ -19,7 +19,7 @@
                 <h2   ng-if="pending.status == 'paymentConfirm'">{{pending.creator.name}} <p > Confirmar Pagamento</p></h2>
                 <h2  ng-if="pending.status == 'pending'">{{pending.creator.name}} <p > Confirmar Transação</p></h2>
               </div>
-              <p >{{pending.createdAt | relativeDate}}</p>
+              <p>{{pending.createdAt | relativeDate}}</p>
               </div>
               <div ng-if="pending.creator.phone.value != pending.creditor.phone.value" class="item-image">
                 <img src="img/creditor.svg">
@@ -29,11 +29,11 @@
               </div>
           </ion-item>
           <ion-item class="item-list" ng-if="pending.statusPendencie == 'createGroup'"  ng-click = "openGroupModal(pending)">
-            <ion-avatar item-left style="float: left; margin-right:10px">
+            <ion-avatar item-left style="float: left; margin-right:10px; position: absolute">
                     <img style="width: 45px" src="img/no-group.png">
             </ion-avatar>
-            <div  item-left style="float:left" >
-              <h2> Grupo {{pending.title}} <p>criado por {{pending.creator}}</p> </h2>
+            <div  item-left style="float:left; margin-left: 60px;">
+              <h2> Grupo {{pending.title}} <p>criado por {{pending.creator.phone.value}}</p> </h2>
               <p >{{pending.createdAt | relativeDate}}</p>
             </div>
           </ion-item>
