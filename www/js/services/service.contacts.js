@@ -108,17 +108,25 @@ angular.module('starter.service', [])
 
         createGroup: function(members, title, user){
 
-        var group = {
-          title: title,
-          members:members,
-          creator: {phone:{value: user.phone}, name: user.name}
+            var group = {
+            title: title,
+            members:members,
+            creator: {phone:{value: user.phone}, name: user.name}
+            }
+            
+            var url = "http://10.96.127.160:3000/api/group";
+            return $http.post(url, group).then(function(response){
+                return response;
+            })
+        },
+
+        deleteGroup: function(id, phone){
+            return $http.delete('http://10.96.127.160:3000/api/group/'+id + "/" + phone ).then(function(response){
+                return response.data;
+            })
+
         }
-        
-        var url = "http://10.96.127.160:3000/api/group";
-        return $http.post(url, group).then(function(response){
-            return response;
-        })
-        }
+
     }
 })
 

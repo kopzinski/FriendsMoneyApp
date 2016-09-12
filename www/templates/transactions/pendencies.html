@@ -5,7 +5,8 @@
           <div class="item item-divider divider-title">
             <h2 ng-if="key == 'paymentConfirm'"> Confirmação de Pagamento </h2>
             <h2 ng-if="key == 'pending'"> Transações Pendentes </h2>
-            <h2 ng-if="key == 'createGroup'"> Confirmação de Grupos </h2>
+            <h2 ng-if="key == 'createGroup'"> Confirmação de Grupos </h2>  
+            <h2 ng-if="key == 'finalizeGroup'"> Finalização de Grupos </h2>  
           </div>
           <div ng-repeat="pending in value">
     <!-- Payment Confirm -->
@@ -29,6 +30,15 @@
               </div>
           </ion-item>
           <ion-item class="item-list" ng-if="pending.statusPendencie == 'createGroup'"  ng-click = "openGroupModal(pending)">
+            <ion-avatar item-left style="float: left; margin-right:10px; position: absolute">
+                    <img style="width: 45px" src="img/no-group.png">
+            </ion-avatar>
+            <div  item-left style="float:left; margin-left: 60px;">
+              <h2> Grupo {{pending.title}} <p>criado por {{pending.creator.name}}</p> </h2>
+              <p >{{pending.createdAt | relativeDate}}</p>
+            </div>
+          </ion-item>
+          <ion-item class="item-list" ng-if="pending.statusPendencie == 'finalizeGroup'"  ng-click = "openGroupModal(pending)">
             <ion-avatar item-left style="float: left; margin-right:10px; position: absolute">
                     <img style="width: 45px" src="img/no-group.png">
             </ion-avatar>
