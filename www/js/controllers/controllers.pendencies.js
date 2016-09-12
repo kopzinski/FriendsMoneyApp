@@ -1,5 +1,5 @@
 angular.module('starter.controller.pendencies', ['starter.service', 'relativeDate','angular.filter'])
-.controller('ControllerPendencies', function(FileService,$cordovaToast,$cordovaNetwork, $window, $location, localStorage, $scope, $ionicModal, $ionicLoading, TransactionService) {
+.controller('ControllerPendencies', function(FileService,$cordovaToast,$cordovaNetwork, $window, $location, localStorage, $scope, $ionicModal, $ionicLoading, pendencieService) {
     var user =  localStorage.getObject("user");
     var phone = user.data.phone.value;
     $scope.phone = user.data.phone.value;
@@ -15,7 +15,7 @@ $scope.$on("$ionicView.enter", function(event, data){
             if (response){
               FileService.readAsText("pendencies.json").then(function (pendenciesList) {
                 $scope.pendencies = JSON.parse(pendenciesList);
-                TransactionService.getPendings(phone).then(function(pendenciesListAPI){
+                pendencieService.getPendings(phone).then(function(pendenciesListAPI){
                 if(pendenciesListAPI){
                   FileService.removeAndCreateAndWrite("pendencies.json", pendenciesListAPI).then(function(resp){
                       console.log("excluiu, criou, populou");                                 
@@ -30,7 +30,7 @@ $scope.$on("$ionicView.enter", function(event, data){
               })
               //online sem cache
             }else {
-                TransactionService.getPendings(phone).then(function(pendenciesList){
+                pendencieService.getPendings(phone).then(function(pendenciesList){
                 if(pendenciesList){
                   $scope.pendencies = pendenciesList;  
                   FileService.removeAndCreateAndWrite("pendencies.json", pendenciesList).then(function(resp){
@@ -64,7 +64,7 @@ getPendencies(phone);
 
 $scope.$on("$ionicView.beforeLeave", function(event, data){
     
-  TransactionService.getPendings(phone).then(function(pendenciesListAPI){
+  pendencieService.getPendings(phone).then(function(pendenciesListAPI){
                 if(pendenciesListAPI){
                   FileService.removeAndCreateAndWrite("pendencies.json", pendenciesListAPI).then(function(resp){
                       console.log("excluiu, criou, populou");                                 
@@ -122,22 +122,21 @@ $ionicModal.fromTemplateUrl('templates/transactions/pendencies.transaction.modal
       $scope.modalGroup.hide();
    };
 
-//Modal Transactions
+//Modal Pendencie Transactions
 $scope.changePendencieStatus = function(transaction, status){
      var newTransaction = transaction;
      
      newTransaction.status = status;
      //Transformar isso em função
      var index = $scope.pendencies.indexOf(transaction);
-     console.log("index",index);
-
-             $scope.pendencies.splice(index,1);
- 
-     $scope.modalTransaction.hide();
-      TransactionService.changeStatusTransaction(newTransaction).then(function(response){
+    
+      pendencieService.changeStatusTransaction(newTransaction).then(function(response){
           if (response.result == "success"){
+             console.log("index",index);
+            $scope.pendencies.splice(index,1);
+            $scope.modalTransaction.hide();
             $cordovaToast.showShortBottom('Alterado com sucesso');
-             TransactionService.getPendings(phone).then(function(pendenciesList){
+             pendencieService.getPendings(phone).then(function(pendenciesList){
                 if(pendenciesList){
                   
                   FileService.removeAndCreateAndWrite("pendencies.json", pendenciesList).then(function(resp){
@@ -152,6 +151,12 @@ $scope.changePendencieStatus = function(transaction, status){
         }
     });
   };
+
+  $scope.acceptGroupInvitation = function(id_group){
+      pendencieService.acceptGroup(phone, id_group).then(function(resp){
+        alert("grupo aceito")
+      })
+  }
 });
 
 

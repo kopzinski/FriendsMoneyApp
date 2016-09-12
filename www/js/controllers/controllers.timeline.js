@@ -1,5 +1,5 @@
 angular.module('starter.controller.timeline', ['starter.service', 'relativeDate'])
-.controller('TimelineCtrl', function($cordovaNetwork, FileService, $cordovaToast, $ionicHistory, $scope, $state, $ionicModal, localStorage, $timeout, $cordovaContacts, $ionicLoading, timelineService, TransactionService ) {
+.controller('TimelineCtrl', function($cordovaNetwork, FileService, $cordovaToast, $ionicHistory, $scope, $state, $ionicModal, localStorage, $timeout, $cordovaContacts, $ionicLoading, timelineService, pendencieService ) {
 
   
       $scope.doRefresh = function() {    

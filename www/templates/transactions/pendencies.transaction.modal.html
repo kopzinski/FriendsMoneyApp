@@ -7,15 +7,15 @@
         <ion-card>
         <ion-item>
           <ion-avatar item-left class="avatar-ion">
-            <img class="avatar" src="https://maker-live-fldr.imgix.net/assets/no-avatar-circular-ab7d5f67ec61eb5c9b993d61cab298fe.png?auto=format">
+              <img class="avatar" src="img/no-avatar.png">
           </ion-avatar>
            <div id="name" ng-if="pending.creator.name">
-          <h2>{{pending.creator.name}}</h2>
-        </div>
+              <h2>{{pending.creator.name}}</h2>
+           </div>
         <div id="phone"  ng-if="!pending.creator.name">
           <h2>{{pending.creator.phone.value}}</h2>
         </div>
-           <p>{{pending.createdAt |relativeDate}}</p>
+           <p>{{pending.createdAt | relativeDate}}</p>
         </ion-item>
            <div ng-if="pending.creator.phone.value == pending.creditor.phone.value && !(pending.status == 'paymentConfirm')" class="item item-body">
            <p>Seu amigo {{pending.creator.name}}
@@ -39,8 +39,8 @@
            </div>
            <ion-item>
             <div class="button-bar" ng-if="pending.status != 'paymentConfirm'">
-              <a class="button button-light" ng-click="changePendencieStatus(pending, 'accepted')">Sim</a>
-              <a class="button button-light" ng-click="changePendencieStatus(pending, 'denied')">Não</a>
+              <a class="button button-dark" ng-click="changePendencieStatus(pending, 'accepted')">Sim</a>
+              <a class="button button-dark" ng-click="changePendencieStatus(pending, 'denied')">Não</a>
             </div>
             <div class="button-bar" ng-if="pending.status == 'paymentConfirm'">
               <a class="button button-dark" ng-click="changePendencieStatus(pending, 'paid')">Sim</a>

@@ -1,0 +1,33 @@
+<ion-modal-view>
+    <ion-header-bar>        
+        <i class="ion-arrow-left-c arrow-back" ng-click="closeModal()"></i>
+        <h1 class="title" style="text-align">{{pending.title}}</h1>
+    </ion-header-bar>
+    <ion-content class="padding" on-drag-right="onDrag()">
+        <ion-card>
+            <ion-item>
+                <ion-avatar item-left class="avatar-ion">
+                    <img class="avatar" src="img/no-group.png">
+                </ion-avatar>
+                <div id="name" ng-if="pending.title">
+                    <h2>{{pending.title}}</h2>
+                </div>
+                 <p>{{pending.createdAt | relativeDate}}</p>
+            </ion-item>
+            <div ng-if="pending.statusPendencie == 'createGroup'" class="item item-body">
+                <p>Seu amigo {{pending.creator.name}}
+             Criou o grupo {{pending.title}}, você concorda em entrar nele?</p>
+           </div>
+           <ion-item>
+            <div class="button-bar" ng-if="pending.statusPendencie == 'createGroup'">
+              <a class="button button-dark" ng-click="acceptGroupInvitation(pending._id)">Sim</a>
+              <a class="button button-dark" ng-click="denyGroupInvitation(pending._id)">Não</a>
+            </div>
+            <div class="button-bar" ng-if="pending.statusPendencie == 'finalizeGroup'">
+              <a class="button button-dark" ng-click="AcceptedFinalizedGroup(pending._id)">Sim</a>
+              <a class="button button-dark" ng-click="denyFinalizedStatus(pending._id)">Não</a>
+            </div>
+           </ion-item>
+        </ion-card>
+    </ion-content>
+</ion-modal-view>
