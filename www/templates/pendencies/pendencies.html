@@ -1,5 +1,7 @@
 <ion-view view-title="Pendentes">
   <ion-content class="padding list-avatar-page">
+      <ion-refresher pulling-text="Puxe para atualizar..." on-refresh="getPendencies(phone)">
+      </ion-refresher>         
       <div ng-if="pendencies.length > 0" >
         <ion-list ng-repeat="(key,value) in pendencies | groupBy: 'statusPendencie'"  >
           <div class="item item-divider divider-title">

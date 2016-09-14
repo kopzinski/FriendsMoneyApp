@@ -7,7 +7,7 @@ angular.module('starter.service', [])
         var data = {
             contacts : contacts
         }
-         var url = "http://10.96.127.185:3000/api/contacts";
+         var url = "http://10.96.127.160:3000/api/contacts";
         return $http.post(url, data).then(function(response){
             var responses = response.data;
             return responses;
@@ -19,7 +19,7 @@ angular.module('starter.service', [])
             var data = {
                 transaction : transaction
             }
-            var url = "http://10.96.127.185:3000/api/userFromTransaction";
+            var url = "http://10.96.127.160:3000/api/userFromTransaction";
             return $http.post(url, data).then(function(response){
                 return response;
             })
@@ -27,7 +27,7 @@ angular.module('starter.service', [])
 
         registerTransactionWithFlag:function(transaction){
             var data = transaction;
-            var url = "http://10.96.127.185:3000/api/transaction";
+            var url = "http://10.96.127.160:3000/api/transaction";
            
             return $http.post(url, data).then(function(response){
                 var response = response.data;
@@ -40,13 +40,13 @@ angular.module('starter.service', [])
 .factory('pendencieService', function($http){
     return {
         getPendings: function(phone){
-            return $http.get('http://10.96.127.185:3000/api/pending/'+phone).then(function(response){
+            return $http.get('http://10.96.127.160:3000/api/pending/'+phone).then(function(response){
                 return response.data;
             })
         },
         changeStatusTransaction: function(transaction){
             
-            var url = "http://10.96.127.185:3000/api/transaction";
+            var url = "http://10.96.127.160:3000/api/transaction";
             var req = {
                 method: 'PUT',
                 url: url,				   
@@ -60,7 +60,7 @@ angular.module('starter.service', [])
         },
 
         acceptGroup: function(phone, id_group){
-            var url = "http://10.96.127.185:3000/api/group/accept"
+            var url = "http://10.96.127.160:3000/api/group/accept"
             var req = {
                 method: 'PUT',
                 url: url,
@@ -75,7 +75,7 @@ angular.module('starter.service', [])
         },
 
         denyGroup: function(phone, id_group){
-            var url = "http://10.96.127.185:3000/api/group/deny"
+            var url = "http://10.96.127.160:3000/api/group/deny"
             var req = {
                 method: 'PUT',
                 url: url,
@@ -102,7 +102,7 @@ angular.module('starter.service', [])
             } 
         }
         
-         var url = "http://10.96.127.185:3000/api/user";
+         var url = "http://10.96.127.160:3000/api/user";
         return $http.post(url, data).then(function(response){
             return response;
         })
@@ -116,7 +116,7 @@ angular.module('starter.service', [])
 .factory('groupsService', function($http){    
     return {
         getListGroups: function(phone){
-            return $http.get('http://10.96.127.185:3000/api/groups/'+phone).then(function(response){
+            return $http.get('http://10.96.127.160:3000/api/groups/'+phone).then(function(response){
                 return response.data;
             })
         },
@@ -129,14 +129,14 @@ angular.module('starter.service', [])
             creator: {phone:{value: user.phone}, name: user.name}
             }
             
-            var url = "http://10.96.127.185:3000/api/group";
+            var url = "http://10.96.127.160:3000/api/group";
             return $http.post(url, group).then(function(response){
                 return response;
             })
         },
 
         deleteGroup: function(id, phone){
-            return $http.delete('http://10.96.127.185:3000/api/group/'+id + "/" + phone ).then(function(response){
+            return $http.delete('http://10.96.127.160:3000/api/group/'+id + "/" + phone ).then(function(response){
                 return response.data;
             })
 
@@ -148,7 +148,7 @@ angular.module('starter.service', [])
 .factory('timelineService', function($http){
     return {
         getAllTransactions:function(phone){            
-            var url = "http://10.96.127.185:3000/api/transactions/" + phone ;
+            var url = "http://10.96.127.160:3000/api/transactions/" + phone ;
             return $http.get(url).then(function(response){
                 return response.data;       
             })

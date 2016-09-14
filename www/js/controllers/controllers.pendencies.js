@@ -7,8 +7,7 @@ angular.module('starter.controller.pendencies', ['starter.service', 'relativeDat
 $scope.$on("$ionicView.enter", function(event, data){
    // handle event
 
-    getPendencies = function(phone){
-
+    $scope.getPendencies = function(phone){
       if($cordovaNetwork.isOnline() == true){
         FileService.checkFileByFile("pendencies.json").then(function(response){
           //online com cache
@@ -58,7 +57,7 @@ $scope.$on("$ionicView.enter", function(event, data){
         })
       }     
     }
-getPendencies(phone);
+$scope.getPendencies(phone);
 });
 
 
@@ -78,14 +77,14 @@ $scope.$on("$ionicView.beforeLeave", function(event, data){
 })
 
 //Modal functions
-$ionicModal.fromTemplateUrl('templates/transactions/pendencies.transaction.modal.html', {
+$ionicModal.fromTemplateUrl('templates/pendencies/pendencies.transaction.modal.html', {
       scope: $scope,
       animation: 'slide-in-right'
    }).then(function(modal) {
       $scope.modalTransaction = modal;
    });
 
-   $ionicModal.fromTemplateUrl('templates/transactions/pendencies.group.modal.html', {
+   $ionicModal.fromTemplateUrl('templates/pendencies/pendencies.group.modal.html', {
       scope: $scope,
       animation: 'slide-in-right'
    }).then(function(modal) {

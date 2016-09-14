@@ -14,7 +14,7 @@ angular.module('starter.routes', [])
     views: {
       'menuContent': {
         controller: 'ControllerPendencies',
-        templateUrl: 'templates/transactions/pendencies.html'
+        templateUrl: 'templates/pendencies/pendencies.html'
       }
     }
   })
