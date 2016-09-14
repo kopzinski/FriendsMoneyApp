@@ -173,6 +173,30 @@ $scope.changePendencieStatus = function(transaction, status){
            $cordovaToast.showShortBottom('erro:'+resp.message);
          }
       })
+  };
+
+  $scope.denyGroupInvitation = function(pending){
+    var index = $scope.pendencies.indexOf(pending);
+      pendencieService.denyGroup(phone, pending._id).then(function(resp){
+         if (resp.result == "success"){
+            $scope.pendencies.splice(index,1);
+            $scope.modalGroup.hide();
+            $cordovaToast.showShortBottom('Negado com Sucesso');
+            pendencieService.getPendings(phone).then(function(pendenciesList){
+                if(pendenciesList){
+                  FileService.removeAndCreateAndWrite("pendencies.json", pendenciesList).then(function(resp){
+                      console.log("excluiu, criou, populou");                     
+                  });           
+                }else {
+                  FileService.removeFile("pendencies.json").then(function(resp){
+                      console.log("excluiu arquivo");                                 
+                  }); 
+                } 
+            })
+         }else {
+           $cordovaToast.showShortBottom('erro:'+resp.message);
+         }
+      })
   }
 });
 

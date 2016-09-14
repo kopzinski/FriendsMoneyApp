@@ -3,12 +3,12 @@
     <i class='ion-arrow-left-c ion-plus-round text-right group-icon' ng-click="openGroupsModal()"></i>
   </ion-nav-buttons>  
   <ion-content class="home padding" ng-init="listGroups()" style="padding-top: 10px; padding-bottom: 10px;">  
-    <ion-list ng-repeat="group in groups | orderBy:'title'" ng-click="openGroups(group)">      
+    <ion-list ng-repeat="group in groups | orderBy:'title'" ng-click="openGroups(group)" ng-if="group.members != ''">      
         <ion-item>
           <ion-avatar item-left class="avatar-ion">
             <img class="avatar" src="img/no-avatar.png">
           </ion-avatar>
-            <h2 ng-if="group.title != 'Unknw' || group.title != undefined" class="title-name">{{group.title}}</h2> 
+            <h2 ng-if="group.title != 'Unknw' || group.title != undefined" class="title-name">{{group.title}}</h2>             
         </ion-item>
         <ion-item>
           <h3>Componentes do grupo:</h3>

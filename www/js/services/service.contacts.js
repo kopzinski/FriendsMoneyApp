@@ -72,6 +72,21 @@ angular.module('starter.service', [])
             return $http(req).then(function(response){
                 return  response.data;
             })
+        },
+
+        denyGroup: function(phone, id_group){
+            var url = "http://10.96.127.185:3000/api/group/deny"
+            var req = {
+                method: 'PUT',
+                url: url,
+                data:{
+                    userPhone: phone,
+                    id_group: id_group
+                }
+            }
+            return $http(req).then(function(response){
+                return  response.data;
+            })
         }
     }
 })
