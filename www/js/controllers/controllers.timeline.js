@@ -70,12 +70,8 @@ angular.module('starter.controller.timeline', ['starter.service', 'relativeDate'
       $scope.payTransaction = function(transactionPaid){
             var user =  localStorage.getObject("user");
             var phone = user.data.phone.value;
-
             var valuePaid = transactionPaid.valuePaid;
             transactionPaid.status = "paymentConfirm";
-
-           
-
             if ( valuePaid > 0){
                   if (transactionPaid.debtor.phone.value == phone){
                         transactionPaid.debtor.senderConfirm = true;
@@ -85,7 +81,7 @@ angular.module('starter.controller.timeline', ['starter.service', 'relativeDate'
                         transactionPaid.creditor.senderConfirm = true;
                   }
 
-                  TransactionService.changeStatusTransaction(transactionPaid).then(function(response){
+                  pendencieService.changeStatusTransaction(transactionPaid).then(function(response){
                       $scope.transaction.valuePaid = "";
                       $scope.modal.hide();                      
                   })

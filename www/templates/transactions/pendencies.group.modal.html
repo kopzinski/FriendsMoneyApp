@@ -20,12 +20,12 @@
            </div>
            <ion-item>
             <div class="button-bar" ng-if="pending.statusPendencie == 'createGroup'">
-              <a class="button button-dark" ng-click="acceptGroupInvitation(pending._id)">Sim</a>
-              <a class="button button-dark" ng-click="denyGroupInvitation(pending._id)">Não</a>
+              <a class="button button-dark" ng-click="acceptGroupInvitation(pending)">Sim</a>
+              <a class="button button-dark" ng-click="denyGroupInvitation(pending)">Não</a>
             </div>
             <div class="button-bar" ng-if="pending.statusPendencie == 'finalizeGroup'">
-              <a class="button button-dark" ng-click="AcceptedFinalizedGroup(pending._id)">Sim</a>
-              <a class="button button-dark" ng-click="denyFinalizedStatus(pending._id)">Não</a>
+              <a class="button button-dark" ng-click="AcceptedFinalizedGroup(pending)">Sim</a>
+              <a class="button button-dark" ng-click="denyFinalizedStatus(pending)">Não</a>
             </div>
            </ion-item>
         </ion-card>

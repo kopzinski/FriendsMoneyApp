@@ -132,13 +132,12 @@ $scope.changePendencieStatus = function(transaction, status){
     
       pendencieService.changeStatusTransaction(newTransaction).then(function(response){
           if (response.result == "success"){
-             console.log("index",index);
+            console.log("index",index);
             $scope.pendencies.splice(index,1);
             $scope.modalTransaction.hide();
             $cordovaToast.showShortBottom('Alterado com sucesso');
              pendencieService.getPendings(phone).then(function(pendenciesList){
                 if(pendenciesList){
-                  
                   FileService.removeAndCreateAndWrite("pendencies.json", pendenciesList).then(function(resp){
                       console.log("excluiu, criou, populou");                     
                   });           
@@ -152,9 +151,27 @@ $scope.changePendencieStatus = function(transaction, status){
     });
   };
 
-  $scope.acceptGroupInvitation = function(id_group){
-      pendencieService.acceptGroup(phone, id_group).then(function(resp){
-        alert("grupo aceito")
+  $scope.acceptGroupInvitation = function(pending){
+    var index = $scope.pendencies.indexOf(pending);
+      pendencieService.acceptGroup(phone, pending._id).then(function(resp){
+         if (resp.result == "success"){
+            $scope.pendencies.splice(index,1);
+            $scope.modalGroup.hide();
+            $cordovaToast.showShortBottom('Aceito com Sucesso');
+            pendencieService.getPendings(phone).then(function(pendenciesList){
+                if(pendenciesList){
+                  FileService.removeAndCreateAndWrite("pendencies.json", pendenciesList).then(function(resp){
+                      console.log("excluiu, criou, populou");                     
+                  });           
+                }else {
+                  FileService.removeFile("pendencies.json").then(function(resp){
+                      console.log("excluiu arquivo");                                 
+                  }); 
+                } 
+            })
+         }else {
+           $cordovaToast.showShortBottom('erro:'+resp.message);
+         }
       })
   }
 });
