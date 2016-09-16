@@ -17,7 +17,7 @@ angular.module('register.controllers', ['starter.service'])
       
       $scope.closeModal = function(){
           console.log('passou');
-          $location.path('/app/timeline');
+          $location.path('/timeline');
           $scope.modal.hide();
           $ionicHistory.nextViewOptions({
             disableBack: true

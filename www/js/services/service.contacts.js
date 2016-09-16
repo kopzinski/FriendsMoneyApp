@@ -1,5 +1,15 @@
 angular.module('starter.service', [])
-
+.factory('GroupLocalService',function(){
+    var group = {};
+    return {
+        getGroup:function(){
+            return group;
+        },
+        setGroup:function(groupParameter){
+            group = groupParameter;
+        }
+    }
+})
 .factory('ContactsService', function($http){
     return {
         setContact: function(contacts){

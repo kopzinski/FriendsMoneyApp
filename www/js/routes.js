@@ -3,70 +3,64 @@ angular.module('starter.routes', [])
 .config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
 
-    .state('app', {
-    url: '/app',
-    abstract: true,
-    templateUrl: 'templates/menu.html',
+  .state('tabs', {
+    url: '/groups/tab',
+    templateUrl: 'templates/groups/tabs/tabsController.html',
+    abstract:true
   })
 
-  .state('app.pendencies', {
+    .state('tabs.members', {
+    url: '/groups/members',
+    views: {
+      'tabs-members': {
+        controller: 'GroupMembersCtrl',
+        templateUrl: 'templates/groups/tabs/group.members.html'
+      }
+    }
+  })
+
+  .state('tabs.transactions', {
+    url: '/groups/transactions',
+    views: {
+      'tabs-transactions': {
+        controller: 'GroupTransactionsCtrl',
+        templateUrl: 'templates/groups/tabs/group.transactions.html'
+      }
+    }
+  })
+
+
+  .state('pendencies', {
     url: '/pendencies',
-    views: {
-      'menuContent': {
-        controller: 'ControllerPendencies',
-        templateUrl: 'templates/pendencies/pendencies.html'
-      }
-    }
+    controller: 'ControllerPendencies',
+    templateUrl: 'templates/pendencies/pendencies.html'
   })
 
-  .state('app.register', {
+
+
+  .state('register', {
     url: '/register',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/register/modal.register.html',
-        controller: 'RegisterCtrl'
-      }
-    }
+    templateUrl: 'templates/register/modal.register.html',
+    controller: 'RegisterCtrl'
   })
 
- .state('app.timeline', {
+ .state('timeline', {
       url: '/timeline',
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/timeline/timeline.html',
-          controller: 'TimelineCtrl'
-        }
-      }
+      templateUrl: 'templates/timeline/timeline.html',
+      controller: 'TimelineCtrl'
     })
 
-  .state('app.groups', {
+  .state('groups', {
     url: '/groups',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/groups/groups.html',
-        controller: 'GroupsCtrl'
-      }
-    }
+    templateUrl: 'templates/groups/group.html',
+    controller: 'GroupsCtrl'
   })
 
-  .state('app.group', {
-    url: '/group',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/groups/group.html',
-        controller: 'GroupsCtrl'
-      }
-    }
-  })
 
-  .state('app.contact', {
+  .state('contacts', {
       url: '/contact',
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/contact/contact.html',
-          controller: 'ContactCtrl'
-        }
-      }
+      templateUrl: 'templates/contact/contact.html',
+      controller: 'ContactCtrl'
     });
     
   // if none of the above states are matched, use this as the fallback
@@ -75,10 +69,10 @@ angular.module('starter.routes', [])
     var user = window.localStorage["friendsMoney" + "user"];
     if(user){
       console.log("tem registro");
-      $location.path('/app/timeline');
+      $location.path('/timeline');
     }else{
       console.log("não tem registro");
-      $location.path('/app/register');
+      $location.path('/register');
       
     }
   });

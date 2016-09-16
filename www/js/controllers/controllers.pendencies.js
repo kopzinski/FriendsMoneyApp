@@ -60,6 +60,29 @@ $scope.$on("$ionicView.enter", function(event, data){
 $scope.getPendencies(phone);
 });
 
+$scope.doRefresh = function(phone){
+  if($cordovaNetwork.isOnline() == true){
+    pendencieService.getPendings(phone).then(function(pendenciesList){
+      if(pendenciesList){
+                  $scope.pendencies = pendenciesList;
+                  $scope.$broadcast('scroll.refreshComplete');
+                  $cordovaToast.showShortBottom('Atualizado');  
+                  FileService.removeAndCreateAndWrite("pendencies.json", pendenciesList).then(function(resp){
+                      console.log("excluiu, criou, populou");                                 
+                  }); 
+                }else{
+                  FileService.removeFile("pendencies.json").then(function(resp){
+                      console.log("excluiu arquivo");                                 
+                  }); 
+                }
+    })
+  }else {
+    $scope.$broadcast('scroll.refreshComplete');
+    $cordovaToast.showShortBottom('Não foi possível atualizar, sem conexão com internet');
+
+
+  }
+}
 
 $scope.$on("$ionicView.beforeLeave", function(event, data){
     

@@ -9815,6 +9815,34 @@ a.button {
   -webkit-transition-duration: 0s;
   transition-duration: 0s; }
 
+.float-button {
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+  width: 30px;
+  padding: 29px;
+  font-size: 40px;
+  background: #387ef5;
+  opacity: 0.5;
+  position: fixed;
+  bottom: 10%;
+  right: 42%;
+  z-index: 9999; }
+
+.float-button .height_fix {
+  margin-top: 100%; }
+
+.float-button .content {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  height: 100%;
+  width: 100%;
+  text-align: center;
+  margin-top: -20px;
+  /* Note, this must be half the font size */
+  color: #fff; }
+
 .divider-title {
   background: #e4e4e4;
   padding: 1% 4%;
