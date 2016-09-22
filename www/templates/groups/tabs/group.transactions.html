@@ -1,31 +1,39 @@
 
-<ion-view title="Groups" id="page1">
+<ion-view title="Transações" id="page1" hide-back-button="false" >
+
     <ion-content padding="true" class="has-header">
-        <h1>Teste</h1>
+      <ion-refresher pulling-text="Puxe para atualizar..." on-refresh="doRefresh()">
+      </ion-refresher>   
+         <label class="group-title"><h2>{{group.title}}</h2></label>
+         <div ng-if="transactions.length > 0" >
+           <ion-list ng-repeat="(key,value) in transactions | groupBy: 'creditor.name'"  >
+            <div class="item item-divider divider-title" style="text-align:center">
+              <h2> {{key}}</h2>
+            </div>
+            <div ng-repeat="transaction in value">
+                <!-- ng-click="openTransactionModal(transaction) && phone == this.creditor.phone.value" -->
+                <div class="item item-avatar">
+                  <ion-avatar item-left style="float: left; margin-right:10px; position: absolute">
+                    <img style="width: 45px" src="img/money.png">
+                  </ion-avatar>
+                  <div  item-left style="float:left; margin-left: 60px;">
+                    <h2>Valor: R${{transaction.valuePaid}}</h2>
+                    <p>{{transaction.description}}</p>
+                    <p >{{transaction.createdAt | relativeDate}}</p>
+                  </div>
+                </div>
+            </div>
+           </ion-list>
+          </div>
+          <div ng-hide="transactions.length > 0">
+            <p> Não há transações ainda para esse grupo </p>
+          </div>
     </ion-content>
     <div class="float-button">
       <span class="height-fix">
-      <a ui-sref="add-trip" class="content">
+      <a ng-click="openTransactionModal()" class="content">
         <i class="ion-plus-round"> </i>
       </a>
       </span>
     </div> 
 </ion-view>
-
-<!--ion-view view-title="Transações do Grupo">
-  <ion-nav-buttons side="right">
-    <ion-nav-back-button class="button-icon ion-arrow-left-c">
-      </ion-nav-back-button>
-    <i class='ion-arrow-left-c ion-plus-round text-right group-icon' ng-click="openGroupsModal()"></i>
-  </ion-nav-buttons>
-
-<ion-content>
-</ion-content>
-<div class="float-button">
-  <span class="height-fix">
-    <a ui-sref="add-trip" class="content">
-      <i class="ion-plus-round"> </i>
-    </a>
-  </span>
-</div> 
-</ion-view --> 

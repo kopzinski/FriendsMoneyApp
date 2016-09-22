@@ -21,7 +21,6 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 // Include all of Ionic
 @import "www/lib/ionic/scss/ionic";
 
-
 .float-button {
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
@@ -33,7 +32,7 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
     opacity: 0.5;
     position: fixed;
     bottom: 10%;
-    right: 42%;
+    right: 10%;
     z-index: 9999;
 }
 
@@ -82,13 +81,20 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 .button-div {
     width: 100%; text-align: center; margin-top: 10px;
 }
-
+.group-title {
+    width: 100%;
+    text-align: center;
+}
 .avatar {
     width: 50px;
 }
-
 .title-name{
     line-height: 52px; margin-left: 10px; float: left;
+
+}
+.title-name-group{
+    line-height: 52px; margin-left: 10px !important; float: left;
+
 }
 
 .app-green{

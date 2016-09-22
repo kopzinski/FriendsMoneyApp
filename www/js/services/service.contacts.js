@@ -120,9 +120,6 @@ angular.module('starter.service', [])
     }
 })
 
-
-
-
 .factory('groupsService', function($http){    
     return {
         getListGroups: function(phone){
@@ -130,7 +127,26 @@ angular.module('starter.service', [])
                 return response.data;
             })
         },
+        getListTransactionsGroup : function(idGroup){
+            return $http.get('http://10.96.127.160:3000/api/group/'+idGroup+'/transactions').then(function(response){
+                return response.data;
+            })
+        },
+        registerGroupTransaction:function(user, idGroup, transaction){
+            var data = {
+                idGroup: idGroup,
+                transaction: {
+                    creditor: user,
+                    description:transaction.description,
+                    valuePaid:transaction.valuePaid
+                }
+            }
 
+            var url = "http://10.96.127.160:3000/api/group/transaction";
+            return $http.post(url, data).then(function(response){
+                return response;
+            })
+        },
         createGroup: function(members, title, user){
 
             var group = {

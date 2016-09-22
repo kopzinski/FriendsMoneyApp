@@ -147,16 +147,16 @@ $ionicModal.fromTemplateUrl('templates/pendencies/pendencies.transaction.modal.h
 //Modal Pendencie Transactions
 $scope.changePendencieStatus = function(transaction, status){
      var newTransaction = transaction;
-     
      newTransaction.status = status;
      //Transformar isso em função
-     var index = $scope.pendencies.indexOf(transaction);
+     
     
       pendencieService.changeStatusTransaction(newTransaction).then(function(response){
           if (response.result == "success"){
             console.log("index",index);
-            $scope.pendencies.splice(index,1);
+            var index = $scope.pendencies.indexOf(transaction);
             $scope.modalTransaction.hide();
+            $scope.pendencies.splice(index,1);
             $cordovaToast.showShortBottom('Alterado com sucesso');
              pendencieService.getPendings(phone).then(function(pendenciesList){
                 if(pendenciesList){

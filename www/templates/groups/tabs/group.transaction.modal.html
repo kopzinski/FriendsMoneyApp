@@ -1,0 +1,47 @@
+<ion-modal-view>
+    <ion-header-bar align-title="center" class="bar-positive">    
+        <i class="ion-arrow-left-c arrow-back" ng-click="modal.hide()"></i>
+        <h1 class="title" style="text-align">Registro nova transação</h1>  
+    </ion-header-bar>
+    
+   
+    <ion-content class="padding" on-drag-right="onDrag()">
+        <form name="transactionRe" ng-submit="registerTransaction(group._id, transaction)" class="form-group">
+          <ion-card>
+            <ion-item>
+              <ion-avatar item-left class="avatar-ion">
+                <img class="avatar" src="img/no-group.png">
+              </ion-avatar>
+              <h2 class="title-name-group">{{group.title}}</h2>
+            </ion-item>
+            <label class="item item-input">
+              <span class="input-label"><strong>Valor:</strongb> </span>              
+              <input style="margin-left:-35px; " id="val" placeholder="R$" type="tel" name="input" ng-model="transaction.valuePaid" ng-pattern="\\d+"></span>                  
+            </label>
+            <label class="item item-input">
+                <span class="input-label"><strong>Descrição: </strong></span>
+                
+                <textarea 
+                style="width: 75%; margin-left:-35px; margin-top: 18px;"
+                  id="descriptionId"
+                  ng-model = "transaction.description"
+                  ng-keyup="expandText()"
+                  ng-keydown="expandText()">
+                </textarea> 
+            </label>
+          </ion-card>
+          <input type="submit" value="Registrar Transação"  style=" width:100%;" class="button button-full button-positive button-contact"/>
+        </form>
+        </ion-content>
+</ion-modal-view>
+
+<div class="list">
+  <label class="item item-input">
+    <span class="input-label">Username</span>
+    <input type="text">
+  </label>
+  <label class="item item-input">
+    <span class="input-label">Password</span>
+    <input type="password">
+  </label>
+</div>

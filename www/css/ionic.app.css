@@ -9826,7 +9826,7 @@ a.button {
   opacity: 0.5;
   position: fixed;
   bottom: 10%;
-  right: 42%;
+  right: 10%;
   z-index: 9999; }
 
 .float-button .height_fix {
@@ -9872,12 +9872,21 @@ a.button {
   text-align: center;
   margin-top: 10px; }
 
+.group-title {
+  width: 100%;
+  text-align: center; }
+
 .avatar {
   width: 50px; }
 
 .title-name {
   line-height: 52px;
   margin-left: 10px;
+  float: left; }
+
+.title-name-group {
+  line-height: 52px;
+  margin-left: 10px !important;
   float: left; }
 
 .app-green {

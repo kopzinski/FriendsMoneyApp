@@ -1,6 +1,26 @@
-<ion-view title="Members" id="page1">
-    <ion-content padding="true" class="has-header">
-        <h1>Teste</h1>
-    </ion-content>
 
+<ion-view title="Members" id="page1" hide-back-button="false" >
+
+    <ion-content padding="true" class="has-header">
+      <ion-refresher pulling-text="Puxe para atualizar..." on-refresh="doRefresh()">
+      </ion-refresher>   
+         <label class="group-title"><h2>{{group.title}}</h2></label>
+         <div ng-if="group.members.length > 0" >
+           <ion-list ng-repeat="member in group.members "  >
+            <ion-item>
+                <ion-avatar item-left class="avatar-ion">
+                    <img class="avatar" src="img/no-avatar.png">
+                </ion-avatar>
+
+                <div item-left style="float:left; margin-left: 3px;">
+                    <h2>{{member.name}}</h2>
+                    <p>Número de Celular: {{member.phone.value}}</p>
+                </div>
+            </ion-item>
+           </ion-list>
+          </div>
+          <div ng-hide="group.members.length > 0">
+            <p> Não há membros no grupo ainda </p>
+          </div>
+    </ion-content>
 </ion-view>
