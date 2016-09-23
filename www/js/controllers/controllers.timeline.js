@@ -8,6 +8,7 @@ angular.module('starter.controller.timeline', ['starter.service', 'relativeDate'
             var phone = user.data.phone.value;
             $scope.phone = phone;
             timelineService.getAllTransactions(phone).then(function(response){
+                  response = JSON.stringify(response);
                   FileService.removeAndCreateAndWrite("timeline.json", response).then(function(resp){
                         console.log("excluiu, criou, populou");
                         console.log(resp);                           
