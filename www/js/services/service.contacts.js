@@ -166,7 +166,15 @@ angular.module('starter.service', [])
                 return response.data;
             })
 
+        },
+
+        getListMembersByGroup : function(idGroup, phone){
+            return $http.get('http://10.96.127.185:3000/api/group/'+idGroup+'/user/'+phone).then(function(response){
+                return response.data;
+            })
         }
+
+
 
     }
 })

@@ -102,15 +102,15 @@ angular.module('starter.controller.groups', ['starter.service'])
         var user =  localStorage.getObject("user");
         var phone = user.data.phone.value; 
         if(phone){    
-          groupsService.getListGroups("+555197412487").then(function(response){
+          groupsService.getListGroups(phone).then(function(response){
             console.log(response);   
             $scope.groups = response;  
           })
         }else{
           $cordovaToast.showLongCenter('Não há grupos');
         } 
-
       }
+
       $scope.groupDetail = function(group){
         GroupLocalService.setGroup(group);
         $state.go('tabs.transactions');
@@ -197,10 +197,25 @@ angular.module('starter.controller.groups', ['starter.service'])
 })
 
 .controller('GroupMembersCtrl', function($state, GroupLocalService , $ionicModal, groupsService, localStorage, $scope, $cordovaNetwork, $cordovaToast) {
-
+    $scope.doRefresh = function(){
+      $scope.group =  GroupLocalService.getGroup();
+      var user =  localStorage.getObject("user");
+      var phone = user.data.phone.value;
+      groupsService.getListMembersByGroup($scope.group._id, phone).then(function(response){
+        $scope.members = response;
+        $scope.$broadcast('scroll.refreshComplete');
+        $cordovaToast.showShortBottom('Atualizado');
+      });            
+    }
+    
     $scope.$on('$ionicView.beforeEnter', function (event, viewData) {
       viewData.enableBack = true;
       $scope.group =  GroupLocalService.getGroup();
+      var user =  localStorage.getObject("user");
+      var phone = user.data.phone.value;
+      groupsService.getListMembersByGroup($scope.group._id, phone).then(function(response){
+        $scope.members = response;
+        console.log(response);
+      });
     });
-
 })
