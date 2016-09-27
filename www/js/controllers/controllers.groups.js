@@ -11,14 +11,47 @@ angular.module('starter.controller.groups', ['starter.service'])
       })  
 
       $scope.contactsOnLoad = function(){
-        
+
         if($cordovaNetwork.isOnline() == true){
-          function onSuccess(contacts) {        
-            ContactsService.setContact(contacts).then(function(responses){
+          
+          function onSuccess(contacts) {       
+            if(ionic.Platform.isIOS() == true){
+              var array = [];
+              for(var i = 0; i < contacts.length; i++){
+                var contact = { 
+                  "id": contacts[i].id,
+                  "rawId": contacts[i].rawId,
+                  "displayName": contacts[i].name.givenName,
+                  "name": [{ "formatted": contacts[i].name.formatted , "givenName":  contacts[i].name.givenName}],
+                  "nickname": null,
+                  "phoneNumbers": [{ "type": contacts[i].phoneNumbers[0].type, "value": contacts[i].phoneNumbers[0].value, "id": contacts[i].phoneNumbers[0].id, "pref": contacts[i].phoneNumbers[0].pref }] ,
+                  "emails": null,
+                  "addresses": null,
+                  "ims": null,
+                  "organizations": null,
+                  "birthday": null,
+                  "note": null,
+                  "photos": null,
+                  "categories": null,
+                  "urls": null 
+                };
+                array.push(contact);
+              }
+              ContactsService.setContact(array).then(function(responses){
+                var contacts = responses;
+                $scope.users = contacts;
+              });
+            }else{
+              ContactsService.setContact(contacts).then(function(responses){
                 $scope.users = responses;
-                console.log($scope.cont);    
-            });      
+                    
+              });  
+            }
+
+            $scope.$broadcast('scroll.refreshComplete');
+
           }
+
           function onError(contactError) {
             alert(contactError);
           }
@@ -76,8 +109,8 @@ angular.module('starter.controller.groups', ['starter.service'])
         }else{
           $cordovaToast.showLongCenter('Não há grupos');
         } 
-
       }
+
       $scope.groupDetail = function(group){
         GroupLocalService.setGroup(group);
         $state.go('tabs.transactions');
@@ -164,10 +197,25 @@ angular.module('starter.controller.groups', ['starter.service'])
 })
 
 .controller('GroupMembersCtrl', function($state, GroupLocalService , $ionicModal, groupsService, localStorage, $scope, $cordovaNetwork, $cordovaToast) {
-
+    $scope.doRefresh = function(){
+      $scope.group =  GroupLocalService.getGroup();
+      var user =  localStorage.getObject("user");
+      var phone = user.data.phone.value;
+      groupsService.getListMembersByGroup($scope.group._id, phone).then(function(response){
+        $scope.members = response;
+        $scope.$broadcast('scroll.refreshComplete');
+        $cordovaToast.showShortBottom('Atualizado');
+      });            
+    }
+    
     $scope.$on('$ionicView.beforeEnter', function (event, viewData) {
       viewData.enableBack = true;
       $scope.group =  GroupLocalService.getGroup();
+      var user =  localStorage.getObject("user");
+      var phone = user.data.phone.value;
+      groupsService.getListMembersByGroup($scope.group._id, phone).then(function(response){
+        $scope.members = response;
+        console.log(response);
+      });
     });
-
 })

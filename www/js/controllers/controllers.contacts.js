@@ -4,13 +4,43 @@ angular.module('starter.controller.contact', ['starter.service', 'starter.servic
   
       $scope.doRefresh = function() {
         if($cordovaNetwork.isOnline() == true){
-          function onSuccess(contacts) {        
-            ContactsService.setContact(contacts).then(function(responses){
+          function onSuccess(contacts) {       
+
+            if(ionic.Platform.isIOS() == true){
+              var array = [];
+              for(var i = 0; i < contacts.length; i++){
+                var contact = { 
+                  "id": contacts[i].id,
+                  "rawId": contacts[i].rawId,
+                  "displayName": contacts[i].name.givenName,
+                  "name": [{ "formatted": contacts[i].name.formatted , "givenName":  contacts[i].name.givenName}],
+                  "nickname": null,
+                  "phoneNumbers": [{ "type": contacts[i].phoneNumbers[0].type, "value": contacts[i].phoneNumbers[0].value, "id": contacts[i].phoneNumbers[0].id, "pref": contacts[i].phoneNumbers[0].pref }] ,
+                  "emails": null,
+                  "addresses": null,
+                  "ims": null,
+                  "organizations": null,
+                  "birthday": null,
+                  "note": null,
+                  "photos": null,
+                  "categories": null,
+                  "urls": null 
+                };
+                array.push(contact);
+              }
+              ContactsService.setContact(array).then(function(responses){
+                responses = JSON.stringify(responses);
                 FileService.removeAndCreateAndWrite("contacts.json", responses).then(function(response){
                   console.log(response);                          
                 });   
-            });      
-
+              }); 
+            }else{
+              ContactsService.setContact(contacts).then(function(responses){
+                FileService.removeAndCreateAndWrite("contacts.json", responses).then(function(response){
+                  console.log(response);                          
+                });   
+              });  
+            } 
             $scope.$broadcast('scroll.refreshComplete');
             $cordovaToast.showShortBottom('Atualizado');  
             $scope.contactsOnLoad();   
@@ -79,7 +109,7 @@ angular.module('starter.controller.contact', ['starter.service', 'starter.servic
       
       $scope.contactsOnLoad = function(){      
         FileService.readAsText("contacts.json").then(function(response){  
-              console.log("entrou aqui"); 
+              
                    
               response = JSON.parse(response);
               $scope.cont = response;
