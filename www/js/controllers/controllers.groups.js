@@ -50,8 +50,8 @@ angular.module('starter.controller.groups', ['starter.service'])
 
             $scope.$broadcast('scroll.refreshComplete');
 
-                
           }
+
           function onError(contactError) {
             alert(contactError);
           }
