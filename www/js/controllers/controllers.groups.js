@@ -69,7 +69,7 @@ angular.module('starter.controller.groups', ['starter.service'])
         var user =  localStorage.getObject("user");
         var phone = user.data.phone.value; 
         if(phone){    
-          groupsService.getListGroups("+555197412487").then(function(response){
+          groupsService.getListGroups(phone).then(function(response){
             console.log(response);   
             $scope.groups = response;  
           })
