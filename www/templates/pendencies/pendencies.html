@@ -40,7 +40,7 @@
               <p >{{pending.createdAt | relativeDate}}</p>
             </div>
           </ion-item>
-          <ion-item class="item-list" ng-if="pending.statusPendencie == 'finalizeGroup'"  ng-click = "openGroupModal(pending)">
+          <ion-item class="item-list" ng-if="pending.statusPendencie == 'finalizeGroup' && !pending.finalizedAt"  ng-click = "openGroupModal(pending)">
             <ion-avatar item-left style="float: left; margin-right:10px; position: absolute">
                     <img style="width: 45px" src="img/no-group.png">
             </ion-avatar>

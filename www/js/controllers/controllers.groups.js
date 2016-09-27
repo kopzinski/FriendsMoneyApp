@@ -1,6 +1,7 @@
 angular.module('starter.controller.groups', ['starter.service'])
 
 .controller('GroupsCtrl', function($location,$rootScope, $state, GroupLocalService, groupsService, localStorage, $ionicModal, $scope, $cordovaNetwork, $cordovaToast, ContactsService, $cordovaContacts) {
+   
 
      $ionicModal.fromTemplateUrl('templates/groups/groupsCreate.modal.html', {
         scope: $scope,
@@ -125,12 +126,14 @@ angular.module('starter.controller.groups', ['starter.service'])
 })
 
 
-.controller('GroupTransactionsCtrl', function($state, GroupLocalService , $ionicModal, groupsService, localStorage, $scope, $cordovaNetwork, $cordovaToast) {
+.controller('GroupTransactionsCtrl', function($ionicPopup, $state, GroupLocalService , $ionicModal, groupsService, localStorage, $scope, $cordovaNetwork, $cordovaToast) {
     $scope.$on('$ionicView.beforeEnter', function (event, viewData) {
       viewData.enableBack = true;
       $scope.group = GroupLocalService.getGroup();
       console.log($scope.group);
   });
+
+
 
     $scope.onDrag = function(){
         $scope.modal.hide();
@@ -160,14 +163,17 @@ angular.module('starter.controller.groups', ['starter.service'])
         phone: user.data.phone,
         name: user.data.name
       }
-      
-      groupsService.registerGroupTransaction(newUser, idGroup, transaction).then(function(response){
-        console.log(response);
-        $scope.getListTransactionsGroup();     
-        $scope.modal.hide(); 
-        $scope.transaction.valuePaid = "";
-        $scope.transaction.description = "";
-    })  
+      if(transaction.valuePaid && transaction.description){        
+        groupsService.registerGroupTransaction(newUser, idGroup, transaction).then(function(response){
+          console.log(response);
+          $scope.getListTransactionsGroup();     
+          $scope.modal.hide(); 
+          $scope.transaction.valuePaid = "";
+          $scope.transaction.description = "";
+        })          
+      }else{
+        $cordovaToast.showShortBottom('Digite um valor e uma descrição'); 
+      }
     }
     
     $scope.openTransactionModal = function(){
@@ -182,13 +188,37 @@ angular.module('starter.controller.groups', ['starter.service'])
         $scope.modal = modal;
       }) 
 
-    $scope.deleteGroup = function(id){
+    $scope.deleteGroup = function(){
+
+
+          var confirmPopup = $ionicPopup.confirm({
+
+              title: 'Encerramento do grupo',
+              template: 'Você realmente quer solicitar o encerramento do grupo?',
+              buttons:[{text: 'Cancelar'}, {text: 'Confirmar', type:'button-positive',
+                onTap: function(e){
+                  if(e){
+                    var group = GroupLocalService.getGroup();
+                    var user =  localStorage.getObject("user");
+                    var phone = user.data.phone.value;
+                    groupsService.deleteGroup(group._id, phone).then(function (response) {                  
+                      $cordovaToast.showShortBottom('Solicitação enviada para os demais participantes');
+                      console.log(response);
+                    })
+                  }else{
+                    console.log('You clicked on "Cancel" button');
+                  }
+                }
+              }]
+
+          });     
+        /*var group = GroupLocalService.getGroup();
         var user =  localStorage.getObject("user");
         var phone = user.data.phone.value;
-        groupsService.deleteGroup(id, phone).then(function (response) {
+        groupsService.deleteGroup(group._id, phone).then(function (response) {
           console.log(response);
-        })   
-      }
+        })   */
+    }
 
     $scope.expandText = function(){
       var element = document.getElementById("descriptionId");
@@ -207,7 +237,9 @@ angular.module('starter.controller.groups', ['starter.service'])
         $cordovaToast.showShortBottom('Atualizado');
       });            
     }
-    
+
+   
+
     $scope.$on('$ionicView.beforeEnter', function (event, viewData) {
       viewData.enableBack = true;
       $scope.group =  GroupLocalService.getGroup();

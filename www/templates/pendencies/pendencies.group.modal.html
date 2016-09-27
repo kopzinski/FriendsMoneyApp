@@ -18,6 +18,10 @@
                 <p>Seu amigo {{pending.creator.name}}
              Criou o grupo {{pending.title}}, você concorda em entrar nele?</p>
            </div>
+           <div ng-if="pending.statusPendencie == 'finalizeGroup'" class="item item-body">
+                <p>Seu amigo {{pending.creator.name}}
+            	Solicitou a finalização do grupo {{pending.title}}, você concorda em finalizar ele?</p>
+           </div>
            <ion-item>
             <div class="button-bar" ng-if="pending.statusPendencie == 'createGroup'">
               <a class="button button-dark" ng-click="acceptGroupInvitation(pending)">Sim</a>

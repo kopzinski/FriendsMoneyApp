@@ -1,6 +1,5 @@
 
-<ion-view title="Members" id="page1" hide-back-button="false" >
-
+<ion-view title="Membros" id="page1" hide-back-button="false" >
     <ion-content padding="true" class="has-header">
       <ion-refresher pulling-text="Puxe para atualizar..." on-refresh="doRefresh()">
       </ion-refresher>   
@@ -16,10 +15,10 @@
                     <p>Número de Celular: {{member.phone.value}}</p>
                     <p ng-if="member.individualBalance">Valor: 
                         <label ng-if="member.individualBalance >= 0" style="color: green">
-                            +{{member.individualBalance}}
+                            R$+{{member.individualBalance}}
                         </label>
                         <label ng-if="member.individualBalance < 0" style="color: red">
-                            -{{member.individualBalance}}
+                            R$-{{member.individualBalance}}
                         </label>
                     </p>
                 </div>
