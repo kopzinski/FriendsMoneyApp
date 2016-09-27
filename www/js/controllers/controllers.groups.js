@@ -85,8 +85,8 @@ angular.module('starter.controller.groups', ['starter.service'])
           }
 
           groupsService.createGroup(members, registerForm.title, user).then(function(response){
-         
-            console.log(response);          
+            console.log(response);
+            $scope.listGroups();          
             $scope.modal.hide(); 
           })
         }else{
