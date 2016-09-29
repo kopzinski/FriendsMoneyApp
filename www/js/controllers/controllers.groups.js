@@ -112,6 +112,20 @@ angular.module('starter.controller.groups', ['starter.service'])
         } 
       }
 
+
+    $scope.doRefresh = function(){
+              var user =  localStorage.getObject("user");
+        var phone = user.data.phone.value; 
+      groupsService.getListGroups(phone).then(function(response){
+      console.log(response);   
+      $scope.groups = response;  
+      $scope.$broadcast('scroll.refreshComplete');
+      $cordovaToast.showShortBottom('Atualizado');  
+      })
+    }
+
+
+
       $scope.groupDetail = function(group){
         GroupLocalService.setGroup(group);
         $state.go('tabs.transactions');
