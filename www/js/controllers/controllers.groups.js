@@ -203,16 +203,17 @@ angular.module('starter.controller.groups', ['starter.service'])
       }) 
 
     $scope.deleteGroup = function(){
-
-
-          var confirmPopup = $ionicPopup.confirm({
-
+          var group = GroupLocalService.getGroup();
+          if(group.finalizedAt){
+            $cordovaToast.showShortBottom('Grupo já finalizado, impossível realizar ação'); 
+          }else{
+            var confirmPopup = $ionicPopup.confirm({              
               title: 'Encerramento do grupo',
               template: 'Você realmente quer solicitar o encerramento do grupo?',
               buttons:[{text: 'Cancelar'}, {text: 'Confirmar', type:'button-positive',
                 onTap: function(e){
                   if(e){
-                    var group = GroupLocalService.getGroup();
+                    
                     var user =  localStorage.getObject("user");
                     var phone = user.data.phone.value;
                     groupsService.deleteGroup(group._id, phone).then(function (response) {                  
@@ -224,8 +225,9 @@ angular.module('starter.controller.groups', ['starter.service'])
                   }
                 }
               }]
-
-          });     
+            });   
+          }
+            
         /*var group = GroupLocalService.getGroup();
         var user =  localStorage.getObject("user");
         var phone = user.data.phone.value;
