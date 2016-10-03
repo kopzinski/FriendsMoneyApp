@@ -20,22 +20,26 @@
            <div ng-if="pending.creator.phone.value == pending.creditor.phone.value && !(pending.status == 'paymentConfirm')" class="item item-body">
            <p>Seu amigo {{pending.creator.name}}
              disse que você deve a ele R${{pending.valueTotal}}, você concorda?</p>
+           <p>Descrição: <br>{{pending.description}}</p>
            </div>
            <div ng-if="pending.creator.phone.value == pending.debtor.phone.value && !(pending.status == 'paymentConfirm')" class="item item-body">
             <p>Seu amigo {{pending.creator.name}}
              disse que lhe deve R${{pending.valueTotal}}, você concorda?</p>
+             <p>Descrição: <br>{{pending.description}}</p>
            </div>
 
           <div ng-if="(pending.status == 'paymentConfirm')&&(pending.creditor.phone.value == phone && !(pending.creditor.senderConfirm))" class="item item-body">
             <p>Voce confirma que a transação com {{pending.debtor.name}} foi pago <label ng-if="pending.valueTotal > pending.valuePaid"> o valor parcial R${{pending.valuePaid}} sobre</label>
               <label ng-if="pending.valueTotal == pending.valuePaid"> o valor total de </label> R$ {{pending.valueTotal}}?
             </p>
+            <p>Descrição: <br>{{pending.description}}</p>
           </div>
 
           <div ng-if="(pending.status == 'paymentConfirm')&&(pending.debtor.phone.value == phone && !(pending.debtor.senderConfirm))" class="item item-body">           
             <p>Voce confirma que a transação com {{pending.creditor.name}} foi pago <label ng-if="pending.valueTotal > pending.valuePaid"> o valor parcial R${{pending.valuePaid}} sobre</label>
             <label ng-if="pending.valueTotal == pending.valuePaid"> o valor total de </label> R$ {{pending.valueTotal}}?
             </p>
+            <p>Descrição: <br>{{pending.description}}</p>
            </div>
            <ion-item>
             <div class="button-bar" ng-if="pending.status != 'paymentConfirm'">

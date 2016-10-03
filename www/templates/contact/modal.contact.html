@@ -19,6 +19,10 @@
               <span class="input-label">Valor a ser cobrado: </span>              
                 <input id="val" type="tel" name="input" ng-model="transaction.valueTotal" placeholder="Valor" ng-pattern="\\d+">                  
             </ion-item>
+            <ion-item>
+              <span class="input-label">Descrição: </span>              
+                <input id="val" type="text" name="input" ng-model="transaction.description" placeholder="Descrição">                  
+            </ion-item>
           </ion-card>
           <p style="register-error">
             {{error_contact}}
