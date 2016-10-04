@@ -10,34 +10,35 @@ angular.module('starter.service', [])
         }
     }
 })
-.factory('ContactsService', function($http){
-    return {
-        setContact: function(contacts){
 
+.factory('ContactsService', function($http, ApiEndpoint){
+    return {
+        //ok
+        setContact: function(contacts){
         var data = {
             contacts : contacts
         }
-         var url = "http://10.96.127.160:3000/api/contacts";
+        var url = ApiEndpoint.url +"/contacts";
         return $http.post(url, data).then(function(response){
             var responses = response.data;
             return responses;
         })
         },
-
+        //ok
         registerTransactionWithNoFlag: function(transaction){
  
             var data = {
                 transaction : transaction
             }
-            var url = "http://10.96.127.160:3000/api/userFromTransaction";
+            var url = ApiEndpoint.url + "/userFromTransaction";
             return $http.post(url, data).then(function(response){
                 return response;
             })
         },
-
+        //ok
         registerTransactionWithFlag:function(transaction){
             var data = transaction;
-            var url = "http://10.96.127.160:3000/api/transaction";
+            var url = ApiEndpoint.url + "/transaction";
            
             return $http.post(url, data).then(function(response){
                 var response = response.data;
@@ -47,16 +48,18 @@ angular.module('starter.service', [])
     }
 })
 
-.factory('pendencieService', function($http){
+.factory('pendencieService', function($http, ApiEndpoint){
     return {
+        //ok
         getPendings: function(phone){
-            return $http.get('http://10.96.127.160:3000/api/pending/'+phone).then(function(response){
+            return $http.get(ApiEndpoint.url + "/pending/" +phone).then(function(response){
                 return response.data;
             })
         },
+        //ok
         changeStatusTransaction: function(transaction){
             
-            var url = "http://10.96.127.160:3000/api/transaction";
+            var url = ApiEndpoint.url + "/transaction";
             var req = {
                 method: 'PUT',
                 url: url,				   
@@ -68,9 +71,9 @@ angular.module('starter.service', [])
                 return responses;
             })
         },
-
+        //ok
         acceptGroup: function(phone, id_group){
-            var url = "http://10.96.127.160:3000/api/group/accept"
+            var url = ApiEndpoint.url + "/group/accept"
             var req = {
                 method: 'PUT',
                 url: url,
@@ -83,9 +86,9 @@ angular.module('starter.service', [])
                 return  response.data;
             })
         },
-
+        //ok
         denyGroup: function(phone, id_group){
-            var url = "http://10.96.127.160:3000/api/group/deny"
+            var url = ApiEndpoint.url + "/group/deny"
             var req = {
                 method: 'PUT',
                 url: url,
@@ -101,7 +104,7 @@ angular.module('starter.service', [])
     }
 })
 
-.factory('registerService', function($http){
+.factory('registerService', function($http, ApiEndpoint){
     return {
         setUser: function(user, device){
         var data = {
@@ -112,7 +115,7 @@ angular.module('starter.service', [])
             } 
         }
         
-         var url = "http://10.96.127.160:3000/api/user";
+         var url = ApiEndpoint.url + "/user";
         return $http.post(url, data).then(function(response){
             return response;
         })
@@ -120,15 +123,15 @@ angular.module('starter.service', [])
     }
 })
 
-.factory('groupsService', function($http){    
+.factory('groupsService', function($http, ApiEndpoint){    
     return {
         getListGroups: function(phone){
-            return $http.get('http://10.96.127.160:3000/api/groups/'+phone).then(function(response){
+            return $http.get(ApiEndpoint.url + '/groups/'+phone).then(function(response){
                 return response.data;
             })
         },
         getListTransactionsGroup : function(idGroup){
-            return $http.get('http://10.96.127.160:3000/api/group/'+idGroup+'/transactions').then(function(response){
+            return $http.get(ApiEndpoint.url + '/group/'+idGroup+'/transactions').then(function(response){
                 return response.data;
             })
         },
@@ -142,7 +145,7 @@ angular.module('starter.service', [])
                 }
             }
 
-            var url = "http://10.96.127.160:3000/api/group/transaction";
+            var url = ApiEndpoint.url+ "/group/transaction";
             return $http.post(url, data).then(function(response){
                 return response;
             })
@@ -155,21 +158,21 @@ angular.module('starter.service', [])
             creator: {phone:{value: user.phone}, name: user.name}
             }
             
-            var url = "http://10.96.127.160:3000/api/group";
+            var url = ApiEndpoint.url + "/group";
             return $http.post(url, group).then(function(response){
                 return response;
             })
         },
 
         deleteGroup: function(id, phone){
-            return $http.delete('http://10.96.127.160:3000/api/group/'+id + "/" + phone ).then(function(response){
+            return $http.delete(ApiEndpoint.url + '/group/'+id + "/" + phone ).then(function(response){
                 return response.data;
             })
 
         },
 
         getListMembersByGroup : function(idGroup, phone){
-            return $http.get('http://10.96.127.160:3000/api/group/'+idGroup+'/user/'+phone).then(function(response){
+            return $http.get(ApiEndpoint.url + '/group/'+idGroup+'/user/'+phone).then(function(response){
                 return response.data;
             })
         }
@@ -179,10 +182,10 @@ angular.module('starter.service', [])
     }
 })
 
-.factory('timelineService', function($http){
+.factory('timelineService', function($http, ApiEndpoint){
     return {
         getAllTransactions:function(phone){            
-            var url = "http://10.96.127.160:3000/api/transactions/" + phone ;
+            var url = ApiEndpoint.url + "/transactions/" + phone ;
             return $http.get(url).then(function(response){
                 return response.data;       
             })
