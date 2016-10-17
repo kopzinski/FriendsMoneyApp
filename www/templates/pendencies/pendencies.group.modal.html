@@ -22,7 +22,19 @@
                 <p>Seu amigo {{pending.creator.name}}
             	Solicitou a finalização do grupo {{pending.title}}, você concorda em finalizar ele?</p>
            </div>
+           <div ng-if="pending.statusPendencie == 'finalizeTransaction'" class="item item-body">
+                <p>Uma transação do grupo {{pending.title}}                 
+                    <label>
+                        de descrição: {{transaction.description}} e de valor: R$ {{transaction.valuePaid}} está errada.
+                        <p>Você concorda?</p>                        
+                    </label>            
+                </p>
+           </div>
            <ion-item>
+            <div class="button-bar" ng-if="pending.statusPendencie == 'finalizeTransaction'">
+                <a class="button button-dark" ng-click="acceptDeleteGroupTransaction(pending, transaction)">Sim</a>
+                <a class="button button-dark" ng-click="denyDeleteGroupTransaction(pending, transaction)">Não</a>
+            </div>
             <div class="button-bar" ng-if="pending.statusPendencie == 'createGroup'">
               <a class="button button-dark" ng-click="acceptGroupInvitation(pending)">Sim</a>
               <a class="button button-dark" ng-click="denyGroupInvitation(pending)">Não</a>

@@ -97,6 +97,21 @@ angular.module('starter.service', [])
             return $http(req).then(function(response){
                 return  response.data;
             })
+        },
+
+        denyGroupDeleteTransaction: function(idGroup, idTransaction){
+            var url = "http://10.96.127.185:3000/api/group/denyDeleteT"
+            var req = {
+                method: 'PUT',
+                url: url,
+                data:{
+                    idGroup: idGroup,
+                    idTransaction: idTransaction
+                }
+            }
+            return $http(req).then(function(response){
+                return  response.data;
+            })
         }
     }
 })
@@ -168,6 +183,13 @@ angular.module('starter.service', [])
 
         },
 
+        deleteTransactionGroup: function(id, idTransaction, phoneCreator){
+            return $http.delete('http://10.96.127.185:3000/api/group/deleteT/'+id + "/" + idTransaction + "/" + phoneCreator).then(function(response){
+                return response.data;
+            })
+
+        },
+       
         getListMembersByGroup : function(idGroup, phone){
             return $http.get('http://10.96.127.185:3000/api/group/'+idGroup+'/user/'+phone).then(function(response){
                 return response.data;

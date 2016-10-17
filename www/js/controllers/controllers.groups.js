@@ -173,6 +173,7 @@ angular.module('starter.controller.groups', ['starter.service'])
 
     $scope.registerTransaction = function(idGroup, transaction){
       var user =  localStorage.getObject("user");
+
       var newUser = {
         phone: user.data.phone,
         name: user.data.name
@@ -239,6 +240,35 @@ angular.module('starter.controller.groups', ['starter.service'])
     $scope.expandText = function(){
       var element = document.getElementById("descriptionId");
       element.style.height =  element.scrollHeight + "px";
+    }
+
+    $ionicModal.fromTemplateUrl('templates/groups/tabs/group.transactionPayment.modal.html', {
+        scope: $scope,
+        animation: 'slide-in-right',
+        focusFirstInput: true
+      }).then(function(modal) {
+        $scope.modalPayment = modal;
+      }) 
+
+    $scope.transactionPayment = function(transaction){
+      var user =  localStorage.getObject("user");
+      $scope.transPayment = transaction;
+      $scope.phoneMaster = user.data.phone.value;
+      $scope.modalPayment.show();
+    }
+
+    $scope.transactionPaymentDelete = function(tra){
+        var group = GroupLocalService.getGroup();
+        console.log(group._id);
+        console.log(tra._id);
+        var user =  localStorage.getObject("user");
+        var phone = user.data.phone.value;
+        groupsService.deleteTransactionGroup(group._id, tra._id, phone).then(function (response) { 
+          if(response){
+            $scope.modalPayment.hide();
+          }  
+          console.log(JSON.stringify(response));
+        })
     }
 })
 
