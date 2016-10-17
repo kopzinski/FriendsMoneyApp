@@ -18,7 +18,10 @@ angular.module('starter.service', [])
         var data = {
             contacts : contacts
         }
+
         var url = ApiEndpoint.url +"/contacts";
+
+
         return $http.post(url, data).then(function(response){
             var responses = response.data;
             return responses;
@@ -53,12 +56,13 @@ angular.module('starter.service', [])
         //ok
         getPendings: function(phone){
             return $http.get(ApiEndpoint.url + "/pending/" +phone).then(function(response){
+
                 return response.data;
             })
         },
         //ok
         changeStatusTransaction: function(transaction){
-            
+        
             var url = ApiEndpoint.url + "/transaction";
             var req = {
                 method: 'PUT',
@@ -114,7 +118,6 @@ angular.module('starter.service', [])
                 deviceId: device
             } 
         }
-        
          var url = ApiEndpoint.url + "/user";
         return $http.post(url, data).then(function(response){
             return response;
@@ -126,11 +129,13 @@ angular.module('starter.service', [])
 .factory('groupsService', function($http, ApiEndpoint){    
     return {
         getListGroups: function(phone){
+
             return $http.get(ApiEndpoint.url + '/groups/'+phone).then(function(response){
                 return response.data;
             })
         },
         getListTransactionsGroup : function(idGroup){
+
             return $http.get(ApiEndpoint.url + '/group/'+idGroup+'/transactions').then(function(response){
                 return response.data;
             })
@@ -172,6 +177,7 @@ angular.module('starter.service', [])
         },
 
         getListMembersByGroup : function(idGroup, phone){
+
             return $http.get(ApiEndpoint.url + '/group/'+idGroup+'/user/'+phone).then(function(response){
                 return response.data;
             })

@@ -167,11 +167,13 @@ angular.module('starter.controller.contact', ['starter.service', 'starter.servic
         }        
       }
       $scope.transaction = {};
+
       $scope.registerTransaction = function(person, valueForm){  
 
         var flag = $scope.contact.registrationFlag;
         var phone = "";       
         var valueTotal = valueForm.valueTotal;
+        var description = valueForm.description;
         var userStorage =  localStorage.getObject("user"); 
 
         if(valueTotal){         
@@ -181,6 +183,7 @@ angular.module('starter.controller.contact', ['starter.service', 'starter.servic
                   if(person == 'creditor'){
                     var transaction = {
                       valueTotal: valueTotal,
+                      description: description,
                       debtor: user,
                       creator: userStorage.data,
                       creditor: userStorage.data,
@@ -189,6 +192,7 @@ angular.module('starter.controller.contact', ['starter.service', 'starter.servic
                   }else{
                     var transaction = {
                       valueTotal: valueTotal,
+                      description: description,
                       debtor: userStorage.data,
                       creator: userStorage.data,
                       creditor: user,
@@ -213,6 +217,7 @@ angular.module('starter.controller.contact', ['starter.service', 'starter.servic
                   if(person == 'creditor'){
                     var transaction = {
                       valueTotal: valueTotal,
+                      description: description,
                       debtor: user,
                       creator: userStorage.data,
                       creditor: userStorage.data,
@@ -221,6 +226,7 @@ angular.module('starter.controller.contact', ['starter.service', 'starter.servic
                   }else{
                      var transaction = {
                       valueTotal: valueTotal,
+                      description: description,
                       debtor: userStorage.data,
                       creator: userStorage.data,
                       creditor: user,

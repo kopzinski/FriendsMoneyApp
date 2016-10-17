@@ -29,7 +29,7 @@
             <p> Não há transações ainda para esse grupo </p>
           </div>
     </ion-content>
-    <div class="float-button">
+    <div ng-if="!group.finalizedAt" class="float-button">
       <span class="height-fix">
       <a ng-click="openTransactionModal()" class="content">
         <i class="ion-plus-round"> </i>

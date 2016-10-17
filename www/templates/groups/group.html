@@ -10,7 +10,8 @@
           <ion-avatar item-left class="avatar-ion">
             <img class="avatar" src="img/no-avatar.png">
           </ion-avatar>
-            <h2 ng-if="group.title != 'Unknw' || group.title != undefined" class="title-name">{{group.title}}</h2>             
+            <h2 ng-if="group.title != 'Unknw' || group.title != undefined" class="title-name">{{group.title}}</h2>  
+            <i style="font-size: 20px; margin-top: 20px; color: green; float: right;" class="ion-power"></i>           
         </ion-item>
         <ion-item>
           <h3>Componentes do grupo:</h3>
@@ -22,5 +23,23 @@
           <ion-icon ios="ios-call" md="md-call" item-right></ion-icon>
         </ion-item>
     </ion-list> 
+    <ion-list ng-repeat="group in groups | orderBy:'title'" ng-click="groupDetail(group)" ng-if="group.finalizedAt">      
+        <ion-item>
+          <ion-avatar item-left class="avatar-ion">
+            <img class="avatar" src="img/no-avatar.png">
+          </ion-avatar>
+            <h2 ng-if="group.title != 'Unknw' || group.title != undefined" class="title-name">Grupo: {{group.title}}</h2>    
+            <i style="font-size: 20px; margin-top: 20px; color: red; float: right;" class="ion-power"></i>         
+        </ion-item>
+        <ion-item>
+          <h3>Componentes do grupo:</h3>
+          <div>
+           <p>
+              <label ng-repeat="member in group.members">{{member.name}}. </label>
+           </p>
+          </div>               
+          <ion-icon ios="ios-call" md="md-call" item-right></ion-icon>
+        </ion-item>
+    </ion-list>
   </ion-content>
 </ion-view>
