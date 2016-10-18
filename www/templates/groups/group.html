@@ -1,6 +1,6 @@
 <ion-view ng-controller="GroupsCtrl" view-title="Grupos">
   <ion-nav-buttons side="right">
-    <i class='ion-arrow-left-c ion-plus-round text-right group-icon' ng-click="openGroupsModal()"></i>
+    <i class='ion-arrow-left-c ion-plus-round text-right group-icon' ng-click="openCreateGroupWizard()"></i>
   </ion-nav-buttons>  
   <ion-content class="home padding" ng-init="listGroups()" style="padding-top: 10px; padding-bottom: 10px;">
       <ion-refresher pulling-text="Puxe para atualizar..." on-refresh="doRefresh()">

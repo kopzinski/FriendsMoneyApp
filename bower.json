@@ -8,6 +8,7 @@
   "dependencies": {
     "angular-messages": "^1.5.8",
     "angular-input-masks": "^2.4.0",
-    "angular-filter": "^0.5.11"
+    "angular-filter": "^0.5.11",
+    "ionic-wizard": "^2.0.1"
   }
 }

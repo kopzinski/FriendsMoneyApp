@@ -1,7 +1,7 @@
 angular.module('starter.controller.groups', ['starter.service'])
 
-.controller('GroupsCtrl', function($location,$rootScope, $state, GroupLocalService, groupsService, localStorage, $ionicModal, $scope, $cordovaNetwork, $cordovaToast, ContactsService, $cordovaContacts) {
-   
+.controller('GroupsCtrl', function($location,$rootScope,$ionicHistory, $state, GroupLocalService, groupsService, localStorage, $ionicModal, $scope, $cordovaNetwork, $cordovaToast, ContactsService, $cordovaContacts) {
+  $scope.groupCreate = {};   
 
      $ionicModal.fromTemplateUrl('templates/groups/groupsCreate.modal.html', {
         scope: $scope,
@@ -10,6 +10,9 @@ angular.module('starter.controller.groups', ['starter.service'])
       }).then(function(modal) {
         $scope.modal = modal;
       })  
+      $scope.cancelCreateGroup = function(){
+        $state.go("groups");
+      }
 
       $scope.contactsOnLoad = function(){
 
@@ -70,34 +73,34 @@ angular.module('starter.controller.groups', ['starter.service'])
         }  
       }
 
-      $scope.addFriend = function(members, registerForm){
-        console.log(members);
+      // $scope.addFriend = function(members, registerForm){
+      //   console.log(members);
         
-        var user =  localStorage.getObject("user");
-        var phone = user.data.phone.value;
+      //   var user =  localStorage.getObject("user");
+      //   var phone = user.data.phone.value;
 
-        if(registerForm.title){
-          members.push({name: user.data.name, phone:{value: phone}});          
+      //   if(registerForm.title){
+      //     members.push({name: user.data.name, phone:{value: phone}});          
 
-          var user={
-            phone: phone,
-            name: user.data.name
-          }
+      //     var user={
+      //       phone: phone,
+      //       name: user.data.name
+      //     }
 
-          groupsService.createGroup(members, registerForm.title, user).then(function(response){
-            console.log(response);
-            $scope.listGroups();          
-            $scope.modal.hide(); 
-          })
-        }else{
-          $cordovaToast.showLongCenter('É preciso ter um titulo para o grupo.');
-        }      
+      //     groupsService.createGroup(members, registerForm.title, user).then(function(response){
+      //       console.log(response);
+      //       $scope.listGroups();          
+      //       $scope.modal.hide(); 
+      //     })
+      //   }else{
+      //     $cordovaToast.showLongCenter('É preciso ter um titulo para o grupo.');
+      //   }      
 
-      }
+      // }
 
-      $scope.openGroupsModal = function(){       
-        $scope.modal.show();
-      }
+      // $scope.openGroupsModal = function(){       
+      //   $scope.modal.show();
+      // }
       
       $scope.listGroups = function(){
         var user =  localStorage.getObject("user");
@@ -111,7 +114,9 @@ angular.module('starter.controller.groups', ['starter.service'])
           $cordovaToast.showLongCenter('Não há grupos');
         } 
       }
-
+    $scope.openCreateGroupWizard = function(){
+        $state.go("createGroupWizard");
+    }
 
     $scope.doRefresh = function(){
               var user =  localStorage.getObject("user");
@@ -130,24 +135,36 @@ angular.module('starter.controller.groups', ['starter.service'])
         GroupLocalService.setGroup(group);
         $state.go('tabs.transactions');
       }
-      $scope.onDrag = function(){
-        $scope.modal.hide();
-      }
 
-    $rootScope.$ionicGoBack = function() {
-           $state.go('groups');
-        };
+
+
+$scope.expandText = function(){
+      var element = document.getElementById("descriptionId");
+      element.style.height =  element.scrollHeight + "px";
+    }
+  $scope.getConditionGroupStepOne = function(){
+    console.log($scope.groupCreate);
+    if (!$scope.groupCreate.description|| !$scope.groupCreate.title || !$scope.groupCreate.choice ){
+      return false;
+    }else if($scope.groupCreate.description.length && $scope.groupCreate.title.length && $scope.groupCreate.choice != null ){
+      console.log($scope.groupCreate)
+      return true;
+    }
+    
+  }
 })
 
 
-.controller('GroupTransactionsCtrl', function($ionicPopup, $state, GroupLocalService , $ionicModal, groupsService, localStorage, $scope, $cordovaNetwork, $cordovaToast) {
+.controller('GroupTransactionsCtrl', function($ionicPopup, $rootScope, $state, GroupLocalService , $ionicModal, groupsService, localStorage, $scope, $cordovaNetwork, $cordovaToast) {
     $scope.$on('$ionicView.beforeEnter', function (event, viewData) {
       viewData.enableBack = true;
       $scope.group = GroupLocalService.getGroup();
       console.log($scope.group);
   });
 
-
+    $rootScope.$ionicGoBack = function() {
+           $state.go('groups');
+        };
 
     $scope.onDrag = function(){
         $scope.modal.hide();
@@ -242,8 +259,11 @@ angular.module('starter.controller.groups', ['starter.service'])
     }
 })
 
-.controller('GroupMembersCtrl', function($state, GroupLocalService , $ionicModal, groupsService, localStorage, $scope, $cordovaNetwork, $cordovaToast) {
+.controller('GroupMembersCtrl', function($state, $rootScope, GroupLocalService , $ionicModal, groupsService, localStorage, $scope, $cordovaNetwork, $cordovaToast) {
     $scope.doRefresh = function(){
+      $rootScope.$ionicGoBack = function() {
+           $state.go('groups');
+        };
       $scope.group =  GroupLocalService.getGroup();
       var user =  localStorage.getObject("user");
       var phone = user.data.phone.value;
@@ -253,8 +273,8 @@ angular.module('starter.controller.groups', ['starter.service'])
         $cordovaToast.showShortBottom('Atualizado');
       });            
     }
-
-   
+    
+    
 
     $scope.$on('$ionicView.beforeEnter', function (event, viewData) {
       viewData.enableBack = true;

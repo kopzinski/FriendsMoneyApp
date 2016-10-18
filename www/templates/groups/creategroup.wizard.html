@@ -1,0 +1,54 @@
+<ion-view  view-title="Criar Grupo">
+    <ion-nav-back-button>
+    </ion-nav-back-button>
+    <ion-nav-buttons side="left">
+    </ion-nav-buttons>
+    <ion-nav-buttons side="right">
+        <button class="button button-light" ion-wizard-next>
+            Avançar
+        </button>
+        <button class="button button-light" ion-wizard-start="start()" condition="startCondition()">
+            Iniciar Grupo
+        </button>
+    </ion-nav-buttons>
+    <ion-slides options="swiperOptions" slider="swiper" ion-wizard>
+         
+        <ion-slide-page ion-wizard-step next-condition="getConditionGroupStepOne(groupCreate)" class="has-header">
+           
+            <ion-content padding="true" class="has-header">
+
+                <ion-card>
+                    
+                    <ion-avatar  class="avatar-ion">
+                        <img class="avatar"  src="img/no-group.png">
+                    </ion-avatar>
+                    <label class="item item-input item-stacked-label">
+                        <span class="input-label"><strong>Nome do Grupo: </strong></span>
+                        <input type="text" ng-model="groupCreate.title" placeholder="Titulo">
+                    </label>
+                    <label class="item item-input item-stacked-label">
+                        <span class="input-label"><strong>Descrição: </strong></span>
+                        <textarea 
+                            style="width: 75%; "
+                            id="descriptionId"
+                            placeholder="Digite a descrição..."
+                            ng-model = "groupCreate.description"
+                            ng-keyup="expandText()"
+                            ng-keydown="expandText()">
+                        </textarea> 
+                    </label>
+                         <label class="item item-input item-stacked-label">
+                        <span class="input-label"><strong>Modo para criar transações:</strong></span>
+                        <ion-list>
+                            <ion-radio ng-model="groupCreate.choice" ng-value="'Complex'">Proporcional (Mais transações)</ion-radio>
+                            <ion-radio ng-model="groupCreate.choice" ng-value="'Simple'">Simples (Menos Transações)</ion-radio>
+                        </ion-list>
+                         </label>
+                </ion-card>
+            </ion-content>
+        </ion-slide-page>
+        <ion-slide-page ion-wizard-step next-condition="1 == 1" class="has-header">
+            
+        </ion-slide-page>
+    </ion-slides>
+</ion-view>

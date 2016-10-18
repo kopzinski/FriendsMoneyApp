@@ -44,6 +44,12 @@ angular.module('starter.routes', [])
     controller: 'RegisterCtrl'
   })
 
+.state('createGroupWizard', {
+    url: '/group-wizard',
+    templateUrl: 'templates/groups/creategroup.wizard.html',
+    controller: 'GroupsCtrl'
+  })
+
  .state('timeline', {
       url: '/timeline',
       templateUrl: 'templates/timeline/timeline.html',
