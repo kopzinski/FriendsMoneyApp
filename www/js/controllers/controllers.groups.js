@@ -44,13 +44,11 @@ angular.module('starter.controller.groups', ['starter.service'])
               });
             }else{
               ContactsService.setContact(contacts).then(function(responses){
-                $scope.users = responses;
-                    
+                $scope.users = responses;                    
               });  
             }
 
             $scope.$broadcast('scroll.refreshComplete');
-
           }
 
           function onError(contactError) {
