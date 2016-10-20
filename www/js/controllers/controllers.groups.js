@@ -42,6 +42,7 @@ angular.module('starter.controller.groups', ['starter.service'])
                 var contacts = responses;
                 $scope.users = contacts;
               });
+              $scope.$broadcast('scroll.refreshComplete');
             }else{
               ContactsService.setContact(contacts).then(function(responses){
                 $scope.users = responses;                    

@@ -71,6 +71,8 @@ $scope.doRefresh = function(phone){
                       console.log("excluiu, criou, populou");                                 
                   }); 
                 }else{
+                  $scope.$broadcast('scroll.refreshComplete');
+                  $cordovaToast.showShortBottom('Atualizado');
                   FileService.removeFile("pendencies.json").then(function(resp){
                       console.log("excluiu arquivo");                                 
                   }); 
