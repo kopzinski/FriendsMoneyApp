@@ -250,10 +250,15 @@ angular.module('starter.controller.groups', ['starter.service'])
       }) 
 
     $scope.transactionPayment = function(transaction){
-      var user =  localStorage.getObject("user");
-      $scope.transPayment = transaction;
-      $scope.phoneMaster = user.data.phone.value;
-      $scope.modalPayment.show();
+      var group = GroupLocalService.getGroup();
+      if(group.finalizedAt){
+        $cordovaToast.showShortBottom('Grupo já finalizado, impossível realizar ação'); 
+      }else{
+        var user =  localStorage.getObject("user");
+        $scope.transPayment = transaction;
+        $scope.phoneMaster = user.data.phone.value;
+        $scope.modalPayment.show();
+      }
     }
 
     $scope.transactionPaymentDelete = function(tra){

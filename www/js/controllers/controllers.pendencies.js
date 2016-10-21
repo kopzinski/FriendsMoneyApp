@@ -5,8 +5,7 @@ angular.module('starter.controller.pendencies', ['starter.service', 'relativeDat
     $scope.phone = user.data.phone.value;
     
 $scope.$on("$ionicView.enter", function(event, data){
-   // handle event
-
+     // handle event
     $scope.getPendencies = function(phone){
       if($cordovaNetwork.isOnline() == true){
         FileService.checkFileByFile("pendencies.json").then(function(response){
