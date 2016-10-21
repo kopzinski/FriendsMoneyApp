@@ -1,7 +1,7 @@
 angular.module('starter.controller.contact', ['starter.service', 'starter.service.file'])
 
 .controller('ContactCtrl', function($cordovaNetwork, $ionicPlatform, FileService, $cordovaToast, $cordovaFile, $ionicHistory, $scope, $state, $ionicModal, localStorage, $timeout, $cordovaContacts, $ionicLoading, ContactsService, registerService) {
-  
+
       $scope.doRefresh = function() {
         if($cordovaNetwork.isOnline() == true){
           function onSuccess(contacts) {       
@@ -37,7 +37,7 @@ angular.module('starter.controller.contact', ['starter.service', 'starter.servic
               }); 
               $scope.$broadcast('scroll.refreshComplete');
               $cordovaToast.showShortBottom('Atualizado');
-            }else{s
+            }else{
               ContactsService.setContact(contacts).then(function(responses){
                 FileService.removeAndCreateAndWrite("contacts.json", responses).then(function(response){
                   console.log(response);                          
@@ -111,15 +111,244 @@ angular.module('starter.controller.contact', ['starter.service', 'starter.servic
       }
 
       
-      $scope.contactsOnLoad = function(){      
-        FileService.readAsText("contacts.json").then(function(response){  
-              
-                   
+    $scope.$on("$ionicView.enter", function(event, data){
+      console.log("ta aqui porra");
+     // handle event
+        $scope.contactsOnLoad = function(){
+          console.log("ta aqui porra função contacsonload");
+          if($cordovaNetwork.isOnline() == true){
+              console.log("ta online");
+            
+              //se é ios
+            if(ionic.Platform.isIOS() == true){
+              console.log("é ios");
+              FileService.checkFileByFile("contacts.json").then(function(response){
+                //online com cache
+                if (response){
+                  console.log("é ios e tem cache");
+                  FileService.readAsText("contacts.json").then(function(response){ 
+                        response = JSON.parse(response);
+                        $scope.cont = response;
+                        console.log($scope.cont); 
+                        var array = [];
+                        for(var i = 0; i < contacts.length; i++){
+                          var contact = { 
+                            "id": contacts[i].id,
+                            "rawId": contacts[i].rawId,
+                            "displayName": contacts[i].name.givenName,
+                            "name": [{ "formatted": contacts[i].name.formatted , "givenName":  contacts[i].name.givenName}],
+                            "nickname": null,
+                            "phoneNumbers": [{ "type": contacts[i].phoneNumbers[0].type, "value": contacts[i].phoneNumbers[0].value, "id": contacts[i].phoneNumbers[0].id, "pref": contacts[i].phoneNumbers[0].pref }] ,
+                            "emails": null,
+                            "addresses": null,
+                            "ims": null,
+                            "organizations": null,
+                            "birthday": null,
+                            "note": null,
+                            "photos": null,
+                            "categories": null,
+                            "urls": null 
+                          };
+                          array.push(contact);
+                        }
+                        ContactsService.setContact(array).then(function(responses){
+                          if(responses){
+                            FileService.removeAndCreateAndWrite("contacts.json", responses).then(function(response){
+                              console.log(response);                                        
+                            }); 
+                          }else{
+                            FileService.removeFile("contacts.json").then(function(resp){
+                                console.log("excluiu arquivo");                                 
+                            });
+                          }  
+                        }); 
+                  }); 
+                  //online sem cache
+                }else{
+                  console.log("é ios e não tem cache");
+                  var array = [];
+                  for(var i = 0; i < contacts.length; i++){
+                    var contact = { 
+                      "id": contacts[i].id,
+                      "rawId": contacts[i].rawId,
+                      "displayName": contacts[i].name.givenName,
+                      "name": [{ "formatted": contacts[i].name.formatted , "givenName":  contacts[i].name.givenName}],
+                      "nickname": null,
+                      "phoneNumbers": [{ "type": contacts[i].phoneNumbers[0].type, "value": contacts[i].phoneNumbers[0].value, "id": contacts[i].phoneNumbers[0].id, "pref": contacts[i].phoneNumbers[0].pref }] ,
+                      "emails": null,
+                      "addresses": null,
+                      "ims": null,
+                      "organizations": null,
+                      "birthday": null,
+                      "note": null,
+                      "photos": null,
+                      "categories": null,
+                      "urls": null 
+                    };
+                    array.push(contact);
+                  }
+                  ContactsService.setContact(array).then(function(responses){
+                    if(responses){
+                      FileService.removeAndCreateAndWrite("contacts.json", responses).then(function(response){
+                        console.log(response);                                        
+                      }); 
+                    }else{
+                      FileService.removeFile("contacts.json").then(function(resp){
+                          console.log("excluiu arquivo");                                 
+                      });
+                    }  
+                  });
+                }                  
+              });
+            }else{
+              //é android online com cache
+              console.log("é android");
+              FileService.checkFileByFile("contacts.json").then(function(response){
+                //online com cache
+                if (response){
+                  console.log("é android com cache");
+                  FileService.readAsText("contacts.json").then(function(response){ 
+                        response = JSON.parse(response);
+                        $scope.cont = response;
+                        console.log($scope.cont);
+                      function onSuccess(contacts) {     
+                        ContactsService.setContact(contacts).then(function(responses){
+                          if(responses){
+                            FileService.removeAndCreateAndWrite("contacts.json", responses).then(function(response){
+                              console.log(response);                                        
+                            }); 
+                          }else{
+                            FileService.removeFile("contacts.json").then(function(resp){
+                                console.log("excluiu arquivo");                                 
+                            });
+                          }  
+                        });
+                      }
+                      function onError(contactError) {
+                        alert(contactError);
+                      };
+                      var options = {};
+                      options.filter = "";
+                      options.hasPhoneNumber = true;
+                      options.multiple = true;
+                      $cordovaContacts.find(options).then(onSuccess, onError);                                    
+                  });                  
+                }else{
+                  console.log("é android sem cache");  
+                  function onSuccess(contacts) {     
+                    ContactsService.setContact(contacts).then(function(responses){
+                      if(responses){
+                        FileService.removeAndCreateAndWrite("contacts.json", responses).then(function(response){
+                          console.log(response);                                        
+                        }); 
+                      }else{
+                        FileService.removeFile("contacts.json").then(function(resp){
+                            console.log("excluiu arquivo");                                 
+                        });
+                      }  
+                    });
+                  }
+                  function onError(contactError) {
+                    alert(contactError);
+                  };
+                  var options = {};
+                  options.filter = "";
+                  options.hasPhoneNumber = true;
+                  options.multiple = true;
+                  $cordovaContacts.find(options).then(onSuccess, onError);
+                }
+              });
+            }
+          
+            //Offline com cache
+          }else{
+            console.log("offline e tem cache");
+            FileService.checkFileByFile("contacts.json").then(function(response){
+              if(response){
+                FileService.readAsText("contacts.json").then(function(response){ 
+                  response = JSON.parse(response);
+                  $scope.cont = response;
+                  console.log($scope.cont);                                                          
+                });
+                //Offline sem cache
+              }else{
+                console.log("offline e não tem cache");
+                $cordovaToast.showShortBottom('Não foi possível atualizar, sem conexão com internet');
+              }
+            })
+          }     
+        }
+      $scope.contactsOnLoad();
+    });
+
+    $scope.$on("$ionicView.beforeLeave", function(event, data){
+      if(ionic.Platform.isIOS() == true){
+        var array = [];
+        for(var i = 0; i < contacts.length; i++){
+          var contact = { 
+            "id": contacts[i].id,
+            "rawId": contacts[i].rawId,
+            "displayName": contacts[i].name.givenName,
+            "name": [{ "formatted": contacts[i].name.formatted , "givenName":  contacts[i].name.givenName}],
+            "nickname": null,
+            "phoneNumbers": [{ "type": contacts[i].phoneNumbers[0].type, "value": contacts[i].phoneNumbers[0].value, "id": contacts[i].phoneNumbers[0].id, "pref": contacts[i].phoneNumbers[0].pref }] ,
+            "emails": null,
+            "addresses": null,
+            "ims": null,
+            "organizations": null,
+            "birthday": null,
+            "note": null,
+            "photos": null,
+            "categories": null,
+            "urls": null 
+          };
+          array.push(contact);
+        }
+        ContactsService.setContact(array).then(function(responses){
+          if(responses){
+            FileService.removeAndCreateAndWrite("contacts.json", responses).then(function(response){
+              console.log(response);                                        
+            }); 
+          }else{
+            FileService.removeFile("contacts.json").then(function(resp){
+                console.log("excluiu arquivo");                                 
+            });
+          }  
+        });
+      }else{
+        function onSuccess(contacts) {     
+          ContactsService.setContact(contacts).then(function(responses){
+            if(responses){
+              FileService.removeAndCreateAndWrite("contacts.json", responses).then(function(response){
+                console.log(response);                                        
+              }); 
+            }else{
+              FileService.removeFile("contacts.json").then(function(resp){
+                  console.log("excluiu arquivo");                                 
+              });
+            }  
+          });
+        }
+        function onError(contactError) {
+          alert(contactError);
+        };
+        var options = {};
+        options.filter = "";
+        options.hasPhoneNumber = true;
+        options.multiple = true;
+        $cordovaContacts.find(options).then(onSuccess, onError);
+      }    
+    });
+
+
+
+      /*$scope.contactsOnLoad = function(){      
+        FileService.readAsText("contacts.json").then(function(response){ 
               response = JSON.parse(response);
               $scope.cont = response;
               console.log($scope.cont);                                    
         });
-      }
+      }*/
 
 
       $scope.getContacts = function(){
