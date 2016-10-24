@@ -13,6 +13,37 @@
     </ion-nav-buttons>
     <ion-slides options="swiperOptions" slider="swiper" ion-wizard>
          
+         <ion-slide-page ion-wizard-step next-condition="1 == 1" class="has-header">
+            <div class="title">
+                 <label class="group-title"><h3>Selecione os contatos:</h3></label>
+            </div>
+
+            <div class="list">
+
+                <a class="item item-avatar" href="#">
+                    <img src="img/no-avatar.png">
+                    <h2>Venkman</h2>
+                    <p>Back off, man. I'm a scientist.</p>
+                </a>
+                <a class="item item-avatar" href="#">
+                    <img src="no-avatar.png">
+                    <h2>Venkman</h2>
+                    <p>Telefone: +555197412487</p>
+                </a>
+                <a class="item item-avatar" href="#">
+                    <img src="no-avatar.png">
+                    <h2>Venkman</h2>
+                    <p>Telefone: +555197412487</p>
+                </a>
+                <a class="item item-avatar" href="#">
+                    <img src="no-avatar.png">
+                    <h2>Venkman</h2>
+                    <p>Telefone: +555197412487</p>
+                </a>
+            </div>
+
+        </ion-slide-page>
+
         <ion-slide-page ion-wizard-step next-condition="getConditionGroupStepOne(groupCreate)" class="has-header">
            
             <ion-content padding="true" class="has-header">
@@ -47,8 +78,6 @@
                 </ion-card>
             </ion-content>
         </ion-slide-page>
-        <ion-slide-page ion-wizard-step next-condition="1 == 1" class="has-header">
-            
-        </ion-slide-page>
+        
     </ion-slides>
 </ion-view>

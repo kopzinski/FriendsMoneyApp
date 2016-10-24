@@ -230,7 +230,7 @@ $scope.expandText = function(){
               buttons:[{text: 'Cancelar'}, {text: 'Confirmar', type:'button-positive',
                 onTap: function(e){
                   if(e){
-                    
+ 
                     var user =  localStorage.getObject("user");
                     var phone = user.data.phone.value;
                     groupsService.deleteGroup(group._id, phone).then(function (response) {                  
