@@ -232,12 +232,26 @@ $scope.changePendencieStatus = function(transaction, status){
       })
   }
 
-  $scope.AcceptedFinalizedGroup = function(pending){
+  $scope.acceptFinalizedGroup = function(pending){
     var index = $scope.pendencies.indexOf(pending);
     var group = pending._id;
     var user =  localStorage.getObject("user");
     var phone = user.data.phone.value;
-    groupsService.deleteGroup(group, phone).then(function (response) {                 
+    groupsService.acceptDeleteGroup(group, phone).then(function (response) {                 
+      $cordovaToast.showShortBottom('Sucesso');   
+      console.log(response);
+      if(response){
+        $scope.pendencies.splice(index,1);        
+      }
+      $scope.modalGroup.hide();
+    })
+  };
+
+  $scope.denyFinalizedGroup = function(pending){
+    
+    var index = $scope.pendencies.indexOf(pending);
+    var group = pending._id;    
+    groupsService.denyDeleteGroup(group).then(function (response) {                 
       $cordovaToast.showShortBottom('Sucesso');   
       console.log(response);
       if(response){
@@ -288,9 +302,6 @@ $scope.changePendencieStatus = function(transaction, status){
   }
 
 
-  $scope.denyFinalizedStatus = function(pending){
-    $scope.modalGroup.hide();
-  };
 
 
 });

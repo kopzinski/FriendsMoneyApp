@@ -216,7 +216,7 @@ angular.module('starter.controller.groups', ['starter.service'])
                     
                     var user =  localStorage.getObject("user");
                     var phone = user.data.phone.value;
-                    groupsService.deleteGroup(group._id, phone).then(function (response) {                  
+                    groupsService.acceptDeleteGroup(group._id, phone).then(function (response) {                  
                       $cordovaToast.showShortBottom('Solicitação enviada para os demais participantes');
                       console.log(response);
                     })

@@ -184,15 +184,24 @@ angular.module('starter.service', [])
             })
         },
 
-        deleteGroup: function(id, phone){
+        acceptDeleteGroup: function(id, phone){
             return $http.delete(ApiEndpoint.url + '/group/'+id + "/" + phone ).then(function(response){
                 return response.data;
             })
 
         },
 
+        denyDeleteGroup: function(id){
+    
+            return $http.delete(ApiEndpoint.url + '/groupDeny/'+id).then(function(response){
+                console.log(response);
+                return response.data;
+            })
+
+        },
+
         deleteTransactionGroup: function(id, idTransaction, phoneCreator){
-            return $http.delete('http://10.96.127.185:3000/api/group/deleteT/'+id + "/" + idTransaction + "/" + phoneCreator).then(function(response){
+            return $http.delete(ApiEndpoint.url + '/group/deleteT/'+id + "/" + idTransaction + "/" + phoneCreator).then(function(response){
                 return response.data;
             })
 
