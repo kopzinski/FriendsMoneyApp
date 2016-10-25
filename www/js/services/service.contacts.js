@@ -15,6 +15,7 @@ angular.module('starter.service', [])
     return {
         //ok
         setContact: function(contacts){
+        console.log("service ", contacts);
         var data = {
             contacts : contacts
         }
