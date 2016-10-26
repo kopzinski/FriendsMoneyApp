@@ -38,7 +38,7 @@ angular.module('starter.controller.timeline', ['starter.service', 'relativeDate'
       };
 
 
-$scope.$on("$ionicView.enter", function(event, data){
+/*$scope.$on("$ionicView.enter", function(event, data){
      $scope.showLoading();
      console.log("ta aqui");
      // handle event
@@ -113,7 +113,7 @@ $scope.$on("$ionicView.enter", function(event, data){
       }
       $timeout(function(){$scope.getTimeline();}, 1500);
    
-});
+});*/
 
 $scope.$on("$ionicView.beforeLeave", function(event, data){
       var user =  localStorage.getObject("user");
