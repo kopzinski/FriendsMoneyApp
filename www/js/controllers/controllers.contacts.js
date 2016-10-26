@@ -45,8 +45,7 @@ angular.module('starter.controller.contact', ['starter.service', 'starter.servic
               });  
             } 
             $scope.$broadcast('scroll.refreshComplete');
-            $cordovaToast.showShortBottom('Atualizado');  
-            $scope.contactsOnLoad();   
+            $cordovaToast.showShortBottom('Atualizado');                 
           }
 
 
