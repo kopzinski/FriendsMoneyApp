@@ -11,7 +11,7 @@
             Iniciar Grupo
         </button>
     </ion-nav-buttons>
-    <ion-slides options="swiperOptions" slider="swiper" ion-wizard>
+    <ion-slides options="swiperOptions" slider="swiper" ion-wizard ng-init="contactsOnLoad()">
 
          <ion-slide-page ion-wizard-step next-condition="1 == 1" class="has-header">
             <div class="title">
@@ -19,7 +19,7 @@
             </div>
 
             <ion-list ng-repeat="contact in users | orderBy:'name'" >
-
+                {{contact.name}}
                 <ion-item ng-if="contact.registrationFlag">
                   <ion-avatar item-left class="avatar-ion">
                     <img class="avatar" src="img/no-avatar.png">
