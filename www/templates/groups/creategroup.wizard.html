@@ -12,44 +12,43 @@
         </button>
     </ion-nav-buttons>
     <ion-slides options="swiperOptions" slider="swiper" ion-wizard>
-         
+
          <ion-slide-page ion-wizard-step next-condition="1 == 1" class="has-header">
             <div class="title">
                  <label class="group-title"><h3>Selecione os contatos:</h3></label>
             </div>
 
-            <div class="list">
+            <ion-list ng-repeat="contact in users | orderBy:'name'" >
 
-                <a class="item item-avatar" href="#">
-                    <img src="img/no-avatar.png">
-                    <h2>Venkman</h2>
-                    <p>Back off, man. I'm a scientist.</p>
-                </a>
-                <a class="item item-avatar" href="#">
-                    <img src="no-avatar.png">
-                    <h2>Venkman</h2>
-                    <p>Telefone: +555197412487</p>
-                </a>
-                <a class="item item-avatar" href="#">
-                    <img src="no-avatar.png">
-                    <h2>Venkman</h2>
-                    <p>Telefone: +555197412487</p>
-                </a>
-                <a class="item item-avatar" href="#">
-                    <img src="no-avatar.png">
-                    <h2>Venkman</h2>
-                    <p>Telefone: +555197412487</p>
-                </a>
-            </div>
+                <ion-item ng-if="contact.registrationFlag">
+                  <ion-avatar item-left class="avatar-ion">
+                    <img class="avatar" src="img/no-avatar.png">
+                  </ion-avatar>
+                  <h2 ng-if="contact.name == 'Sem Nome' || contact.name == undefined" class="title-name">Desconhecido</h2>
+                  <h2 ng-if="contact.name != 'Unknw' || contact.name != undefined" class="title-name">{{contact.name}}</h2>
+                  <i class="ion-iphone app-green" ></i>
+                </ion-item>
+                <ion-item ng-if="contact.registrationFlag">
+                  <h3>Números de telefones</h3>
+                  <div ng-if="!contact.registrationFlag" ng-repeat="number in contact.phone">
+                    <p>{{ number.value }}</p>
+                  </div>
+                  <div ng-if="contact.registrationFlag">
+                    <p>{{ contact.phone.value }}</p>
+                  </div>
+                  <ion-icon ios="ios-call" md="md-call" item-right></ion-icon>
+                </ion-item>
+              </ion-card>
+            </ion-list>
 
         </ion-slide-page>
 
         <ion-slide-page ion-wizard-step next-condition="getConditionGroupStepOne(groupCreate)" class="has-header">
-           
+
             <ion-content padding="true" class="has-header">
 
                 <ion-card>
-                    
+
                     <ion-avatar  class="avatar-ion">
                         <img class="avatar"  src="img/no-group.png">
                     </ion-avatar>
@@ -59,14 +58,14 @@
                     </label>
                     <label class="item item-input item-stacked-label">
                         <span class="input-label"><strong>Descrição: </strong></span>
-                        <textarea 
+                        <textarea
                             style="width: 75%; "
                             id="descriptionId"
                             placeholder="Digite a descrição..."
                             ng-model = "groupCreate.description"
                             ng-keyup="expandText()"
                             ng-keydown="expandText()">
-                        </textarea> 
+                        </textarea>
                     </label>
                          <label class="item item-input item-stacked-label">
                         <span class="input-label"><strong>Modo para criar transações:</strong></span>
@@ -78,6 +77,6 @@
                 </ion-card>
             </ion-content>
         </ion-slide-page>
-        
+
     </ion-slides>
 </ion-view>
