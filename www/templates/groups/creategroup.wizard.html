@@ -1,0 +1,104 @@
+
+<ion-view  view-title="Criar Grupo" class="new-content">
+    <ion-nav-back-button>
+    </ion-nav-back-button>
+    <ion-nav-buttons side="left">
+    </ion-nav-buttons>
+    <ion-nav-buttons side="right">
+
+        <div ion-wizard-next>
+          <div style="font-size: 17px; margin-top: 7px; height: 100%; float: left; margin-right: 8px;"> Avançar </div>
+          <i style="font-size: 25px; margin-top: 7px; float: left;" class="ion-android-arrow-forward"></i>
+        </div>
+
+        <!-- <button class="button button-light" ion-wizard-next>
+            Avançar
+        </button> -->
+        <!-- <button class="button button-light" ion-wizard-start="start()" condition="1==1">
+            Iniciar Grupo
+        </button> -->
+
+        <div ion-wizard-start="startGroup((users|filter:{selected:true}))" condition="1==1">
+          <div style="font-size: 17px; margin-top: 7px; height: 100%; float: left; margin-right: 8px;"> Criar Grupo </div>
+          <i style="font-size: 25px; margin-top: 7px; float: left;" class="ion-android-arrow-forward"></i>
+        </div>
+    </ion-nav-buttons>
+    <ion-slides options="swiperOptions" slider="swiper" ion-wizard ng-init="contactsOnLoad()">
+
+
+        <ion-slide-page ion-wizard-step next-condition="getConditionGroupStepOne(groupCreate)" class="has-header">
+
+            <ion-content style="top: 0 !important;margin-bottom:15% !important">
+
+                <ion-card>
+
+                    <ion-avatar  class="avatar-ion">
+                        <img class="avatar"  src="img/no-group.png">
+                    </ion-avatar>
+                    <label class="item item-input item-stacked-label">
+                        <span class="input-label"><strong>Nome do Grupo: </strong></span>
+                        <input type="text" ng-model="groupCreate.title" placeholder="Titulo">
+                    </label>
+                    <label class="item item-input item-stacked-label">
+                        <span class="input-label"><strong>Descrição: </strong></span>
+                        <textarea
+                            style="width: 75%; "
+                            id="descriptionId"
+                            placeholder="Digite a descrição..."
+                            ng-model = "groupCreate.description"
+                            ng-keyup="expandText()"
+                            ng-keydown="expandText()">
+                        </textarea>
+                    </label>
+                         <label class="item item-input item-stacked-label">
+                        <span class="input-label"><strong>Modo para criar transações:</strong></span>
+                        <ion-list ng-init="groupCreate.choice='fairMode'">
+                            <ion-radio ng-model="groupCreate.choice" ng-value="'fairMode'">Transações Igualitárias</ion-radio>
+                            <ion-radio ng-model="groupCreate.choice" ng-value="'unfairMode'">Transações Facilitadas</ion-radio>
+                        </ion-list>
+                         </label>
+                </ion-card>
+            </ion-content>
+        </ion-slide-page>
+        <ion-slide-page ion-wizard-step next-condition="1 == 1" class="has-header">
+          <ion-content style="top: 0 !important">
+           <div class="title" style="background: #fff; margin-bottom: -11px;">
+                <label class="group-title"><h3>Selecione os contatos:</h3></label>
+           </div>
+           <style>
+             .checkbox-icon{
+               width:32px !important;
+               height: 32px !important;
+             }
+
+             .item-checkbox .checkbox{
+               position: initial !important;
+               margin-top:11px !important;
+               float: right !important;
+             }
+
+           </style>
+           <ion-list ng-repeat="contact in users | orderBy:'name'" ng-if="contact.registrationFlag">
+               <ion-checkbox ng-model="contact.selected">
+                   <ion-item>
+                     <ion-avatar item-left class="avatar-ion">
+                       <img class="avatar" src="img/no-avatar.png">
+                     </ion-avatar>
+                     <h2 ng-if="contact.name == 'Sem Nome' || contact.name == undefined" class="title-name">Desconhecido</h2>
+                     <h2 ng-if="contact.name != 'Unknw' || contact.name != undefined" class="title-name">{{contact.name}}</h2>
+                   </ion-item>
+                   <ion-item>
+                     <h3>Número de telefone</h3>
+                     <div>
+                       <p>{{ contact.phone.value }}</p>
+                     </div>
+
+                     <ion-icon ios="ios-call" md="md-call" item-right></ion-icon>
+                   </ion-item>
+                 </ion-checkbox>
+               </ion-list>
+             </ion-content>
+       </ion-slide-page>
+
+    </ion-slides>
+</ion-view>

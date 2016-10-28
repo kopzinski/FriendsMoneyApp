@@ -39,7 +39,11 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 .float-button .height_fix {
   margin-top: 100%;
 }
-
+.swiper-slide img {
+    max-width: 40%;
+    display:block;
+    margin: auto;
+}
 .float-button .content {
   position: absolute;
   left: 0;

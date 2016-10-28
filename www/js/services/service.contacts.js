@@ -171,14 +171,7 @@ angular.module('starter.service', [])
                 return response;
             })
         },
-        createGroup: function(members, title, user){
-
-            var group = {
-            title: title,
-            members:members,
-            creator: {phone:{value: user.phone}, name: user.name}
-            }
-            
+        createGroup: function(group){
             var url = ApiEndpoint.url + "/group";
             return $http.post(url, group).then(function(response){
                 return response;
