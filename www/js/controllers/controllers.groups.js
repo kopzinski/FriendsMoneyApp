@@ -18,17 +18,31 @@ angular.module('starter.controller.groups', ['starter.service'])
           delete user['selected'];
           return user;
         });
+        
+        
+
+        var user =  localStorage.getObject("user");
+        var phone = user.data.phone.value;
+        members.push({name: user.data.name, phone:{value: phone}});          
         var newGroup = {
             title: $scope.groupCreate.title,
             description: $scope.groupCreate.description,
             mode: $scope.groupCreate.choice,
+            creator:{phone:{value: phone}, name: user.data.name},
             members: members
         }
         
-        $scope.users = $scope.users.map(function(user){
-          delete user['selected'];
-          return user;
-        });
+      
+        groupsService.createGroup(newGroup).then(function(response){
+            console.log(response);
+            $scope.listGroups();
+            $state.go("groups");
+            $scope.users = $scope.users.map(function(user){
+              delete user['selected'];
+              return user;
+            });          
+            
+          })
       }
       $scope.contactsOnLoad = function(){
 
@@ -134,8 +148,8 @@ angular.module('starter.controller.groups', ['starter.service'])
     }
 
     $scope.doRefresh = function(){
-              var user =  localStorage.getObject("user");
-        var phone = user.data.phone.value;
+      var user =  localStorage.getObject("user");
+       var phone = user.data.phone.value;
       groupsService.getListGroups(phone).then(function(response){
       console.log(response);
       $scope.groups = response;

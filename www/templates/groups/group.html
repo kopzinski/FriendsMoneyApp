@@ -5,7 +5,7 @@
   <ion-content class="home padding" ng-init="listGroups()" style="padding-top: 10px; padding-bottom: 10px;">
       <ion-refresher pulling-text="Puxe para atualizar..." on-refresh="doRefresh()">
       </ion-refresher>     
-    <ion-list ng-repeat="group in groups | orderBy:'title'" ng-click="groupDetail(group)" ng-if="group.members != '' && !group.finalizedAt">      
+    <ion-list ng-repeat="group in groups | orderBy:'-updatedAt'" ng-click="groupDetail(group)" ng-if="group.members != '' && !group.finalizedAt">      
         <ion-item>
           <ion-avatar item-left class="avatar-ion">
             <img class="avatar" src="img/no-avatar.png">
