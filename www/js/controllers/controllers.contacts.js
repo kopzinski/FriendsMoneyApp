@@ -30,7 +30,7 @@ angular.module('starter.controller.contact', ['starter.service', 'starter.servic
               }
               ContactsService.setContact(array).then(function(responses){
                 responses = JSON.stringify(responses);
-                
+                $scope.cont = responses; 
                 FileService.removeAndCreateAndWrite("contacts.json", responses).then(function(response){
                   console.log(response);                          
                 });   
@@ -39,6 +39,8 @@ angular.module('starter.controller.contact', ['starter.service', 'starter.servic
               $cordovaToast.showShortBottom('Atualizado');
             }else{
               ContactsService.setContact(contacts).then(function(responses){
+                responses = JSON.stringify(responses);
+                $scope.cont = responses;                  
                 FileService.removeAndCreateAndWrite("contacts.json", responses).then(function(response){
                   console.log(response);                          
                 });   
