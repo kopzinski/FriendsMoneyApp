@@ -1,7 +1,7 @@
 <ion-modal-view class="new_modal">
-    <ion-header-bar align-title="center" class="bar-positive">     
+    <ion-header-bar align-title="center" class="bar-positive new-header">     
         <i class="ion-arrow-left-c arrow-back" ng-click="closeModal()"></i>
-        <h1 class="title" style="text-align">{{pending.title}}</h1>
+        <h1 class="title" style="color: #fff">{{pending.title}}</h1>
     </ion-header-bar>
     <ion-content class="padding" on-drag-right="onDrag()">
         <ion-card>
@@ -32,16 +32,16 @@
            </div>
            <ion-item>
             <div class="button-bar" ng-if="pending.statusPendencie == 'finalizeTransaction'">
-                <a class="button button-dark" ng-click="acceptDeleteGroupTransaction(pending, transaction)">Sim</a>
-                <a class="button button-dark" ng-click="denyDeleteGroupTransaction(pending, transaction)">Não</a>
+                <a class="button accept-button" ng-click="acceptDeleteGroupTransaction(pending, transaction)">Sim</a>
+                <a class="button deny-button" ng-click="denyDeleteGroupTransaction(pending, transaction)">Não</a>
             </div>
             <div class="button-bar" ng-if="pending.statusPendencie == 'createGroup'">
-              <a class="button button-dark" ng-click="acceptGroupInvitation(pending)">Sim</a>
-              <a class="button button-dark" ng-click="denyGroupInvitation(pending)">Não</a>
+              <a class="button accept-button" ng-click="acceptGroupInvitation(pending)">Sim</a>
+              <a class="button deny-button" ng-click="denyGroupInvitation(pending)">Não</a>
             </div>
             <div class="button-bar" ng-if="pending.statusPendencie == 'finalizeGroup'">
-              <a class="button button-dark" ng-click="acceptFinalizedGroup(pending)">Sim</a>
-              <a class="button button-dark" ng-click="denyFinalizedGroup(pending)">Não</a>
+              <a class="button accept-button" ng-click="acceptFinalizedGroup(pending)">Sim</a>
+              <a class="button deny-button" ng-click="denyFinalizedGroup(pending)">Não</a>
             </div>
            </ion-item>
         </ion-card>

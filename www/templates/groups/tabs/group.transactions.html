@@ -1,5 +1,5 @@
 
-<ion-view title="Transações" id="page1" hide-back-button="false" >
+<ion-view title="Transações" id="page1" hide-back-button="false" class="new-header">
 
     <ion-content padding="true" class="has-header">
       <ion-refresher pulling-text="Puxe para atualizar..." on-refresh="doRefresh()">
@@ -29,7 +29,7 @@
             <p> Não há transações ainda para esse grupo </p>
           </div>
     </ion-content>
-    <div ng-if="!group.finalizedAt" class="float-button">
+    <div ng-if="!group.finalizedAt" class="float-button" style="background: #3c8c30 !important;">
       <span class="height-fix">
       <a ng-click="openTransactionModal()" class="content">
         <i class="ion-plus-round"> </i>

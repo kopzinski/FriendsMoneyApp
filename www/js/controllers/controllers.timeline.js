@@ -75,18 +75,18 @@ $scope.$on("$ionicView.enter", function(event, data){
                   });
               //online sem cache
             }else {
-                  $scope.hideLoading();
                   console.log("ta online e não tem cache"); 
-                  timelineService.getAllTransactions(phone).then(function(response){
+                  timelineService.getAllTransactions(phone).then(function(response){                        
                         if(response){
+                              $scope.transactions = response;
+                              $scope.hideLoading();
                               FileService.removeAndCreateAndWrite("timeline.json", response).then(function(resp){
                                   
                                     console.log(resp);                           
                               }); 
                         }else{
-                              
-                              FileService.removeFile("timeline.json").then(function(resp){
-                                                        
+                              $scope.hideLoading();
+                              FileService.removeFile("timeline.json").then(function(resp){                                                        
                               });   
                         }
                         

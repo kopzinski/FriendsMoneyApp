@@ -1,5 +1,5 @@
 <ion-modal-view class="new_modal">
-    <ion-header-bar>        
+    <ion-header-bar class="new-header">        
         <i class="ion-arrow-left-c arrow-back" ng-click="closeModal()"></i>
         <h1 class="title" style="text-align">{{pending.creator.name}}</h1>
     </ion-header-bar>
@@ -43,12 +43,12 @@
            </div>
            <ion-item>
             <div class="button-bar" ng-if="pending.status != 'paymentConfirm'">
-              <a class="button button-dark" ng-click="changePendencieStatus(pending, 'accepted')">Sim</a>
-              <a class="button button-dark" ng-click="changePendencieStatus(pending, 'denied')">Não</a>
+              <a class="button accept-button" ng-click="changePendencieStatus(pending, 'accepted')">Sim</a>
+              <a class="button deny-button" ng-click="changePendencieStatus(pending, 'denied')">Não</a>
             </div>
             <div class="button-bar" ng-if="pending.status == 'paymentConfirm'">
-              <a class="button button-dark" ng-click="changePendencieStatus(pending, 'paid')">Sim</a>
-              <a class="button button-dark" ng-click="changePendencieStatus(pending, 'accepted')">Não</a>
+              <a class="button accept-button" ng-click="changePendencieStatus(pending, 'paid')">Sim</a>
+              <a class="button deny-button" ng-click="changePendencieStatus(pending, 'accepted')">Não</a>
             </div>
            </ion-item>
       </ion-card>

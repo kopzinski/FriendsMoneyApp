@@ -210,7 +210,7 @@ angular.module('starter.controller.groups', ['starter.service'])
             var confirmPopup = $ionicPopup.confirm({              
               title: 'Encerramento do grupo',
               template: 'Você realmente quer solicitar o encerramento do grupo?',
-              buttons:[{text: 'Cancelar'}, {text: 'Confirmar', type:'button-positive',
+              buttons:[{text: 'Cancelar', type:'deny-button'}, {text: 'Confirmar', type:'accept-button',
                 onTap: function(e){
                   if(e){
                     
