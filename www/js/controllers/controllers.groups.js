@@ -13,7 +13,23 @@ angular.module('starter.controller.groups', ['starter.service'])
       $scope.cancelCreateGroup = function(){
         $state.go("groups");
       }
-
+      $scope.startGroup = function(members){
+        members = members.map(function(user){
+          delete user['selected'];
+          return user;
+        });
+        var newGroup = {
+            title: $scope.groupCreate.title,
+            description: $scope.groupCreate.description,
+            mode: $scope.groupCreate.choice,
+            members: members
+        }
+        
+        $scope.users = $scope.users.map(function(user){
+          delete user['selected'];
+          return user;
+        });
+      }
       $scope.contactsOnLoad = function(){
 
         if($cordovaNetwork.isOnline() == true){
@@ -45,15 +61,14 @@ angular.module('starter.controller.groups', ['starter.service'])
                 var contacts = responses;
                 $scope.users = contacts;
               });
+              $scope.$broadcast('scroll.refreshComplete');
             }else{
               ContactsService.setContact(contacts).then(function(responses){
                 $scope.users = responses;
-
               });
             }
 
             $scope.$broadcast('scroll.refreshComplete');
-
           }
 
           function onError(contactError) {
@@ -190,6 +205,7 @@ $scope.expandText = function(){
 
     $scope.registerTransaction = function(idGroup, transaction){
       var user =  localStorage.getObject("user");
+
       var newUser = {
         phone: user.data.phone,
         name: user.data.name
@@ -233,7 +249,8 @@ $scope.expandText = function(){
 
                     var user =  localStorage.getObject("user");
                     var phone = user.data.phone.value;
-                    groupsService.deleteGroup(group._id, phone).then(function (response) {
+
+                    groupsService.acceptDeleteGroup(group._id, phone).then(function (response) {
                       $cordovaToast.showShortBottom('Solicitação enviada para os demais participantes');
                       console.log(response);
                     })
@@ -256,6 +273,40 @@ $scope.expandText = function(){
     $scope.expandText = function(){
       var element = document.getElementById("descriptionId");
       element.style.height =  element.scrollHeight + "px";
+    }
+
+    $ionicModal.fromTemplateUrl('templates/groups/tabs/group.transactionPayment.modal.html', {
+        scope: $scope,
+        animation: 'slide-in-right',
+        focusFirstInput: true
+      }).then(function(modal) {
+        $scope.modalPayment = modal;
+      })
+
+    $scope.transactionPayment = function(transaction){
+      var group = GroupLocalService.getGroup();
+      if(group.finalizedAt){
+        $cordovaToast.showShortBottom('Grupo já finalizado, impossível realizar ação');
+      }else{
+        var user =  localStorage.getObject("user");
+        $scope.transPayment = transaction;
+        $scope.phoneMaster = user.data.phone.value;
+        $scope.modalPayment.show();
+      }
+    }
+
+    $scope.transactionPaymentDelete = function(tra){
+        var group = GroupLocalService.getGroup();
+        console.log(group._id);
+        console.log(tra._id);
+        var user =  localStorage.getObject("user");
+        var phone = user.data.phone.value;
+        groupsService.deleteTransactionGroup(group._id, tra._id, phone).then(function (response) {
+          if(response){
+            $scope.modalPayment.hide();
+          }
+          console.log(JSON.stringify(response));
+        })
     }
 })
 

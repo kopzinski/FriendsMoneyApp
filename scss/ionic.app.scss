@@ -292,7 +292,7 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
   }
 
   .form-group{
-    margin-bottom: 85px;
+    margin-bottom: 30px;
   }
 
   .div-button-group{
@@ -323,4 +323,49 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
   .title-group{
     position: none; 
     line-height: 37px;
+  }
+
+  .new_modal{
+    height: 100%; 
+    width: 100%; 
+    top: 0 !important; 
+    bottom: 0 !important; 
+    left: 0 !important; 
+    right: 0 !important;
+  }
+
+  .new-header{
+    background: #025928 !important;
+    color: #fff !important;
+  }
+
+  .new-content{
+    background: #ececec !important;
+  }
+
+  .div-form-register{
+    height: 50% !important; 
+    margin-top: 25% !important; 
+    width: 90% !important; 
+    margin-left: 5% !important;
+  }
+
+  .div-button-register{
+    width: 100%; 
+    text-align: center;
+  }
+
+  .button-register{
+    background: #3c8c30 !important; 
+    height: 45px !important; 
+    color: #fff !important;
+  }
+
+  .bar-header{
+    background: #025928 !important;
+    color: #fff !important;
+  }
+
+  ion-content{
+    background: #ececec !important;
   }

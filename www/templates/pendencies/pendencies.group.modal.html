@@ -1,4 +1,4 @@
-<ion-modal-view>
+<ion-modal-view class="new_modal">
     <ion-header-bar align-title="center" class="bar-positive">     
         <i class="ion-arrow-left-c arrow-back" ng-click="closeModal()"></i>
         <h1 class="title" style="text-align">{{pending.title}}</h1>
@@ -22,14 +22,26 @@
                 <p>Seu amigo {{pending.creator.name}}
             	Solicitou a finalização do grupo {{pending.title}}, você concorda em finalizar ele?</p>
            </div>
+           <div ng-if="pending.statusPendencie == 'finalizeTransaction'" class="item item-body">
+                <p>Uma transação do grupo {{pending.title}}                 
+                    <label>
+                        de descrição: {{transaction.description}} e de valor: R$ {{transaction.valuePaid}} está errada.
+                        <p>Você concorda?</p>                        
+                    </label>            
+                </p>
+           </div>
            <ion-item>
+            <div class="button-bar" ng-if="pending.statusPendencie == 'finalizeTransaction'">
+                <a class="button button-dark" ng-click="acceptDeleteGroupTransaction(pending, transaction)">Sim</a>
+                <a class="button button-dark" ng-click="denyDeleteGroupTransaction(pending, transaction)">Não</a>
+            </div>
             <div class="button-bar" ng-if="pending.statusPendencie == 'createGroup'">
               <a class="button button-dark" ng-click="acceptGroupInvitation(pending)">Sim</a>
               <a class="button button-dark" ng-click="denyGroupInvitation(pending)">Não</a>
             </div>
             <div class="button-bar" ng-if="pending.statusPendencie == 'finalizeGroup'">
-              <a class="button button-dark" ng-click="AcceptedFinalizedGroup(pending)">Sim</a>
-              <a class="button button-dark" ng-click="denyFinalizedStatus(pending)">Não</a>
+              <a class="button button-dark" ng-click="acceptFinalizedGroup(pending)">Sim</a>
+              <a class="button button-dark" ng-click="denyFinalizedGroup(pending)">Não</a>
             </div>
            </ion-item>
         </ion-card>

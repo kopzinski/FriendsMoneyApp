@@ -4,9 +4,7 @@
    <ion-refresher pulling-text="Puxe para atualizar..." on-refresh="doRefresh()">
    </ion-refresher>         
 
-    <button class="button" ng-click="onInit()">Listar timeline</button>
-
-    <div class="padding" ng-init="onInit()" if="transactions">
+    <div class="padding" if="transactions">
         <div class="div-principal" ng-repeat="transaction in transactions" >
           <div class="item item-body time-body">            
                   {{transaction.createdAt | relativeDate}}
@@ -62,6 +60,11 @@
           </div>  
         </div>
     </div>
+    <ion-item style="background: none; border: none; margin-left: 10%;">
+      <div ng-hide="transactions.length > 0">
+        <p> Não há nada de transações no momento </p>
+      </div>
+    </ion-item>
   </ion-content>
 
 </ion-view>

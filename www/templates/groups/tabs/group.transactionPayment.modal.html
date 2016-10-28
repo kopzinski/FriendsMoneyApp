@@ -1,0 +1,34 @@
+
+<ion-modal-view class="new_modal">
+    <ion-header-bar align-title="center" class="bar-positive">    
+        <i class="ion-arrow-left-c arrow-back" ng-click="modalPayment.hide()"></i>
+        <h1 class="title" style="text-align">Pagamento dessa transação</h1>  
+    </ion-header-bar>
+    
+   
+    <ion-content class="padding">      
+        <form name="transactionRe" class="form-group">
+          <ion-card>
+            <ion-item>
+              <ion-avatar item-left class="avatar-ion">
+                <img class="avatar" src="img/money.png">
+              </ion-avatar>
+              <h2 class="title-name-group">{{transPayment.description}}</h2>
+            </ion-item>
+            <label class="item item-input">
+              <p style="font-weight: bold">
+                Valor da transação R${{transPayment.valuePaid}}
+              </p>        
+            </label>            
+            <label class="item item-input">
+              Você acredita que esta transação esteja errada?
+            </label>
+          </ion-card>
+          <input ng-if="phoneMaster != transPayment.creditor.phone.value" ng-click="transactionPaymentDelete(transPayment)"  type="submit" value="Contestar transação"  style=" width:100%;" class="button button-full button-positive button-contact"/>
+        </form>
+
+        <button ng-if="phoneMaster == transPayment.creditor.phone.value" ng-click="transactionPaymentDelete(transPayment)" class="button button-full button-assertive button-contact">
+          Deletar transação
+        </button>
+        </ion-content>
+</ion-modal-view>

@@ -5,8 +5,8 @@ angular.module('starter.controller.pendencies', ['starter.service', 'relativeDat
     $scope.phone = user.data.phone.value;
     
 $scope.$on("$ionicView.enter", function(event, data){
-   // handle event
-
+    $scope.showLoading();
+     // handle event
     $scope.getPendencies = function(phone){
       if($cordovaNetwork.isOnline() == true){
         FileService.checkFileByFile("pendencies.json").then(function(response){
@@ -14,11 +14,12 @@ $scope.$on("$ionicView.enter", function(event, data){
             if (response){
               FileService.readAsText("pendencies.json").then(function (pendenciesList) {
                 $scope.pendencies = JSON.parse(pendenciesList);
+                $scope.hideLoading();
                 pendencieService.getPendings(phone).then(function(pendenciesListAPI){
-                if(pendenciesListAPI){
-                  FileService.removeAndCreateAndWrite("pendencies.json", pendenciesListAPI).then(function(resp){
-                      console.log("excluiu, criou, populou");                                 
-                  }); 
+                  if(pendenciesListAPI){
+                    FileService.removeAndCreateAndWrite("pendencies.json", pendenciesListAPI).then(function(resp){
+                        console.log("excluiu, criou, populou");                                 
+                    }); 
                   }else{
                     FileService.removeFile("pendencies.json").then(function(resp){
                       console.log("excluiu arquivo");                                 
@@ -29,13 +30,18 @@ $scope.$on("$ionicView.enter", function(event, data){
               })
               //online sem cache
             }else {
+              
                 pendencieService.getPendings(phone).then(function(pendenciesList){
                 if(pendenciesList){
-                  $scope.pendencies = pendenciesList;  
+                  console.log("//online sem cach pendenciesList");
+                  $scope.pendencies = pendenciesList; 
+                  $scope.hideLoading(); 
                   FileService.removeAndCreateAndWrite("pendencies.json", pendenciesList).then(function(resp){
                       console.log("excluiu, criou, populou");                                 
                   }); 
                 }else{
+                  console.log("//online sem cach else");
+                  $scope.hideLoading();
                   FileService.removeFile("pendencies.json").then(function(resp){
                       console.log("excluiu arquivo");                                 
                   }); 
@@ -49,9 +55,11 @@ $scope.$on("$ionicView.enter", function(event, data){
           if(response){
             FileService.readAsText("pendencies.json").then(function (pendenciesList) {
               $scope.pendencies = JSON.parse(pendenciesList);
+              $scope.hideLoading();
             })
             //Offline sem cache
           }else{
+            $scope.hideLoading();
             $cordovaToast.showShortBottom('Não foi possível atualizar, sem conexão com internet');
           }
         })
@@ -71,6 +79,8 @@ $scope.doRefresh = function(phone){
                       console.log("excluiu, criou, populou");                                 
                   }); 
                 }else{
+                  $scope.$broadcast('scroll.refreshComplete');
+                  $cordovaToast.showShortBottom('Atualizado');
                   FileService.removeFile("pendencies.json").then(function(resp){
                       console.log("excluiu arquivo");                                 
                   }); 
@@ -124,10 +134,20 @@ $ionicModal.fromTemplateUrl('templates/pendencies/pendencies.transaction.modal.h
      }
    };
 
-     $scope.openGroupModal = function(pending) {
+    $scope.openGroupModal = function(pending) {
      if($cordovaNetwork.isOnline() == true){
         console.log(pending);
         $scope.pending = pending;
+        $scope.modalGroup.show();
+     }else{
+        $cordovaToast.showShortBottom('Impossível realizar a ação, sem conexão.');
+     }
+   };
+
+   $scope.openGroupModalTransaction = function(pending, transaction) {
+     if($cordovaNetwork.isOnline() == true){
+        $scope.pending = pending;
+        $scope.transaction = transaction;
         $scope.modalGroup.show();
      }else{
         $cordovaToast.showShortBottom('Impossível realizar a ação, sem conexão.');
@@ -221,12 +241,12 @@ $scope.changePendencieStatus = function(transaction, status){
       })
   }
 
-  $scope.AcceptedFinalizedGroup = function(pending){
+  $scope.acceptFinalizedGroup = function(pending){
     var index = $scope.pendencies.indexOf(pending);
     var group = pending._id;
     var user =  localStorage.getObject("user");
     var phone = user.data.phone.value;
-    groupsService.deleteGroup(group, phone).then(function (response) {                 
+    groupsService.acceptDeleteGroup(group, phone).then(function (response) {                 
       $cordovaToast.showShortBottom('Sucesso');   
       console.log(response);
       if(response){
@@ -236,14 +256,76 @@ $scope.changePendencieStatus = function(transaction, status){
     })
   };
 
-  $scope.denyFinalizedStatus = function(pending){
-    $scope.modalGroup.hide();
+  $scope.denyFinalizedGroup = function(pending){
+    
+    var index = $scope.pendencies.indexOf(pending);
+    var group = pending._id;    
+    groupsService.denyDeleteGroup(group).then(function (response) {                 
+      $cordovaToast.showShortBottom('Sucesso');   
+      console.log(response);
+      if(response){
+        $scope.pendencies.splice(index,1);        
+      }
+      $scope.modalGroup.hide();
+    })
   };
+
+  $scope.acceptDeleteGroupTransaction = function(pending, transaction){
+    var index = $scope.pendencies.indexOf(pending);
+    if(pending && transaction){      
+      groupsService.deleteTransactionGroup(pending._id, transaction._id, transaction.creditor.phone.value).then(function (response) {         
+        if(response){
+          $cordovaToast.showShortBottom('Sucesso');
+          $scope.pendencies.splice(index,1);
+        }
+      })
+    }
+    $scope.modalGroup.hide();       
+  };
+
+  $scope.denyDeleteGroupTransaction = function(pending, transaction){    
+      var user =  localStorage.getObject("user");
+      var phone = user.data.phone.value;
+      var index = $scope.pendencies.indexOf(transaction);
+      pendencieService.denyGroupDeleteTransaction(pending._id, transaction._id).then(function(resp){
+         if (resp.result == "success"){
+            $scope.pendencies.splice(index,1);
+            $scope.modalGroup.hide();
+            $cordovaToast.showShortBottom('Negado com Sucesso');
+            pendencieService.getPendings(phone).then(function(pendenciesList){
+                if(pendenciesList){
+                  FileService.removeAndCreateAndWrite("pendencies.json", pendenciesList).then(function(resp){
+                      console.log("excluiu, criou, populou");                     
+                  });           
+                }else {
+                  FileService.removeFile("pendencies.json").then(function(resp){
+                      console.log("excluiu arquivo");                                 
+                  }); 
+                } 
+            })
+         }else {
+           $cordovaToast.showShortBottom('erro:'+resp.message);
+         }
+      })
+
+  }
+
+    $scope.showLoading = function() {
+        //options default to values in $ionicLoadingConfig
+        $ionicLoading.show().then(function(){          
+          console.log("The loading indicator is now displayed");
+        });
+      };
+      $scope.hideLoading = function(){
+        $ionicLoading.hide().then(function(){
+          console.log("The loading indicator is now hidden");
+        });
+      };
+
+
 
 
 });
-
-
 
 
 

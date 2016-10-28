@@ -1,5 +1,5 @@
 angular.module('starter.controller.timeline', ['starter.service', 'relativeDate'])
-.controller('TimelineCtrl', function($cordovaNetwork, FileService, $cordovaToast, $ionicHistory, $scope, $state, $ionicModal, localStorage, $timeout, $cordovaContacts, $ionicLoading, timelineService, pendencieService ) {
+.controller('TimelineCtrl', function($timeout, $cordovaNetwork, FileService, $cordovaToast, $ionicHistory, $scope, $state, $ionicModal, localStorage, $timeout, $cordovaContacts, $ionicLoading, timelineService, pendencieService ) {
 
   
       $scope.doRefresh = function() {    
@@ -25,7 +25,116 @@ angular.module('starter.controller.timeline', ['starter.service', 'relativeDate'
              
       };
 
-      $scope.onInit = function(){
+      $scope.showLoading = function() {
+        //options default to values in $ionicLoadingConfig
+        $ionicLoading.show().then(function(){          
+          console.log("The loading indicator is now displayed");
+        });
+      };
+      $scope.hideLoading = function(){
+        $ionicLoading.hide().then(function(){
+          console.log("The loading indicator is now hidden");
+        });
+      };
+
+
+$scope.$on("$ionicView.enter", function(event, data){
+     $scope.showLoading();
+     console.log("ta aqui");
+     // handle event
+    $scope.getTimeline = function(){
+      
+      var user =  localStorage.getObject("user");
+      var phone = user.data.phone.value;
+      $scope.phone = phone;
+      if($cordovaNetwork.isOnline() == true){
+            console.log("ta online");
+        FileService.checkFileByFile("timeline.json").then(function(response){
+          //online com cache
+            if (response){       
+                  console.log("ta online e tem cache");           
+                  FileService.readAsText("timeline.json").then(function(response){  
+                        console.log("entrou aqui");         
+                        response = JSON.parse(response);
+                        $scope.transactions = response;  
+                        $scope.hideLoading(); 
+                        timelineService.getAllTransactions(phone).then(function(response){
+                              if(response){
+                                    FileService.removeAndCreateAndWrite("timeline.json", response).then(function(resp){
+                                       
+                                          console.log(resp);                           
+                                    }); 
+                              }else{
+                                 
+                                 FileService.removeFile("timeline.json").then(function(resp){
+                                                                   
+                                 });   
+                              }
+                              
+                        })                                                  
+                  });
+              //online sem cache
+            }else {
+                  $scope.hideLoading();
+                  console.log("ta online e não tem cache"); 
+                  timelineService.getAllTransactions(phone).then(function(response){
+                        if(response){
+                              FileService.removeAndCreateAndWrite("timeline.json", response).then(function(resp){
+                                  
+                                    console.log(resp);                           
+                              }); 
+                        }else{
+                              
+                              FileService.removeFile("timeline.json").then(function(resp){
+                                                        
+                              });   
+                        }
+                        
+                  })
+            }                                    
+        })
+        //Offline com cache
+            }else{
+                  console.log("ta offline e tem cache"); 
+                  FileService.checkFileByFile("timeline.json").then(function(response){
+                        if(response){                  
+                              FileService.readAsText("timeline.json").then(function(response){ 
+                                    response = JSON.parse(response);
+                                    $scope.transactions = response;
+                                    $scope.hideLoading();                                                     
+                              });
+                              //Offline sem cache
+                        }else{
+                              $scope.hideLoading();
+                              $cordovaToast.showShortBottom('Não foi possível atualizar, sem conexão com internet');
+                        }
+                  })
+            }     
+      }
+      $timeout(function(){$scope.getTimeline();}, 1500);
+   
+});
+
+$scope.$on("$ionicView.beforeLeave", function(event, data){
+      var user =  localStorage.getObject("user");
+      var phone = user.data.phone.value;
+      $scope.phone = phone;
+      timelineService.getAllTransactions(phone).then(function(response){
+            if(response){
+                  FileService.removeAndCreateAndWrite("timeline.json", response).then(function(resp){                        
+                                                   
+                  }); 
+            }else{
+                  FileService.removeFile("timeline.json").then(function(resp){
+                                                 
+                  });   
+            }
+      })
+})
+
+
+
+      /*$scope.onInit = function(){
             var user =  localStorage.getObject("user");
             var phone = user.data.phone.value;
             $scope.phone = phone;
@@ -34,7 +143,7 @@ angular.module('starter.controller.timeline', ['starter.service', 'relativeDate'
                   response = JSON.parse(response);
                   $scope.transactions = response;                                                     
             });
-      }
+      }*/
 
       $ionicModal.fromTemplateUrl('templates/timeline/timeline.modal.html', {
         scope: $scope,

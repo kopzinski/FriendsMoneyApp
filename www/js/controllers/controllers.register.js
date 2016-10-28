@@ -28,18 +28,34 @@ angular.module('register.controllers', ['starter.service'])
           $scope.modal.show();
       });
 
+      $scope.showLoading = function() {
+        //options default to values in $ionicLoadingConfig
+        $ionicLoading.show().then(function(){          
+          console.log("The loading indicator is now displayed");
+        });
+      };
+      $scope.hideLoading = function(){
+        $ionicLoading.hide().then(function(){
+          console.log("The loading indicator is now hidden");
+        });
+      };
+
       $scope.msg_error = "";
        
       $scope.user = {
         name: '',
         phone : {value:''}   
       };
-      $scope.register = function(userForm){ 
+      $scope.register = function(userForm){           
           if (userForm.$valid){
+            $scope.showLoading();
              $scope.uuid = $cordovaDevice.getUUID();      
             registerService.setUser($scope.user, $scope.uuid).then(function(response){
-              localStorage.setObject('user', response);
-              $scope.closeModal();
+              if(response){
+                localStorage.setObject('user', response);
+                $scope.hideLoading(); 
+                $scope.closeModal();
+              }              
             })
           }   
       }

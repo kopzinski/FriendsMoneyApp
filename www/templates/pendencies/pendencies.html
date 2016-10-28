@@ -8,14 +8,15 @@
             <h2 ng-if="key == 'paymentConfirm'"> Confirmação de Pagamento </h2>
             <h2 ng-if="key == 'pending'"> Transações Pendentes </h2>
             <h2 ng-if="key == 'createGroup'"> Confirmação de Grupos </h2>  
-            <h2 ng-if="key == 'finalizeGroup'"> Finalização de Grupos </h2>  
+            <h2 ng-if="key == 'finalizeGroup'"> Finalização de Grupos </h2>
+            <h2 ng-if="key == 'finalizeTransaction'"> Finalização de Transações de Grupo </h2>    
           </div>
           <div ng-repeat="pending in value">
     <!-- Payment Confirm -->
           <ion-item class="item-list" ng-if="pending.statusPendencie == 'paymentConfirm' || pending.statusPendencie == 'pending'" 
           ng-click = "openTransactionModal(pending)">
             <ion-avatar item-left style="float: left; margin-right:10px">
-                  <img style="width: 45px" src="img/no-avatar.png">
+                <img style="width: 45px" src="img/no-avatar.png">
             </ion-avatar>
             <div  item-left style="float:left" >
               <div id="name" ng-if="pending.creator.name">
@@ -40,19 +41,31 @@
               <p >{{pending.createdAt | relativeDate}}</p>
             </div>
           </ion-item>
-          <ion-item class="item-list" ng-if="pending.statusPendencie == 'finalizeGroup' && !pending.finalizedAt">
+          <ion-item class="item-list" ng-if="pending.statusPendencie == 'finalizeGroup' && !pending.finalizedAt" ng-click = "openGroupModal(pending)">
             <ion-avatar item-left style="float: left; margin-right:10px; position: absolute">
-                    <img style="width: 45px" src="img/no-group.png">
+                <img style="width: 45px" src="img/no-group.png">
             </ion-avatar>
             <div  item-left style="float:left; margin-left: 60px;">
               <h2> Grupo {{pending.title}} <p>criado por {{pending.creator.name}}</p> </h2>
               <p >{{pending.createdAt | relativeDate}}</p>
             </div>
           </ion-item>
+          
+            <ion-item class="item-list" ng-repeat="transaction in pending.transactions" ng-if="pending.statusPendencie == 'finalizeTransaction' && transaction.flagFinalized == false" ng-click="openGroupModalTransaction(pending, transaction)">
+              <ion-avatar item-left style="float: left; margin-right:10px; position: absolute">
+                      <img style="width: 45px" src="img/no-group.png">
+              </ion-avatar>
+              <div  item-left style="float:left; margin-left: 60px;">
+                <h2> Grupo {{pending.title}} </h2>
+                <p>Centestaram a transação que você criou <br/> de descrição: {{transaction.description}}</p> 
+                <p >{{pending.updatedAt | relativeDate}}</p>
+              </div>
+            </ion-item>
+                   
           </div>
         </ion-list>
       </div>
-     <ion-item style="border: none">
+     <ion-item style="background: none; border: none">
       <div ng-hide="pendencies.length > 0">
         <p> Não há nada pendente no momento </p>
       </div>

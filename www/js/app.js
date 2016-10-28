@@ -8,6 +8,7 @@
 angular.module('starter', ['ionic.wizard', 'ngMessages','angular.filter','ui.utils.masks', 'ionic', 'starter.controller.contact', 'starter.controller.pendencies', 'ngCordova', 'starter.service','starter.routes', 'starter.Storage','register.controllers', 'starter.controller.timeline', 'starter.controller.groups','starter.service.file']).
 constant('ApiEndpoint', {
   url: 'http://10.96.127.105:3000/api'
+  //url: 'http://200.169.20.118:8182/api'
 })
 
 .run(function($ionicPlatform) {

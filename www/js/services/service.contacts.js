@@ -15,6 +15,7 @@ angular.module('starter.service', [])
     return {
         //ok
         setContact: function(contacts){
+        console.log("service ", contacts);
         var data = {
             contacts : contacts
         }
@@ -104,6 +105,21 @@ angular.module('starter.service', [])
             return $http(req).then(function(response){
                 return  response.data;
             })
+        },
+
+        denyGroupDeleteTransaction: function(idGroup, idTransaction){
+            var url = "http://10.96.127.185:3000/api/group/denyDeleteT"
+            var req = {
+                method: 'PUT',
+                url: url,
+                data:{
+                    idGroup: idGroup,
+                    idTransaction: idTransaction
+                }
+            }
+            return $http(req).then(function(response){
+                return  response.data;
+            })
         }
     }
 })
@@ -169,13 +185,29 @@ angular.module('starter.service', [])
             })
         },
 
-        deleteGroup: function(id, phone){
+        acceptDeleteGroup: function(id, phone){
             return $http.delete(ApiEndpoint.url + '/group/'+id + "/" + phone ).then(function(response){
                 return response.data;
             })
 
         },
 
+        denyDeleteGroup: function(id){
+    
+            return $http.delete(ApiEndpoint.url + '/groupDeny/'+id).then(function(response){
+                console.log(response);
+                return response.data;
+            })
+
+        },
+
+        deleteTransactionGroup: function(id, idTransaction, phoneCreator){
+            return $http.delete(ApiEndpoint.url + '/group/deleteT/'+id + "/" + idTransaction + "/" + phoneCreator).then(function(response){
+                return response.data;
+            })
+
+        },
+       
         getListMembersByGroup : function(idGroup, phone){
 
             return $http.get(ApiEndpoint.url + '/group/'+idGroup+'/user/'+phone).then(function(response){
