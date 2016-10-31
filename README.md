@@ -70,6 +70,7 @@ $ionic run android
 * Writing tests
 * Code review and refactor
 * Other guidelines
+* ng-collection in the lists 
 
 ### Who do I talk to? ###
 
