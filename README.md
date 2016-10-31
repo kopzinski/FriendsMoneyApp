@@ -20,6 +20,7 @@ $ git clone https://username@bitbucket.org/friendsmoney/client.git
 $ cd client
 $ npm install
 $ bower install
+$ npm install -g ionic cordova gulp
 ```
 
 After this steps, the app is installed. To test if all dependencies were installed use:
@@ -39,6 +40,15 @@ constant('ApiEndpoint', {
   url: 'http://localhost:3000/api'
 })
 ```
+
+### Dependencies ###
+
+* Gulp - Tasks runner
+* angular-filter - used in list views
+* angular-messages - used to validations message
+* angular-input-masks - contain some masks like phone mask
+* ionic wizard - used to create group in some steps
+
 ### Contribution guidelines ###
 
 * Writing tests
