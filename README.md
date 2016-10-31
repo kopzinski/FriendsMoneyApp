@@ -6,11 +6,11 @@ FriendsMoney is an app with the objective of manage transactions between friends
 
 * Version
 * [Installation](#Installation)
-* Configuration
-* Dependencies
-* Deployment Instructions
-* Contribution guidelines
-* Who do I talk to?
+* [Configuration](#Configuration)
+* [Deployment Instructions](#Deployment Instructions)
+* [Dependencies](#Dependencies)
+* [Contribution guidelines](#Contribution guidelines)
+* [Who do I talk to?](#Who do I talk to?)
 
 ###Installation 
 
