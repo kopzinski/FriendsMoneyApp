@@ -1,10 +1,11 @@
 # Friends Money Client #
 
 FriendsMoney is an app with the objective of manage transactions between friends. With this application is possible create groups and record all your spendings. This Readme describe some characteristics about the Friendsmoney's client.
+* Version: 1.0.0
 
 ### What is this repository for? ###
 
-* Version
+
 * [Installation](#Installation)
 * [Configuration](#Configuration)
 * [Deployment Instructions](#Deployment Instructions)
