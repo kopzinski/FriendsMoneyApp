@@ -2,7 +2,7 @@
 
 FriendsMoney is an app with the objective of manage transactions between friends. With this application is possible create groups and record all your spendings. This Readme describe some characteristics about the Friendsmoney's client.
 
-###Version: 1.0.0###
+###Version: 1.0.0#
 
 ### What is this repository for? ###
 
@@ -33,7 +33,7 @@ $ionic serve
 
 If the registration view appear it's work.
 
-### Configuration ###
+### Configuration 
 
 To run on a smartphone you should set up the API Endpoint on client code, with your property Server's URL. To do this, change the www/js/app.js file with your url:
 
