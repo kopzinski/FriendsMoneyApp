@@ -5,14 +5,14 @@ FriendsMoney is an app with the objective of manage transactions between friends
 ### What is this repository for? ###
 
 * Version
-* [Installation][1]
+* [Installation](#Installation)
 * Configuration
 * Dependencies
 * Deployment Instructions
 * Contribution guidelines
 * Who do I talk to?
 
-### Installation ###
+###Installation 
 
 To install the project follow this instructions:
 ```
@@ -39,6 +39,20 @@ To run on a smartphone you should set up the API Endpoint on client code, with y
 constant('ApiEndpoint', {
   url: 'http://localhost:3000/api'
 })
+```
+
+### Configuration ### 
+To run your app you should add a platform for IOS or Android:
+
+```
+$ ionic platform add android
+```
+
+After this build and run:
+
+``` 
+$ionic build android
+$ionic run android
 ```
 
 ### Dependencies ###
