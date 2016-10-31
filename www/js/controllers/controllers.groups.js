@@ -229,8 +229,8 @@ $scope.expandText = function(){
           console.log(response);
           $scope.getListTransactionsGroup();
           $scope.modal.hide();
-          $scope.transaction.valuePaid = "";
-          $scope.transaction.description = "";
+          $scope.transaction.valuePaid = null;
+          $scope.transaction.description = null;
         })
       }else{
         $cordovaToast.showShortBottom('Digite um valor e uma descrição');
